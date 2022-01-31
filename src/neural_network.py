@@ -80,8 +80,8 @@ class NeuralNetwork(VGroup):
             layer.move_to([self.layer_spacing * layer_index, 0, 0])
             # Add layer to VGroup
             layers.add(layer)
-        # Create the connecting edges
-        layers.z_index = 1
+        # Handle layering
+        layers.set_z_index(2)
         return layers
 
     def _construct_edges(self):
@@ -97,18 +97,21 @@ class NeuralNetwork(VGroup):
                     line = Line(node_i.get_center(), node_j.get_center(), color=self.edge_color)
                     edge_layer.add(line)
             edge_layers.add(edge_layer)
-        edge_layers.z_index = 1
+        # Handle layering
+        edge_layers.set_z_index(0)
         return edge_layers
 
-    def make_forward_propagation_animation(self, run_time=4):
+    def make_forward_propagation_animation(self, run_time=2):
         """Generates an animation for feed forward propogation"""
         all_animations = []
         per_layer_run_time = run_time / len(self.edge_layers)
         for edge_layer in self.edge_layers:
             path_animations = []
             for edge in edge_layer:
-                dot = Dot(color=self.animation_dot_color)
-                dot.z_index = 0
+                dot = Dot(color=self.animation_dot_color, fill_opacity=1.0)
+                # Handle layering
+                dot.set_z_index(1)
+                # Make the animation
                 anim = MoveAlongPath(dot, edge, run_time=per_layer_run_time, rate_function=linear)
                 path_animations.append(anim)
             path_animation_group = AnimationGroup(*path_animations)
