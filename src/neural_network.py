@@ -123,9 +123,10 @@ class NeuralNetwork(VGroup):
 
 class TestNeuralNetworkScene(Scene):
     """Test Scene for the Neural Network"""
+
     def construct(self):
         # Make the Layer object
-        num_nodes = [5, 3, 5]
+        num_nodes = [8, 5, 3, 5]
         nn = NeuralNetwork(num_nodes)
         nn.move_to(ORIGIN)
         # Make Animation
