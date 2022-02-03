@@ -15,9 +15,9 @@ class NeuralNetworkLayer(VGroup):
     """Handles rendering a layer for a neural network"""
 
     def __init__(
-            self, num_nodes, layer_width=0.3, node_radius=0.2, 
+            self, num_nodes, layer_width=0.2, node_radius=0.12, 
             node_color=BLUE, node_outline_color=WHITE, rectangle_color=WHITE,
-            node_spacing=0.6, rectangle_fill_color=BLACK):
+            node_spacing=0.4, rectangle_fill_color=BLACK):
         super(VGroup, self).__init__()
         self.num_nodes = num_nodes
         self.layer_width = layer_width
@@ -53,8 +53,8 @@ class NeuralNetwork(VGroup):
 
     def __init__(
             self, layer_node_count, layer_width=1.0, node_radius=1.0, 
-            node_color=BLUE, edge_color=WHITE, layer_spacing=1.5,
-            animation_dot_color=ORANGE):
+            node_color=BLUE, edge_color=WHITE, layer_spacing=1.2,
+            animation_dot_color=RED):
         super(VGroup, self).__init__()
         self.layer_node_count = layer_node_count
         self.layer_width = layer_width
@@ -63,6 +63,9 @@ class NeuralNetwork(VGroup):
         self.edge_color = edge_color
         self.layer_spacing = layer_spacing
         self.animation_dot_color = animation_dot_color
+
+        # TODO take layer_node_count [0, (1, 2), 0] 
+        # and make it have explicit distinct subspaces
         
         self.layers = self._construct_layers()
         self.edge_layers = self._construct_edges()
@@ -105,19 +108,22 @@ class NeuralNetwork(VGroup):
         """Generates an animation for feed forward propogation"""
         all_animations = []
         per_layer_run_time = run_time / len(self.edge_layers)
+        self.dots = VGroup()
         for edge_layer in self.edge_layers:
             path_animations = []
             for edge in edge_layer:
-                dot = Dot(color=self.animation_dot_color, fill_opacity=1.0)
+                dot = Dot(color=self.animation_dot_color, fill_opacity=1.0, radius=0.06)
                 # Handle layering
                 dot.set_z_index(1)
+                # Add to dots group
+                self.dots.add(dot)
                 # Make the animation
-                anim = MoveAlongPath(dot, edge, run_time=per_layer_run_time, rate_function=linear)
+                anim = MoveAlongPath(dot, edge, run_time=per_layer_run_time, rate_function=sigmoid)
                 path_animations.append(anim)
             path_animation_group = AnimationGroup(*path_animations)
             all_animations.append(path_animation_group)
 
-        animation_group = AnimationGroup(*all_animations, lag_ratio=1)
+        animation_group = AnimationGroup(*all_animations, run_time=run_time, lag_ratio=1)
 
         return animation_group
 
@@ -132,4 +138,9 @@ class TestNeuralNetworkScene(Scene):
         # Make Animation
         self.add(nn)
         forward_propagation_animation = nn.make_forward_propagation_animation()
+
+        second_nn = NeuralNetwork([3, 4])
+        self.add(second_nn)
+
         self.play(forward_propagation_animation)
+        self.play(second_nn.make_forward_propagation_animation())
