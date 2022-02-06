@@ -15,15 +15,18 @@ class NeuralNetworkLayer(VGroup):
     """Handles rendering a layer for a neural network"""
 
     def __init__(
-            self, num_nodes, layer_width=0.2, node_radius=0.12, 
+            self, num_nodes, layer_buffer=SMALL_BUFF/2, node_radius=0.08, 
             node_color=BLUE, node_outline_color=WHITE, rectangle_color=WHITE,
-            node_spacing=0.4, rectangle_fill_color=BLACK):
+            node_spacing=0.3, rectangle_fill_color=BLACK, node_stroke_width=2.0,
+            rectangle_stroke_width=2.0):
         super(VGroup, self).__init__()
         self.num_nodes = num_nodes
-        self.layer_width = layer_width
+        self.layer_buffer = layer_buffer
         self.node_radius = node_radius
         self.node_color = node_color
+        self.node_stroke_width = node_stroke_width
         self.node_outline_color = node_outline_color
+        self.rectangle_stroke_width = rectangle_stroke_width
         self.rectangle_color = rectangle_color
         self.node_spacing = node_spacing
         self.rectangle_fill_color = rectangle_fill_color
@@ -36,7 +39,7 @@ class NeuralNetworkLayer(VGroup):
         """Creates the neural network layer"""
         # Add Nodes
         for node_number in range(self.num_nodes):
-            node_object = Circle(radius=self.node_radius, color=self.node_color)
+            node_object = Circle(radius=self.node_radius, color=self.node_color, stroke_width=self.node_stroke_width)
             self.node_group.add(node_object)
         # Space the nodes
         # Assumes Vertical orientation
@@ -45,24 +48,28 @@ class NeuralNetworkLayer(VGroup):
             node_object.move_to([0, location, 0])
         # Create Surrounding Rectangle
         surrounding_rectangle = SurroundingRectangle(
-            self.node_group, color=self.rectangle_color, fill_color=self.rectangle_fill_color, fill_opacity=1.0)
+            self.node_group, color=self.rectangle_color, fill_color=self.rectangle_fill_color, 
+            fill_opacity=1.0, buff=self.layer_buffer, stroke_width=self.rectangle_stroke_width
+        )
         # Add the objects to the class
         self.add(surrounding_rectangle, self.node_group)
 
 class NeuralNetwork(VGroup):
 
     def __init__(
-            self, layer_node_count, layer_width=1.0, node_radius=1.0, 
-            node_color=BLUE, edge_color=WHITE, layer_spacing=1.2,
-            animation_dot_color=RED):
+            self, layer_node_count, layer_width=0.6, node_radius=1.0, 
+            node_color=BLUE, edge_color=WHITE, layer_spacing=0.8,
+            animation_dot_color=RED, edge_width=2.0, dot_radius=0.05):
         super(VGroup, self).__init__()
         self.layer_node_count = layer_node_count
         self.layer_width = layer_width
         self.node_radius = node_radius
+        self.edge_width = edge_width
         self.node_color = node_color
         self.edge_color = edge_color
         self.layer_spacing = layer_spacing
         self.animation_dot_color = animation_dot_color
+        self.dot_radius = dot_radius
 
         # TODO take layer_node_count [0, (1, 2), 0] 
         # and make it have explicit distinct subspaces
@@ -97,7 +104,7 @@ class NeuralNetwork(VGroup):
             # Go through each node in the two layers and make a connecting line
             for node_i in current_layer.node_group:
                 for node_j in next_layer.node_group:
-                    line = Line(node_i.get_center(), node_j.get_center(), color=self.edge_color)
+                    line = Line(node_i.get_center(), node_j.get_center(), color=self.edge_color, stroke_width=self.edge_width)
                     edge_layer.add(line)
             edge_layers.add(edge_layer)
         # Handle layering
@@ -112,7 +119,7 @@ class NeuralNetwork(VGroup):
         for edge_layer in self.edge_layers:
             path_animations = []
             for edge in edge_layer:
-                dot = Dot(color=self.animation_dot_color, fill_opacity=1.0, radius=0.06)
+                dot = Dot(color=self.animation_dot_color, fill_opacity=1.0, radius=self.dot_radius)
                 # Handle layering
                 dot.set_z_index(1)
                 # Add to dots group
