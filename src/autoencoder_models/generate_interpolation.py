@@ -37,15 +37,14 @@ save_object["interpolation_path"] = interpolation_path
 for i in range(num_images):
     # Generate 
     z = torch.Tensor(interpolation_path[i]).unsqueeze(0)
-    gen_image = vae.decode(z)
+    gen_image = vae.decode(z).detach().numpy()
+    gen_image = np.reshape(gen_image, (28, 28)) * 255
     save_object["interpolation_images"].append(gen_image)
 
 fig, axs = plt.subplots(num_images, 1, figsize=(1, num_images))
 image_pairs = []
 for i in range(num_images):
-    im = save_object["interpolation_images"][i]
-    im = im.detach().numpy()
-    recon_image = np.reshape(im, (28, 28)) * 255
+    recon_image = save_object["interpolation_images"][i]
     # Add to plot
     axs[i].imshow(recon_image)
 
