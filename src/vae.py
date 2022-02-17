@@ -6,21 +6,20 @@ and Traditional Autoencoders.
 """
 from configparser import Interpolation
 from random import sample
-from typing_extensions import runtime
 from manim import *
 import pickle
 import numpy as np
 import neural_network
 from scipy.interpolate import make_interp_spline
 
-class VariationalAutoencoder(Group):
+class VariationalAutoencoder(VGroup):
     """Variational Autoencoder Manim Visualization"""
     
     def __init__(
         self, encoder_nodes_per_layer=[5, 3], decoder_nodes_per_layer=[3, 5], point_color=BLUE, 
         dot_radius=0.05, ellipse_stroke_width=2.0
     ):
-        super(Group, self).__init__()
+        super(VGroup, self).__init__()
         self.encoder_nodes_per_layer = encoder_nodes_per_layer
         self.decoder_nodes_per_layer = decoder_nodes_per_layer
         self.point_color = point_color
@@ -78,7 +77,7 @@ class VariationalAutoencoder(Group):
         embedding.add(self.point_dots)
         return embedding
 
-    def _construct_image_mobject(self, input_image, height=2):
+    def _construct_image_mobject(self, input_image, height=2.3):
         """Constructs an ImageMobject from a numpy grayscale image"""
         # Convert image to rgb
         input_image = np.repeat(input_image, 3, axis=0)
@@ -153,7 +152,7 @@ class VariationalAutoencoder(Group):
         self.input_image.move_to(self.encoder.get_left())
         self.input_image.shift(LEFT)
         self.output_image.move_to(self.decoder.get_right())
-        self.output_image.shift(RIGHT * 1.2)
+        self.output_image.shift(RIGHT)
         # Make encoder forward pass
         encoder_forward_pass = self.encoder.make_forward_propagation_animation(run_time=per_unit_runtime)
         # Make red dot in embedding
@@ -202,25 +201,26 @@ class VariationalAutoencoder(Group):
         """Makes an animation interpolation"""
         num_images = len(interpolation_images)
         # Make madeup path
-        interpolation_latent_path = np.linspace([-0.5, -1], [1, 1.3], num=num_images)
+        interpolation_latent_path = np.linspace([-0.7, -1.2], [1.2, 1.5], num=num_images)
         # Make the path animation
         first_dot_location = self.embedding.axes.coords_to_point(*interpolation_latent_path[0])
+        last_dot_location = self.embedding.axes.coords_to_point(*interpolation_latent_path[-1])
         moving_dot = Dot(first_dot_location, radius=self.dot_radius, color=RED)
-        animation_list = [GrowFromCenter(moving_dot)]
+        self.add(moving_dot)
+        animation_list = [Create(Line(first_dot_location, last_dot_location, color=RED), run_time=0.1*num_images)]
         for image_index in range(num_images - 1):
             next_index = image_index + 1
             # Get path
             next_point = interpolation_latent_path[next_index]
             next_position = self.embedding.axes.coords_to_point(*next_point)
             # Draw path from current point to next point
-            move_animation = moving_dot.animate.move_to(next_position)
+            move_animation = moving_dot.animate(run_time=0.1*num_images).move_to(next_position)
             animation_list.append(move_animation)
 
-        interpolation_animation = Succession(*animation_list, run_time=0.1*num_images)
+        interpolation_animation = AnimationGroup(*animation_list)
         # Make the images animation
-        animation_list = []
+        animation_list = [Wait(0.5)]
         for numpy_image in interpolation_images:
-            numpy_image = interpolation_images[0]
             numpy_image = numpy_image[None, :, :]
             manim_image = self._construct_image_mobject(numpy_image)
             # Move the image to the correct location
@@ -228,10 +228,10 @@ class VariationalAutoencoder(Group):
             # Add the image
             animation_list.append(FadeIn(manim_image, run_time=0.1))
             # Wait
-            animation_list.append(Wait(1 / frame_rate))
+            # animation_list.append(Wait(1 / frame_rate))
             # Remove the image
-            animation_list.append(FadeOut(manim_image, run_time=0.1))
-        images_animation = Succession(*animation_list)
+            # animation_list.append(FadeOut(manim_image, run_time=0.1))
+        images_animation = AnimationGroup(*animation_list, lag_ratio=1.0)
         # Combine the two into an AnimationGroup
         animation_group = AnimationGroup(
             interpolation_animation,
@@ -285,8 +285,8 @@ class VAEScene(Scene):
         mnist_image_handler = MNISTImageHandler()
         image_pair = mnist_image_handler.image_pairs[3]
         vae.move_to(ORIGIN)
-        vae.scale(1.2)
-        self.add(vae)
+        vae.scale(1.3)
+        self.play(Create(vae), run_time=3)
         # Make a forward pass animation
         forward_pass_animation = vae.make_forward_pass_animation(image_pair)
         self.play(forward_pass_animation)
