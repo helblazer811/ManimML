@@ -134,6 +134,11 @@ class NeuralNetwork(VGroup):
 
         return animation_group
 
+config.pixel_height = 720 
+config.pixel_width = 1280 
+config.frame_height = 6.0
+config.frame_width = 6.0
+
 class TestNeuralNetworkScene(Scene):
     """Test Scene for the Neural Network"""
 
