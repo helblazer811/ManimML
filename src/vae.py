@@ -297,3 +297,18 @@ class VAEScene(Scene):
         interpolation_images = mnist_image_handler.interpolation_images
         interpolation_animation = vae.make_interpolation_animation(interpolation_images)
         self.play(interpolation_animation)
+
+class VAEImage(Scene):
+
+    def construct(self):
+        # Set Scene config
+        vae = VariationalAutoencoder()
+        mnist_image_handler = MNISTImageHandler()
+        image_pair = mnist_image_handler.image_pairs[3]
+        vae.move_to(ORIGIN)
+        vae.scale(1.3)
+        self.play(Create(vae), run_time=3)
+        # Make a forward pass animation
+        forward_pass_animation = vae.make_forward_pass_animation(image_pair)
+        self.play(forward_pass_animation)
+ 
