@@ -17,10 +17,16 @@ or
 
 This is a visualization of a Variational Autoencoder. You can also find a video form in examples/ 
 
-<img src="examples/VAEImage.png" width="600">
+<img src="examples/VAEImage.gif" width="600">
+
+### VAE Disentanglement 
+
+This is a visualization of disentanglement with a Variational Autoencoder
+
+<img src="examples/DisentanglementScene.gif" width="600">
 
 ### Neural Networks
 
 This is a visualization of a Neural Network. You can find a video animation of a neural network in examples/
 
-<img src="examples/NNImage.png" width="600">
+<img src="examples/NNImage.gif" width="600">
