@@ -1,11 +1,11 @@
 """Neural Network Manim Visualization
 
 This module is responsible for generating a neural network visualization with
-manim, specifically a fully connected neural network diagram. 
+manim, specifically a fully connected neural network diagram.
 
 Example:
     # Specify how many nodes are in each node layer
-    layer_node_count = [5, 3, 5] 
+    layer_node_count = [5, 3, 5]
     # Create the object with default style settings
     NeuralNetwork(layer_node_count)
 """
@@ -15,7 +15,7 @@ class NeuralNetworkLayer(VGroup):
     """Handles rendering a layer for a neural network"""
 
     def __init__(
-            self, num_nodes, layer_buffer=SMALL_BUFF/2, node_radius=0.08, 
+            self, num_nodes, layer_buffer=SMALL_BUFF/2, node_radius=0.08,
             node_color=BLUE, node_outline_color=WHITE, rectangle_color=WHITE,
             node_spacing=0.3, rectangle_fill_color=BLACK, node_stroke_width=2.0,
             rectangle_stroke_width=2.0):
@@ -48,7 +48,7 @@ class NeuralNetworkLayer(VGroup):
             node_object.move_to([0, location, 0])
         # Create Surrounding Rectangle
         surrounding_rectangle = SurroundingRectangle(
-            self.node_group, color=self.rectangle_color, fill_color=self.rectangle_fill_color, 
+            self.node_group, color=self.rectangle_color, fill_color=self.rectangle_fill_color,
             fill_opacity=1.0, buff=self.layer_buffer, stroke_width=self.rectangle_stroke_width
         )
         # Add the objects to the class
@@ -57,7 +57,7 @@ class NeuralNetworkLayer(VGroup):
 class NeuralNetwork(VGroup):
 
     def __init__(
-            self, layer_node_count, layer_width=0.6, node_radius=1.0, 
+            self, layer_node_count, layer_width=0.6, node_radius=1.0,
             node_color=BLUE, edge_color=WHITE, layer_spacing=0.8,
             animation_dot_color=RED, edge_width=2.0, dot_radius=0.05):
         super(VGroup, self).__init__()
@@ -73,7 +73,6 @@ class NeuralNetwork(VGroup):
 
         # TODO take layer_node_count [0, (1, 2), 0] 
         # and make it have explicit distinct subspaces
-        
         self.layers = self._construct_layers()
         self.edge_layers = self._construct_edges()
 
@@ -99,7 +98,7 @@ class NeuralNetwork(VGroup):
         edge_layers = VGroup()
         for layer_index in range(len(self.layer_node_count) - 1):
             current_layer = self.layers[layer_index]
-            next_layer = self.layers[layer_index + 1] 
+            next_layer = self.layers[layer_index + 1]
             edge_layer = VGroup()
             # Go through each node in the two layers and make a connecting line
             for node_i in current_layer.node_group:
@@ -134,8 +133,8 @@ class NeuralNetwork(VGroup):
 
         return animation_group
 
-config.pixel_height = 720 
-config.pixel_width = 1280 
+config.pixel_height = 720
+config.pixel_width = 1280
 config.frame_height = 6.0
 config.frame_width = 6.0
 
