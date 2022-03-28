@@ -8,7 +8,7 @@ from manim import *
 import pickle
 import numpy as np
 import os
-import neural_network
+import manim_ml.neural_network as neural_network
 
 class VariationalAutoencoder(VGroup):
     """Variational Autoencoder Manim Visualization"""
@@ -244,8 +244,8 @@ class MNISTImageHandler():
 
     def __init__(
         self, 
-        image_pairs_file_path=os.path.join(os.environ["PROJECT_ROOT"], "autoencoder_models/image_pairs.pkl"), 
-        interpolations_file_path=os.path.join(os.environ["PROJECT_ROOT"], "autoencoder_models/interpolations.pkl")
+        image_pairs_file_path=os.path.join(os.environ["PROJECT_ROOT"], "examples/variational_autoencoder/autoencoder_models/image_pairs.pkl"), 
+        interpolations_file_path=os.path.join(os.environ["PROJECT_ROOT"], "examples/variational_autoencoder/autoencoder_models/interpolations.pkl")
     ):
         self.image_pairs_file_path = image_pairs_file_path
         self.interpolations_file_path = interpolations_file_path

@@ -6,8 +6,8 @@ sys.path.append(os.environ["PROJECT_ROOT"])
 from manim import *
 import pickle
 import numpy as np
-import neural_network
-import variational_autoencoder
+import manim_ml.neural_network as neural_network
+import examples.variational_autoencoder.variational_autoencoder as variational_autoencoder
 
 """
     The VAE Scene for the twitter video. 

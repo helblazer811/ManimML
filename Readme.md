@@ -1,6 +1,6 @@
 # Manim Machine Learning
 <a href="https://github.com/helblazer811/ManimMachineLearning">
-    <img src="examples/ManimMLLogo.gif">
+    <img src="examples/media/ManimMLLogo.gif">
 </a>
 
 [![GitHub license](https://img.shields.io/github/license/helblazer811/ManimMachineLearning)](https://github.com/helblazer811/ManimMachineLearning/blob/main/LICENSE.md)
@@ -28,16 +28,16 @@ Checkout the ```examples``` directory for some example videos with source code.
 
 This is a visualization of a Variational Autoencoder. 
 
-<img src="examples/VAEScene.gif" width="600">
+<img src="examples/media/VAEScene.gif" width="600">
 
 ### VAE Disentanglement 
 
 This is a visualization of disentanglement with a Variational Autoencoder
 
-<img src="examples/DisentanglementScene.gif" width="600">
+<img src="examples/media/DisentanglementScene.gif" width="600">
 
 ### Neural Networks
 
 This is a visualization of a Neural Network. 
 
-<img src="examples/TestNeuralNetworkScene.gif" width="600">
+<img src="examples/media/TestNeuralNetworkScene.gif" width="600">

@@ -1,7 +1,10 @@
 """This module is dedicated to visualizing VAE disentanglement"""
+import sys
+import os
+sys.path.append(os.environ["PROJECT_ROOT"])
 from manim import *
-from neural_network import NeuralNetwork
-import util
+from manim_ml.neural_network import NeuralNetwork
+import manim_ml.util as util
 import pickle
 
 class VAEDecoder(VGroup):
@@ -19,11 +22,11 @@ class VAEDecoder(VGroup):
 
 class DisentanglementVisualization(VGroup):
 
-    def __init__(self, model_path="autoencoder_models/saved_models/model_dim2.pth", image_height=0.35):
+    def __init__(self, model_path=os.path.join(os.environ["PROJECT_ROOT"], "examples/variational_autoencoder/autoencoder_models/saved_models/model_dim2.pth"), image_height=0.35):
         self.model_path = model_path
         self.image_height = image_height
         # Load disentanglement image objects
-        with open("autoencoder_models/disentanglement.pkl", "rb") as f:
+        with open(os.path.join(os.environ["PROJECT_ROOT"], "examples/variational_autoencoder/autoencoder_models/disentanglement.pkl"), "rb") as f:
             self.image_handler = pickle.load(f)
 
     def make_disentanglement_generation_animation(self):
