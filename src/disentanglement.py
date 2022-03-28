@@ -19,7 +19,7 @@ class VAEDecoder(VGroup):
 
 class DisentanglementVisualization(VGroup):
 
-    def __init__(self, model_path="autoencoder_models/saved_models/model_dim2.pth", image_height=0.2):
+    def __init__(self, model_path="autoencoder_models/saved_models/model_dim2.pth", image_height=0.35):
         self.model_path = model_path
         self.image_height = image_height
         # Load disentanglement image objects
@@ -33,7 +33,7 @@ class DisentanglementVisualization(VGroup):
             r, c = self.image_handler["bin_indices"][image_index]
             # Move the image to the correct location
             r_offset = -1.2
-            c_offset = 0.2
+            c_offset = 0.25
             image_location = [c_offset + c*self.image_height, r_offset + r*self.image_height, 0]
             image_mobject.move_to(image_location)
             animation_list.append(FadeIn(image_mobject))
@@ -54,7 +54,7 @@ class DisentanglementScene(Scene):
         embedding = VGroup()
         # Sample points from a Gaussian
         num_points = 200
-        standard_deviation = [0.6, 1.0]
+        standard_deviation = [0.6, 0.8]
         mean = [0, 0]
         points = np.random.normal(mean, standard_deviation, size=(num_points, 2))
         # Make an axes
@@ -78,13 +78,13 @@ class DisentanglementScene(Scene):
     def construct(self):
         # Make the VAE decoder
         vae_decoder = VAEDecoder()
-        vae_decoder.shift([-0.65, 0, 0])
+        vae_decoder.shift([-0.55, 0, 0])
         self.play(Create(vae_decoder), run_time=1)
         # Make the embedding
         embedding = self._construct_embedding()
-        embedding.scale(0.8)
+        embedding.scale(0.9)
         embedding.move_to(vae_decoder.get_left())
-        embedding.shift([-0.7, 0, 0])
+        embedding.shift([-0.85, 0, 0])
         self.play(Create(embedding))
         # Make disentanglment visualization
         disentanglement = DisentanglementVisualization()

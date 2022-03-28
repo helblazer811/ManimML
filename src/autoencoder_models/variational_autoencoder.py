@@ -198,7 +198,7 @@ def train_model(latent_dim=16, plot=True, digit=1, epochs=200):
             losses.append(loss.detach().cpu())
             outputs.append((epochs, image, reconstructed))
 
-    torch.save(model.state_dict(), f"saved_models/model_dim{latent_dim}.pth")
+    torch.save(model.state_dict(), os.path.join(os.environ["PROJECT_ROOT"], f"saved_models/model_dim{latent_dim}.pth"))
 
     if plot:
         # Defining the Plot Style
@@ -211,4 +211,4 @@ def train_model(latent_dim=16, plot=True, digit=1, epochs=200):
         plt.show()
 
 if __name__ == "__main__":
-    train_model(latent_dim=2, digit=1, epochs=40)
+    train_model(latent_dim=2, digit=2, epochs=40)

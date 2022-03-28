@@ -10,7 +10,7 @@ import scipy
 import scipy.stats
 import cv2
 
-def binned_images(model_path, num_x_bins=10, plot=False):
+def binned_images(model_path, num_x_bins=6, plot=False):
     latent_dim = 2
     model = load_vae_from_path(model_path, latent_dim)
     image_dataset = load_dataset(digit=2)

@@ -84,7 +84,7 @@ class NeuralNetwork(VGroup):
         layers = VGroup()
         # Create each layer
         for layer_index, node_count in enumerate(self.layer_node_count):
-            layer = NeuralNetworkLayer(node_count)
+            layer = NeuralNetworkLayer(node_count, node_color=self.node_color)
             # Manage spacing
             layer.move_to([self.layer_spacing * layer_index, 0, 0])
             # Add layer to VGroup
