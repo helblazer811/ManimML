@@ -10,6 +10,18 @@ Example:
     NeuralNetwork(layer_node_count)
 """
 from manim import *
+from matplotlib import animation
+
+class ChangeColor(Animation):
+    CONFIG={
+        "rate_func":linear
+    }
+    def interpolate_submobject(self, submobject, starting_sumobject, alpha):
+        m = int(alpha * 10) % 2
+        if m == 0:
+            submobject.set_color(RED)
+        else:
+            submobject.set_color(YELLOW)
 
 class NeuralNetworkLayer(VGroup):
     """Handles rendering a layer for a neural network"""
@@ -18,7 +30,7 @@ class NeuralNetworkLayer(VGroup):
             self, num_nodes, layer_buffer=SMALL_BUFF/2, node_radius=0.08,
             node_color=BLUE, node_outline_color=WHITE, rectangle_color=WHITE,
             node_spacing=0.3, rectangle_fill_color=BLACK, node_stroke_width=2.0,
-            rectangle_stroke_width=2.0):
+            rectangle_stroke_width=2.0, animation_dot_color=RED):
         super(VGroup, self).__init__()
         self.num_nodes = num_nodes
         self.layer_buffer = layer_buffer
@@ -30,6 +42,7 @@ class NeuralNetworkLayer(VGroup):
         self.rectangle_color = rectangle_color
         self.node_spacing = node_spacing
         self.rectangle_fill_color = rectangle_fill_color
+        self.animation_dot_color = animation_dot_color
 
         self.node_group = VGroup()
 
@@ -53,6 +66,16 @@ class NeuralNetworkLayer(VGroup):
         )
         # Add the objects to the class
         self.add(surrounding_rectangle, self.node_group)
+
+    def _make_highlight_nodes_animation(self):
+        # make highlight animation
+        succession = Succession(
+            ApplyMethod(self.node_group.set_color, self.animation_dot_color, run_time=0.25),
+            Wait(1.0),
+            ApplyMethod(self.node_group.set_color, self.node_color, run_time=0.25),
+        )
+
+        return succession
 
 class NeuralNetwork(VGroup):
 
@@ -84,7 +107,11 @@ class NeuralNetwork(VGroup):
         layers = VGroup()
         # Create each layer
         for layer_index, node_count in enumerate(self.layer_node_count):
-            layer = NeuralNetworkLayer(node_count, node_color=self.node_color)
+            layer = NeuralNetworkLayer(
+                node_count, 
+                node_color=self.node_color, 
+                animation_dot_color=self.animation_dot_color
+            )
             # Manage spacing
             layer.move_to([self.layer_spacing * layer_index, 0, 0])
             # Add layer to VGroup
@@ -110,12 +137,12 @@ class NeuralNetwork(VGroup):
         edge_layers.set_z_index(0)
         return edge_layers
 
-    def make_forward_propagation_animation(self, run_time=2):
+    def make_forward_propagation_animation(self, run_time=2, passing_flash = True):
         """Generates an animation for feed forward propogation"""
         all_animations = []
         per_layer_run_time = run_time / len(self.edge_layers)
         self.dots = VGroup()
-        for edge_layer in self.edge_layers:
+        for i, edge_layer in enumerate(self.edge_layers):
             path_animations = []
             for edge in edge_layer:
                 dot = Dot(color=self.animation_dot_color, fill_opacity=1.0, radius=self.dot_radius)
@@ -124,12 +151,24 @@ class NeuralNetwork(VGroup):
                 # Add to dots group
                 self.dots.add(dot)
                 # Make the animation
-                anim = MoveAlongPath(dot, edge, run_time=per_layer_run_time, rate_function=sigmoid)
+                if passing_flash:
+                    anim = ShowPassingFlash(edge.copy().set_color(self.animation_dot_color), time_width=0.2, run_time=3)
+                else:
+                    anim = MoveAlongPath(dot, edge, run_time=per_layer_run_time, rate_function=sigmoid)
                 path_animations.append(anim)
+            # Highlight each node
+            layer = self.layers[i]
+            highlight_animation = layer._make_highlight_nodes_animation()
+            all_animations.append(highlight_animation)
+
             path_animation_group = AnimationGroup(*path_animations)
             all_animations.append(path_animation_group)
 
-        animation_group = AnimationGroup(*all_animations, run_time=run_time, lag_ratio=1)
+        layer = self.layers[-1]
+        highlight_animation = layer._make_highlight_nodes_animation()
+        all_animations.append(highlight_animation)
+
+        animation_group = AnimationGroup(*all_animations, run_time=run_time, lag_ratio=1.0)
 
         return animation_group
 
@@ -148,10 +187,10 @@ class TestNeuralNetworkScene(Scene):
         nn.move_to(ORIGIN)
         # Make Animation
         self.add(nn)
-        forward_propagation_animation = nn.make_forward_propagation_animation()
+        forward_propagation_animation = nn.make_forward_propagation_animation(5)
 
-        second_nn = NeuralNetwork([3, 4])
-        self.add(second_nn)
+        # second_nn = NeuralNetwork([3, 4])
+        # self.add(second_nn)
 
         self.play(forward_propagation_animation)
-        self.play(second_nn.make_forward_propagation_animation())
+        # self.play(second_nn.make_forward_propagation_animation())
