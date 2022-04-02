@@ -16,7 +16,7 @@ from manim_ml.neural_network.layers import FeedForwardToFeedForward, FeedForward
 class NeuralNetwork(VGroup):
 
     def __init__(self, layers, edge_color=WHITE, layer_spacing=0.8,
-                    animation_dot_color=RED, edge_width=2.0, dot_radius=0.05):
+                    animation_dot_color=RED, edge_width=1.5, dot_radius=0.05):
         super().__init__()
         self.layers = layers
         self.edge_width = edge_width
@@ -55,7 +55,9 @@ class NeuralNetwork(VGroup):
             
             if isinstance(current_layer, FeedForwardLayer) \
                 and isinstance(next_layer, FeedForwardLayer):
-                edge_layer = FeedForwardToFeedForward(current_layer, next_layer)
+                edge_layer = FeedForwardToFeedForward(current_layer, next_layer, 
+                                                    edge_width=self.edge_width)
+
                 connective_layers.add(edge_layer)
             else:
                 raise Exception(f"Unimplemented connection for layer types: {type(current_layer)} and {type(next_layer)}")
@@ -64,14 +66,15 @@ class NeuralNetwork(VGroup):
         connective_layers.set_z_index(0)
         return connective_layers
 
-    def make_forward_propagation_animation(self, run_time=2, passing_flash=True):
+    def make_forward_pass_animation(self, run_time=2, passing_flash=True):
         """Generates an animation for feed forward propogation"""
         all_animations = []
 
         for layer_index, layer in enumerate(self.layers[:-1]):
-            connective_layer = self.connective_layers[layer_index]
             layer_forward_pass = layer.make_forward_pass_animation()
             all_animations.append(layer_forward_pass)
+
+            connective_layer = self.connective_layers[layer_index]
             connective_forward_pass = connective_layer.make_forward_pass_animation()
             all_animations.append(connective_forward_pass)
             

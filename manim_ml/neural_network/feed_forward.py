@@ -5,8 +5,9 @@ from manim_ml.neural_network.neural_network import NeuralNetwork
 class FeedForwardNeuralNetwork(NeuralNetwork):
     """NeuralNetwork with just feed forward layers"""
 
-    def __init__(self, layer_node_count, node_radius=1.0, 
+    def __init__(self, layer_node_count, node_radius=0.08, 
                 node_color=BLUE, **kwargs):
+
         # construct layers
         layers = []
         for num_nodes in layer_node_count:

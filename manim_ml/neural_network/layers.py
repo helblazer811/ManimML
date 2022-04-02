@@ -24,16 +24,17 @@ class ConnectiveLayer(NeuralNetworkLayer):
 class FeedForwardToFeedForward(ConnectiveLayer):
 
     def __init__(self, input_layer, output_layer, passing_flash=True,
-                dot_radius=0.05, animation_dot_count=RED, edge_color=WHITE,
+                dot_radius=0.05, animation_dot_color=RED, edge_color=WHITE,
                 edge_width=0.5):
-        super(FeedForwardToFeedForward, self).__init__(input_layer, output_layer)
+        super().__init__(input_layer, output_layer)
         self.passing_flash = passing_flash
         self.edge_color = edge_color
         self.dot_radius = dot_radius
-        self.animation_dot_count = animation_dot_count
+        self.animation_dot_color = animation_dot_color
         self.edge_width = edge_width
 
-        self.construct_edges()
+        self.edges = self.construct_edges()
+        self.add(self.edges)
 
     def construct_edges(self):
         # Go through each node in the two layers and make a connecting line
@@ -42,25 +43,32 @@ class FeedForwardToFeedForward(ConnectiveLayer):
             for node_j in self.output_layer.node_group:
                 line = Line(node_i.get_center(), node_j.get_center(), 
                             color=self.edge_color, stroke_width=self.edge_width)
-                self.add(line)
+                edges.append(line)
 
-        self.edges = VGroup(*edges)
+        edges = VGroup(*edges)
+        return edges
 
     def make_forward_pass_animation(self, run_time=1):
         """Animation for passing information from one FeedForwardLayer to the next"""
         path_animations = []
+        dots = []
         for edge in self.edges:
             dot = Dot(color=self.animation_dot_color, fill_opacity=1.0, radius=self.dot_radius)
             # Handle layering
             dot.set_z_index(1)
             # Add to dots group
-            self.dots.add(dot)
+            dots.append(dot)
             # Make the animation
             if self.passing_flash:
+                print("passing flash")
                 anim = ShowPassingFlash(edge.copy().set_color(self.animation_dot_color), time_width=0.2, run_time=3)
             else:
                 anim = MoveAlongPath(dot, edge, run_time=run_time, rate_function=sigmoid)
             path_animations.append(anim)
+
+        if not self.passing_flash:
+            dots = VGroup(*dots)
+            self.add(dots)
 
         path_animations = AnimationGroup(*path_animations)
 
