@@ -1,78 +1,14 @@
+from typing import overload
 from manim import *
 from abc import ABC, abstractmethod
+from manim_ml.image import GrayscaleImageMobject
 
-class NeuralNetworkLayer(ABC, VGroup):
+class NeuralNetworkLayer(ABC, Group):
     """Abstract Neural Network Layer class"""
 
     @abstractmethod
     def make_forward_pass_animation(self):
         pass
-
-class ConnectiveLayer(NeuralNetworkLayer):
-    """Forward pass animation for a given pair of layers"""
-
-    @abstractmethod
-    def __init__(self, input_layer, output_layer):
-        super(NeuralNetworkLayer, self).__init__()
-        self.input_layer = input_layer
-        self.output_layer = output_layer
-
-    @abstractmethod
-    def make_forward_pass_animation(self):
-        pass
-
-class FeedForwardToFeedForward(ConnectiveLayer):
-
-    def __init__(self, input_layer, output_layer, passing_flash=True,
-                dot_radius=0.05, animation_dot_color=RED, edge_color=WHITE,
-                edge_width=0.5):
-        super().__init__(input_layer, output_layer)
-        self.passing_flash = passing_flash
-        self.edge_color = edge_color
-        self.dot_radius = dot_radius
-        self.animation_dot_color = animation_dot_color
-        self.edge_width = edge_width
-
-        self.edges = self.construct_edges()
-        self.add(self.edges)
-
-    def construct_edges(self):
-        # Go through each node in the two layers and make a connecting line
-        edges = []
-        for node_i in self.input_layer.node_group:
-            for node_j in self.output_layer.node_group:
-                line = Line(node_i.get_center(), node_j.get_center(), 
-                            color=self.edge_color, stroke_width=self.edge_width)
-                edges.append(line)
-
-        edges = VGroup(*edges)
-        return edges
-
-    def make_forward_pass_animation(self, run_time=1):
-        """Animation for passing information from one FeedForwardLayer to the next"""
-        path_animations = []
-        dots = []
-        for edge in self.edges:
-            dot = Dot(color=self.animation_dot_color, fill_opacity=1.0, radius=self.dot_radius)
-            # Handle layering
-            dot.set_z_index(1)
-            # Add to dots group
-            dots.append(dot)
-            # Make the animation
-            if self.passing_flash:
-                print("passing flash")
-                anim = ShowPassingFlash(edge.copy().set_color(self.animation_dot_color), time_width=0.2, run_time=3)
-            else:
-                anim = MoveAlongPath(dot, edge, run_time=run_time, rate_function=sigmoid)
-            path_animations.append(anim)
-
-        if not self.passing_flash:
-            dots = VGroup(*dots)
-            self.add(dots)
-
-        path_animations = AnimationGroup(*path_animations)
-
-        return path_animations
 
 class FeedForwardLayer(NeuralNetworkLayer):
     """Handles rendering a layer for a neural network"""
@@ -94,7 +30,7 @@ class FeedForwardLayer(NeuralNetworkLayer):
         self.rectangle_fill_color = rectangle_fill_color
         self.animation_dot_color = animation_dot_color
 
-        self.node_group = VGroup()
+        self.node_group = Group()
 
         self._construct_neural_network_layer()
 
@@ -127,3 +63,24 @@ class FeedForwardLayer(NeuralNetworkLayer):
 
         return succession
  
+class ImageLayer(NeuralNetworkLayer):
+    """Image Layer for Neural Network"""
+
+    def __init__(self, numpy_image, height=1.5):
+        super().__init__()
+        self.numpy_image = numpy_image
+        if len(np.shape(self.numpy_image)) == 2:
+            # Assumed Grayscale
+            self.image_mobject = GrayscaleImageMobject(self.numpy_image, height=height)
+        elif len(np.shape(self.numpy_image)) == 3:
+            # Assumed RGB
+            self.image_mobject = ImageMobject(self.numpy_image)
+
+        self.add(self.image_mobject)
+
+    def make_forward_pass_animation(self):
+        return Create(self.image_mobject)
+
+    @property
+    def width(self):
+        return self.image_mobject.width
