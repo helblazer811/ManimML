@@ -1,10 +1,10 @@
 from manim import *
 
-from manim_ml.neural_network import NeuralNetwork
+from manim_ml.neural_network import NeuralNetwork, NeuralNetworkLayer
 import numpy as np
 import math
 
-class NeuralNetworkEmbedding(Axes):
+class NeuralNetworkEmbedding(NeuralNetworkLayer, Axes):
     """NeuralNetwork embedding object that can show probability distributions"""
 
     def compute_covariance_rotation_and_scale(self, covariance):
@@ -48,6 +48,10 @@ class NeuralNetworkEmbedding(Axes):
             ellipses.add(ellipse)
 
         return ellipses
+
+    def make_forward_pass_animation(self):
+
+        pass
 
 class NeuralNetworkEmbeddingTestScene(Scene):
 
