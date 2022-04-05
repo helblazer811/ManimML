@@ -44,7 +44,6 @@ class ImageNeuralNetworkScene(Scene):
             ImageLayer(numpy_image, height=1.0),
             FeedForwardLayer(3), 
             FeedForwardLayer(5),
-            FeedForwardLayer(3),
             FeedForwardLayer(3)
         ]
         nn = NeuralNetwork(layers)
