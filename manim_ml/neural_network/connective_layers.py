@@ -43,7 +43,7 @@ class FeedForwardToFeedForward(ConnectiveLayer):
                             color=self.edge_color, stroke_width=self.edge_width)
                 edges.append(line)
 
-        edges = Group(*edges)
+        edges = VGroup(*edges)
         return edges
 
     def make_forward_pass_animation(self, run_time=1):
@@ -58,19 +58,28 @@ class FeedForwardToFeedForward(ConnectiveLayer):
             dots.append(dot)
             # Make the animation
             if self.passing_flash:
-                print("passing flash")
                 anim = ShowPassingFlash(edge.copy().set_color(self.animation_dot_color), time_width=0.2, run_time=3)
             else:
                 anim = MoveAlongPath(dot, edge, run_time=run_time, rate_function=sigmoid)
             path_animations.append(anim)
 
         if not self.passing_flash:
-            dots = Group(*dots)
+            dots = VGroup(*dots)
             self.add(dots)
 
         path_animations = AnimationGroup(*path_animations)
 
         return path_animations
+
+    @override_animation(Create)
+    def _create_animation(self, **kwargs):
+        animations = []
+
+        for edge in self.edges:
+            animations.append(Create(edge))
+
+        animation_group = AnimationGroup(*animations, lag_ratio=0.0)
+        return animation_group
 
 class ImageToFeedForward(ConnectiveLayer):
     """Image Layer to FeedForward layer"""

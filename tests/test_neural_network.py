@@ -41,17 +41,19 @@ class ImageNeuralNetworkScene(Scene):
         numpy_image = np.asarray(image)
         # Make nn
         layers = [
-            ImageLayer(numpy_image, height=1.0),
+            ImageLayer(numpy_image, height=1.4),
             FeedForwardLayer(3), 
             FeedForwardLayer(5),
-            FeedForwardLayer(3)
+            FeedForwardLayer(3),
+            FeedForwardLayer(6)
         ]
         nn = NeuralNetwork(layers)
+        nn.scale(1.3)
         # Center the nn
         nn.move_to(ORIGIN)
         self.add(nn)
         # Play animation
-        self.play(nn.make_forward_pass_animation())
+        self.play(nn.make_forward_pass_animation(run_time=10))
 
 if __name__ == "__main__":
     """Render all scenes"""

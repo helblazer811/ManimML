@@ -1,9 +1,11 @@
 from typing import overload
 from manim import *
 from abc import ABC, abstractmethod
+
+from matplotlib import animation
 from manim_ml.image import GrayscaleImageMobject
 
-class NeuralNetworkLayer(ABC, Group):
+class NeuralNetworkLayer(ABC, VGroup):
     """Abstract Neural Network Layer class"""
 
     @abstractmethod
@@ -30,7 +32,7 @@ class FeedForwardLayer(NeuralNetworkLayer):
         self.rectangle_fill_color = rectangle_fill_color
         self.animation_dot_color = animation_dot_color
 
-        self.node_group = Group()
+        self.node_group = VGroup()
 
         self._construct_neural_network_layer()
 
@@ -47,11 +49,11 @@ class FeedForwardLayer(NeuralNetworkLayer):
             location = node_index * self.node_spacing
             node_object.move_to([0, location, 0])
         # Create Surrounding Rectangle
-        surrounding_rectangle = SurroundingRectangle(self.node_group, color=self.rectangle_color, 
+        self.surrounding_rectangle = SurroundingRectangle(self.node_group, color=self.rectangle_color, 
                                                     fill_color=self.rectangle_fill_color, fill_opacity=1.0, 
                                                     buff=self.layer_buffer, stroke_width=self.rectangle_stroke_width)
         # Add the objects to the class
-        self.add(surrounding_rectangle, self.node_group)
+        self.add(self.surrounding_rectangle, self.node_group)
 
     def make_forward_pass_animation(self):
         # make highlight animation
@@ -62,6 +64,18 @@ class FeedForwardLayer(NeuralNetworkLayer):
         )
 
         return succession
+
+    @override_animation(Create)
+    def _create_animation(self, **kwargs):
+        animations = []
+
+        animations.append(Create(self.surrounding_rectangle))
+
+        for node in self.node_group:
+            animations.append(Create(node))
+
+        animation_group = AnimationGroup(*animations, lag_ratio=0.0)
+        return animation_group
  
 class ImageLayer(NeuralNetworkLayer):
     """Image Layer for Neural Network"""
@@ -76,7 +90,9 @@ class ImageLayer(NeuralNetworkLayer):
             # Assumed RGB
             self.image_mobject = ImageMobject(self.numpy_image)
 
-        self.add(self.image_mobject)
+    @override_animation(Create)
+    def _create_animation(self, **kwargs):
+        return FadeIn(self.image_mobject)
 
     def make_forward_pass_animation(self):
         return Create(self.image_mobject)
