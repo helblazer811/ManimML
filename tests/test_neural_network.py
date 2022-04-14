@@ -1,7 +1,7 @@
 from manim import *
-from manim_ml.neural_network.embedding import EmbeddingLayer
-from manim_ml.neural_network.feed_forward import FeedForwardLayer
-from manim_ml.neural_network.image import ImageLayer
+from manim_ml.neural_network.layers.embedding import EmbeddingLayer
+from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
+from manim_ml.neural_network.layers.image import ImageLayer
 from manim_ml.neural_network.neural_network import NeuralNetwork, FeedForwardNeuralNetwork
 from PIL import Image
 import numpy as np

@@ -1,6 +1,6 @@
 from manim import *
 from PIL import Image
-from manim_ml.neural_network.embedding import EmbeddingLayer, GaussianDistribution
+from manim_ml.neural_network.embedding import EmbeddingLayer
 from manim_ml.neural_network.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.image import ImageLayer
 from manim_ml.neural_network.neural_network import NeuralNetwork
@@ -10,7 +10,7 @@ config.pixel_width = 1280
 config.frame_height = 6.0
 config.frame_width = 6.0
 
-class GaussianScene(Scene):
+class VariationalAutoencoderScene(Scene):
 
     def construct(self):
         embedding_layer = EmbeddingLayer()

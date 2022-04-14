@@ -13,11 +13,10 @@ from manim import *
 import warnings
 import textwrap
 
-from numpy import string_
-
-from manim_ml.neural_network.embedding import EmbeddingLayer, EmbeddingToFeedForward, FeedForwardToEmbedding
-from manim_ml.neural_network.feed_forward import FeedForwardLayer, FeedForwardToFeedForward
-from manim_ml.neural_network.image import ImageLayer, ImageToFeedForward, FeedForwardToImage
+from manim_ml.neural_network.layers import \
+    FeedForwardLayer, FeedForwardToFeedForward, ImageLayer, \
+    ImageToFeedForward, FeedForwardToImage, EmbeddingLayer, \
+    EmbeddingToFeedForward, FeedForwardToEmbedding
 
 class NeuralNetwork(Group):
 

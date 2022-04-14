@@ -4,7 +4,6 @@ In this module I define Manim visualizations for Variational Autoencoders
 and Traditional Autoencoders.
 
 """
-from types import WrapperDescriptorType
 from manim import *
 import numpy as np
 from PIL import Image
