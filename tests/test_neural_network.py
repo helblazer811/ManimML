@@ -1,5 +1,7 @@
 from manim import *
-from manim_ml.neural_network.layers import FeedForwardLayer, ImageLayer
+from manim_ml.neural_network.embedding import EmbeddingLayer
+from manim_ml.neural_network.feed_forward import FeedForwardLayer
+from manim_ml.neural_network.image import ImageLayer
 from manim_ml.neural_network.neural_network import NeuralNetwork, FeedForwardNeuralNetwork
 from PIL import Image
 import numpy as np
@@ -53,7 +55,42 @@ class ImageNeuralNetworkScene(Scene):
         nn.move_to(ORIGIN)
         self.add(nn)
         # Play animation
-        self.play(nn.make_forward_pass_animation(run_time=10))
+        self.play(nn.make_forward_pass_animation(run_time=5))
+        self.play(nn.make_forward_pass_animation(run_time=5))
+
+
+class EmbeddingNNScene(Scene):
+
+    def construct(self):
+        embedding_layer = EmbeddingLayer()
+
+        neural_network = NeuralNetwork([
+            FeedForwardLayer(5),
+            FeedForwardLayer(3),
+            embedding_layer,
+            FeedForwardLayer(3),
+            FeedForwardLayer(5)
+        ])
+
+        self.play(Create(neural_network))
+
+        self.play(neural_network.make_forward_pass_animation(run_time=5))
+
+class RecursiveNNScene(Scene):
+
+    def construct(self):
+        nn = NeuralNetwork([
+            NeuralNetwork([
+                FeedForwardLayer(3),
+                FeedForwardLayer(2)
+            ]),
+            NeuralNetwork([
+                FeedForwardLayer(2),
+                FeedForwardLayer(3)
+            ])
+        ])
+
+        self.play(Create(nn))
 
 if __name__ == "__main__":
     """Render all scenes"""

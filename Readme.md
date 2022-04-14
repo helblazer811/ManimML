@@ -1,4 +1,4 @@
-# Manim Machine Learning
+# ManimML
 <a href="https://github.com/helblazer811/ManimMachineLearning">
     <img src="examples/media/ManimMLLogo.gif">
 </a>
@@ -8,7 +8,7 @@
 ![Pypi Downloads](https://img.shields.io/pypi/dm/manim-ml)
 [![Follow Twitter](https://img.shields.io/twitter/follow/alec_helbling?style=social)](https://twitter.com/alec_helbling)
 
-Manim Machine Learning is a project focused on providing animations and visualizations of common machine learning concepts with the [Manim Community Library](https://www.manim.community/). We want this project to be a compilation of primitive visualizations that can be easily combined to create videos about complex machine learning concepts. Additionally, we want to provide a set of abstractions which allow users to focus on explanations instead of software engineering.
+ManimML is a project focused on providing animations and visualizations of common machine learning concepts with the [Manim Community Library](https://www.manim.community/). We want this project to be a compilation of primitive visualizations that can be easily combined to create videos about complex machine learning concepts. Additionally, we want to provide a set of abstractions which allow users to focus on explanations instead of software engineering.
 
 ## Table of Contents
 
