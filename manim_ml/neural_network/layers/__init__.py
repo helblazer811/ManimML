@@ -7,3 +7,5 @@ from .feed_forward import FeedForwardLayer
 from .image_to_feed_forward import ImageToFeedForward
 from .image import ImageLayer
 from .parent_layers import ConnectiveLayer, NeuralNetworkLayer
+from .triplet import TripletLayer
+from .triplet_to_feed_forward import TripletToFeedForward

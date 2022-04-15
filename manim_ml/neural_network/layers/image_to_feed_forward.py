@@ -29,7 +29,7 @@ class ImageToFeedForward(ConnectiveLayer):
             )
             animations.append(per_node_succession)
             dots.append(new_dot)
-        self.add(VGroup(*dots))
+            
         animation_group = AnimationGroup(*animations)
         return animation_group
 

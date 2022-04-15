@@ -16,8 +16,9 @@ import textwrap
 from manim_ml.neural_network.layers import \
     FeedForwardLayer, FeedForwardToFeedForward, ImageLayer, \
     ImageToFeedForward, FeedForwardToImage, EmbeddingLayer, \
-    EmbeddingToFeedForward, FeedForwardToEmbedding
-
+    EmbeddingToFeedForward, FeedForwardToEmbedding, TripletLayer, \
+    TripletToFeedForward
+    
 class NeuralNetwork(Group):
 
     def __init__(self, input_layers, edge_color=WHITE, layer_spacing=0.8,
@@ -100,6 +101,12 @@ class NeuralNetwork(Group):
                 # Embedding to FeedForward
                 layer = EmbeddingToFeedForward(current_layer, next_layer, 
                                                 animation_dot_color=self.animation_dot_color, dot_radius=self.dot_radius)
+                connective_layers.add(layer)
+                all_layers.add(layer)
+            elif isinstance(current_layer, TripletLayer) \
+                and isinstance(next_layer, FeedForwardLayer):
+                # TripletLayer to FeedForwardLayer
+                layer = TripletToFeedForward(current_layer, next_layer)
                 connective_layers.add(layer)
                 all_layers.add(layer)
             else:

@@ -1,5 +1,6 @@
 from manim import *
 import numpy as np
+from PIL import Image
 
 class GrayscaleImageMobject(ImageMobject):
     """Mobject for creating images in Manim from numpy arrays"""
@@ -17,6 +18,14 @@ class GrayscaleImageMobject(ImageMobject):
 
         self.set_resampling_algorithm(RESAMPLING_ALGORITHMS["nearest"])
         self.scale_to_fit_height(height)
+
+    @classmethod
+    def from_path(cls, path, height=2.3):
+        """Loads image from path"""
+        image = Image.open(path)
+        numpy_image = np.asarray(image)
+
+        return cls(numpy_image, height=height)
 
     @override_animation(Create)
     def create(self, run_time=2):

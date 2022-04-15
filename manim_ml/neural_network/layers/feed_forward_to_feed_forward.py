@@ -40,7 +40,7 @@ class FeedForwardToFeedForward(ConnectiveLayer):
             dots.append(dot)
             # Make the animation
             if self.passing_flash:
-                anim = ShowPassingFlash(edge.copy().set_color(self.animation_dot_color), time_width=0.2, run_time=3)
+                anim = ShowPassingFlash(edge.copy().set_color(self.animation_dot_color), time_width=0.2)
             else:
                 anim = MoveAlongPath(dot, edge, run_time=run_time, rate_function=sigmoid)
             path_animations.append(anim)
