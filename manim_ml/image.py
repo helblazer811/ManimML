@@ -30,3 +30,26 @@ class GrayscaleImageMobject(ImageMobject):
     @override_animation(Create)
     def create(self, run_time=2):
         return FadeIn(self)
+
+class LabeledColorImage(Group):
+    """Labeled Color Image"""
+
+    def __init__(self, image, color=RED, label="Positive", stroke_width=5):
+        super().__init__()
+        self.image = image
+        self.color = color
+        self.label = label
+        self.stroke_width = stroke_width
+
+        text = Text(label).scale(2)
+        text.next_to(self.image, UP, buff=1.0)
+        rectangle = SurroundingRectangle(
+            self.image, 
+            color=color,
+            buff=0.0,
+            stroke_width=self.stroke_width
+        )
+
+        self.add(text)
+        self.add(rectangle)
+        self.add(self.image)
