@@ -1,17 +1,21 @@
 from manim import *
+from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
+from manim_ml.neural_network.layers.triplet import TripletLayer
 
 class TripletToFeedForward(ConnectiveLayer):
     """TripletLayer to FeedForward layer"""
+    input_class = TripletLayer
+    output_class = FeedForwardLayer
 
     def __init__(self, input_layer, output_layer, animation_dot_color=RED,
                 dot_radius=0.02):
+        super().__init__(input_layer, output_layer, input_class=TripletLayer, output_class=FeedForwardLayer)
         self.animation_dot_color = animation_dot_color
         self.dot_radius = dot_radius
 
         self.feed_forward_layer = output_layer
         self.triplet_layer = input_layer
-        super().__init__(input_layer, output_layer)
 
     def make_forward_pass_animation(self):
         """Makes dots diverge from the given location and move to the feed forward nodes decoder"""

@@ -1,11 +1,15 @@
 from manim import *
+from manim_ml.neural_network.layers.embedding import EmbeddingLayer
+from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
 
 class FeedForwardToEmbedding(ConnectiveLayer):
     """Feed Forward to Embedding Layer"""
+    input_class = FeedForwardLayer
+    output_class = EmbeddingLayer
 
     def __init__(self, input_layer, output_layer, animation_dot_color=RED, dot_radius=0.03):
-        super().__init__(input_layer, output_layer)
+        super().__init__(input_layer, output_layer, input_class=FeedForwardLayer, output_class=EmbeddingLayer)
         self.feed_forward_layer = input_layer
         self.embedding_layer = output_layer
         self.animation_dot_color = animation_dot_color

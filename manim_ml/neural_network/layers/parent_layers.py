@@ -18,7 +18,7 @@ class NeuralNetworkLayer(ABC, Group):
 class VGroupNeuralNetworkLayer(NeuralNetworkLayer):
 
     def __init__(self, **kwargs):
-        super(NeuralNetworkLayer, self).__init__()
+        super(NeuralNetworkLayer, self).__init__(**kwargs)
 
     @abstractmethod
     def make_forward_pass_animation(self):
@@ -28,10 +28,15 @@ class ConnectiveLayer(VGroupNeuralNetworkLayer):
     """Forward pass animation for a given pair of layers"""
 
     @abstractmethod
-    def __init__(self, input_layer, output_layer):
+    def __init__(self, input_layer, output_layer, input_class=None, output_class=None):
         super(VGroupNeuralNetworkLayer, self).__init__()
         self.input_layer = input_layer
         self.output_layer = output_layer
+        self.input_class = input_class
+        self.output_class = output_class
+        # Handle input and output class
+        assert isinstance(input_layer, self.input_class)
+        assert isinstance(output_layer, self.output_class)
 
         self.set_z_index(-1)
 

@@ -18,6 +18,8 @@ from manim_ml.neural_network.layers import \
     ImageToFeedForward, FeedForwardToImage, EmbeddingLayer, \
     EmbeddingToFeedForward, FeedForwardToEmbedding, TripletLayer, \
     TripletToFeedForward
+
+from manim_ml.neural_network.layers import connective_layers_list
     
 class NeuralNetwork(Group):
 
@@ -38,7 +40,7 @@ class NeuralNetwork(Group):
         # Center the whole diagram by default
         self.all_layers.move_to(ORIGIN)
         self.add(self.all_layers)
-        # print nn
+        # Print neural network
         print(repr(self))
 
     def _place_layers(self):
@@ -70,47 +72,21 @@ class NeuralNetwork(Group):
             if isinstance(next_layer, NeuralNetwork):
                 # First layer of the next layer
                 next_layer = next_layer.all_layers[0]
-            if isinstance(current_layer, FeedForwardLayer) \
-                and isinstance(next_layer, FeedForwardLayer):
-                # FeedForward to Image
-                edge_layer = FeedForwardToFeedForward(current_layer, next_layer, 
-                                                    edge_width=self.edge_width)
-                connective_layers.add(edge_layer)
-                all_layers.add(edge_layer)
-            elif isinstance(current_layer, ImageLayer) \
-                and isinstance(next_layer, FeedForwardLayer):
-                # Image to FeedForward
-                image_to_feedforward = ImageToFeedForward(current_layer, next_layer, dot_radius=self.dot_radius)
-                connective_layers.add(image_to_feedforward)
-                all_layers.add(image_to_feedforward)
-            elif isinstance(current_layer, FeedForwardLayer) \
-                and isinstance(next_layer, ImageLayer):
-                # Image to FeedForward
-                feed_forward_to_image = FeedForwardToImage(current_layer, next_layer, dot_radius=self.dot_radius)
-                connective_layers.add(feed_forward_to_image)
-                all_layers.add(feed_forward_to_image) 
-            elif isinstance(current_layer, FeedForwardLayer) \
-                and isinstance(next_layer, EmbeddingLayer):
-                # FeedForward to Embedding
-                layer = FeedForwardToEmbedding(current_layer, next_layer, 
-                                                animation_dot_color=self.animation_dot_color, dot_radius=self.dot_radius)
-                connective_layers.add(layer)
-                all_layers.add(layer)
-            elif isinstance(current_layer, EmbeddingLayer) \
-                and isinstance(next_layer, FeedForwardLayer): 
-                # Embedding to FeedForward
-                layer = EmbeddingToFeedForward(current_layer, next_layer, 
-                                                animation_dot_color=self.animation_dot_color, dot_radius=self.dot_radius)
-                connective_layers.add(layer)
-                all_layers.add(layer)
-            elif isinstance(current_layer, TripletLayer) \
-                and isinstance(next_layer, FeedForwardLayer):
-                # TripletLayer to FeedForwardLayer
-                layer = TripletToFeedForward(current_layer, next_layer)
-                connective_layers.add(layer)
-                all_layers.add(layer)
-            else:
-                warnings.warn(f"Warning: unimplemented connection for layer types: {type(current_layer)} and {type(next_layer)}")
+
+            # Find connective layer with correct layer pair
+            connective_layer = None
+            for connective_layer_class in connective_layers_list:
+                input_class = connective_layer_class.input_class
+                output_class = connective_layer_class.output_class
+                if isinstance(current_layer, input_class) \
+                    and isinstance(next_layer, output_class):
+                    connective_layer = connective_layer_class(current_layer, next_layer)
+
+                    connective_layers.add(connective_layer)
+                    all_layers.add(connective_layer)
+
+            if connective_layer is None:
+                raise Exception(f"Unrecognized class pair {current_layer.__class__.__name__} and {next_layer.__class__.__name__}")
         # Add final layer
         all_layers.add(self.input_layers[-1])
         # Handle layering
@@ -143,7 +119,6 @@ class NeuralNetwork(Group):
         # Create each layer one by one
         animations = []
         for layer in self.all_layers:
-            print(layer)
             animation = Create(layer)
             animations.append(animation)
 

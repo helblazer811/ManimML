@@ -1,14 +1,16 @@
 from manim import *
-from manim_ml.image import GrayscaleImageMobject
-from manim_ml.neural_network.layers.parent_layers import NeuralNetworkLayer, ConnectiveLayer
+from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
+from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
 
 class FeedForwardToFeedForward(ConnectiveLayer):
     """Layer for connecting FeedForward layer to FeedForwardLayer"""
+    input_class = FeedForwardLayer
+    output_class = FeedForwardLayer
 
     def __init__(self, input_layer, output_layer, passing_flash=True,
                 dot_radius=0.05, animation_dot_color=RED, edge_color=WHITE,
                 edge_width=0.5):
-        super().__init__(input_layer, output_layer)
+        super().__init__(input_layer, output_layer, input_class=FeedForwardLayer, output_class=FeedForwardLayer)
         self.passing_flash = passing_flash
         self.edge_color = edge_color
         self.dot_radius = dot_radius
