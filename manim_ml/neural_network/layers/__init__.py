@@ -11,6 +11,8 @@ from .image import ImageLayer
 from .parent_layers import ConnectiveLayer, NeuralNetworkLayer
 from .triplet import TripletLayer
 from .triplet_to_feed_forward import TripletToFeedForward
+from .paired_query import PairedQueryLayer
+from .paired_query_to_feed_forward import PairedQueryToFeedForward
 
 connective_layers_list = (
     EmbeddingToFeedForward,
@@ -20,4 +22,5 @@ connective_layers_list = (
     ImageToFeedForward,
     PairedQueryToFeedForward,
     TripletToFeedForward,
+    PairedQueryToFeedForward,
 )
