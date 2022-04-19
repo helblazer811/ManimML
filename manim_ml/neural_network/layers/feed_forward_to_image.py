@@ -9,8 +9,9 @@ class FeedForwardToImage(ConnectiveLayer):
     output_class = ImageLayer
 
     def __init__(self, input_layer, output_layer, animation_dot_color=RED,
-                dot_radius=0.05):
-        super().__init__(input_layer, output_layer, input_class=FeedForwardLayer, output_class=ImageLayer)
+                dot_radius=0.05, **kwargs):
+        super().__init__(input_layer, output_layer, input_class=FeedForwardLayer, output_class=ImageLayer
+                        **kwargs)
         self.animation_dot_color = animation_dot_color
         self.dot_radius = dot_radius
         

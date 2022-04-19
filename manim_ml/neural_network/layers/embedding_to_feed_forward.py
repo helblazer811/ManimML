@@ -8,8 +8,10 @@ class EmbeddingToFeedForward(ConnectiveLayer):
     input_class = EmbeddingLayer
     output_class = FeedForwardLayer
 
-    def __init__(self, input_layer, output_layer, animation_dot_color=RED, dot_radius=0.03):
-        super().__init__(input_layer, output_layer, input_class=EmbeddingLayer, output_class=FeedForwardLayer)
+    def __init__(self, input_layer, output_layer, animation_dot_color=RED, dot_radius=0.03,
+                **kwargs):
+        super().__init__(input_layer, output_layer, input_class=EmbeddingLayer, output_class=FeedForwardLayer,
+                        **kwargs)
         self.feed_forward_layer = output_layer
         self.embedding_layer = input_layer
         self.animation_dot_color = animation_dot_color

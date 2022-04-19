@@ -6,8 +6,9 @@ import numpy as np
 class TripletLayer(NeuralNetworkLayer):
     """Shows triplet images"""
 
-    def __init__(self, anchor, positive, negative, stroke_width=5):
-        super().__init__()
+    def __init__(self, anchor, positive, negative, stroke_width=5,
+                **kwargs):
+        super().__init__(**kwargs)
         self.anchor = anchor
         self.positive = positive
         self.negative = negative

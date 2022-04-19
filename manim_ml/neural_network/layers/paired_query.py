@@ -6,8 +6,8 @@ import numpy as np
 class PairedQueryLayer(NeuralNetworkLayer):
     """Paired Query Layer"""
 
-    def __init__(self, positive, negative, stroke_width=5):
-        super().__init__()
+    def __init__(self, positive, negative, stroke_width=5, **kwargs):
+        super().__init__(**kwargs)
         self.positive = positive
         self.negative = negative
 

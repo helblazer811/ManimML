@@ -16,8 +16,7 @@ class GaussianDistribution(VGroup):
             self.cov = np.array([[3, 0], [0, 3]])
         # Make the Gaussian
         self.ellipses = self.construct_gaussian_distribution(self.mean, self.cov)
-        self.ellipses.set_z_index(2)
-
+        
     @override_animation(Create)
     def _create_gaussian_distribution(self):
         return Create(self.ellipses)

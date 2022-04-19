@@ -4,9 +4,8 @@ from abc import ABC, abstractmethod
 class NeuralNetworkLayer(ABC, Group):
     """Abstract Neural Network Layer class"""
 
-    def __init__(self, **kwargs):
+    def __init__(self, text=None, **kwargs):
         super(Group, self).__init__()
-        self.set_z_index(1)
 
     @abstractmethod
     def make_forward_pass_animation(self):
@@ -28,8 +27,9 @@ class ConnectiveLayer(VGroupNeuralNetworkLayer):
     """Forward pass animation for a given pair of layers"""
 
     @abstractmethod
-    def __init__(self, input_layer, output_layer, input_class=None, output_class=None):
-        super(VGroupNeuralNetworkLayer, self).__init__()
+    def __init__(self, input_layer, output_layer, input_class=None, output_class=None,
+                **kwargs):
+        super(VGroupNeuralNetworkLayer, self).__init__(**kwargs)
         self.input_layer = input_layer
         self.output_layer = output_layer
         self.input_class = input_class
@@ -37,8 +37,6 @@ class ConnectiveLayer(VGroupNeuralNetworkLayer):
         # Handle input and output class
         assert isinstance(input_layer, self.input_class)
         assert isinstance(output_layer, self.output_class)
-
-        self.set_z_index(-1)
 
     @abstractmethod
     def make_forward_pass_animation(self):

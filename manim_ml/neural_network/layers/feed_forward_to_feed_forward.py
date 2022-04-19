@@ -9,8 +9,9 @@ class FeedForwardToFeedForward(ConnectiveLayer):
 
     def __init__(self, input_layer, output_layer, passing_flash=True,
                 dot_radius=0.05, animation_dot_color=RED, edge_color=WHITE,
-                edge_width=0.5):
-        super().__init__(input_layer, output_layer, input_class=FeedForwardLayer, output_class=FeedForwardLayer)
+                edge_width=1.5, **kwargs):
+        super().__init__(input_layer, output_layer, input_class=FeedForwardLayer, output_class=FeedForwardLayer,
+                            **kwargs)
         self.passing_flash = passing_flash
         self.edge_color = edge_color
         self.dot_radius = dot_radius

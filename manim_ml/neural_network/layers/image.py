@@ -5,9 +5,8 @@ from manim_ml.neural_network.layers.parent_layers import NeuralNetworkLayer
 class ImageLayer(NeuralNetworkLayer):
     """Single Image Layer for Neural Network"""
 
-    def __init__(self, numpy_image, height=1.5):
-        super().__init__()
-        self.set_z_index(1)
+    def __init__(self, numpy_image, height=1.5, **kwargs):
+        super().__init__(**kwargs)
         self.numpy_image = numpy_image
         if len(np.shape(self.numpy_image)) == 2:
             # Assumed Grayscale

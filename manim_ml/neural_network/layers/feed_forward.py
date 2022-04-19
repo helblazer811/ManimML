@@ -7,8 +7,8 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
     def __init__(self, num_nodes, layer_buffer=SMALL_BUFF/2, node_radius=0.08,
                 node_color=BLUE, node_outline_color=WHITE, rectangle_color=WHITE,
                 node_spacing=0.3, rectangle_fill_color=BLACK, node_stroke_width=2.0,
-                rectangle_stroke_width=2.0, animation_dot_color=RED):
-        super(VGroupNeuralNetworkLayer, self).__init__()
+                rectangle_stroke_width=2.0, animation_dot_color=RED, **kwargs):
+        super(VGroupNeuralNetworkLayer, self).__init__(**kwargs)
         self.num_nodes = num_nodes
         self.layer_buffer = layer_buffer
         self.node_radius = node_radius

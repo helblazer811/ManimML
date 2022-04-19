@@ -1,6 +1,10 @@
+from cv2 import exp
 from manim import *
 from manim_ml.neural_network.layers.embedding import EmbeddingLayer
+from manim_ml.neural_network.layers.embedding_to_feed_forward import EmbeddingToFeedForward
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
+from manim_ml.neural_network.layers.feed_forward_to_embedding import FeedForwardToEmbedding
+from manim_ml.neural_network.layers.feed_forward_to_feed_forward import FeedForwardToFeedForward
 from manim_ml.neural_network.layers.image import ImageLayer
 from manim_ml.neural_network.neural_network import NeuralNetwork, FeedForwardNeuralNetwork
 from PIL import Image
@@ -10,6 +14,72 @@ config.pixel_height = 720
 config.pixel_width = 1280
 config.frame_height = 6.0
 config.frame_width = 6.0
+
+"""
+    Unit Tests
+"""
+
+def assert_classes_match(all_layers, expected_classes):
+    assert len(list(all_layers)) == 5
+
+    for index, layer in enumerate(all_layers):
+        expected_class = expected_classes[index]
+        assert isinstance(layer, expected_class), f"Wrong layer class {layer.__class__} expected {expected_class}"
+
+def test_embedding_layer():
+    embedding_layer = EmbeddingLayer()
+
+    neural_network = NeuralNetwork([
+        FeedForwardLayer(5),
+        FeedForwardLayer(3),
+        embedding_layer
+    ])
+
+    expected_classes = [
+        FeedForwardLayer, 
+        FeedForwardToFeedForward,
+        FeedForwardLayer,
+        FeedForwardToEmbedding,
+        EmbeddingLayer
+    ]
+
+    assert_classes_match(neural_network.all_layers, expected_classes)
+
+
+def test_remove_layer():
+    embedding_layer = EmbeddingLayer()
+
+    neural_network = NeuralNetwork([
+        FeedForwardLayer(5),
+        FeedForwardLayer(3),
+        embedding_layer
+    ])
+
+    expected_classes = [
+        FeedForwardLayer, 
+        FeedForwardToFeedForward,
+        FeedForwardLayer,
+        FeedForwardToEmbedding,
+        EmbeddingLayer
+    ]
+
+    assert_classes_match(neural_network.all_layers, expected_classes)
+
+    print("before removal")
+    print(list(neural_network.all_layers))
+    neural_network.remove_layer(embedding_layer)
+    print("after removal")
+    print(list(neural_network.all_layers))
+
+    expected_classes = [
+        FeedForwardLayer, 
+        FeedForwardToFeedForward,
+        FeedForwardLayer,
+    ]
+
+    print(list(neural_network.all_layers))
+
+    assert_classes_match(neural_network.all_layers, expected_classes)
 
 class FeedForwardNeuralNetworkScene(Scene):
 
@@ -91,6 +161,31 @@ class RecursiveNNScene(Scene):
         ])
 
         self.play(Create(nn))
+
+class LayerInsertionScene(Scene):
+
+    def construct(self):
+        pass
+
+class LayerRemovalScene(Scene):
+
+    def construct(self):
+        image = Image.open('images/image.jpeg')
+        numpy_image = np.asarray(image)
+
+        layer = FeedForwardLayer(5),
+        layers = [
+            ImageLayer(numpy_image, height=1.4),
+            FeedForwardLayer(3), 
+            layer,
+            FeedForwardLayer(3),
+            FeedForwardLayer(6)
+        ]
+
+        nn = NeuralNetwork(layers)
+        
+        self.play(Create(nn))
+        self.play(nn.remove_layer(layer))
 
 if __name__ == "__main__":
     """Render all scenes"""
