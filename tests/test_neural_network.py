@@ -94,7 +94,7 @@ class NeuralNetworkScene(Scene):
     def construct(self):
         # Make the Layer object
         layers = [
-            FeedForwardLayer(3), 
+            FeedForwardLayer(3, title="Title Test"), 
             FeedForwardLayer(5), 
             FeedForwardLayer(3)
         ]
@@ -102,6 +102,7 @@ class NeuralNetworkScene(Scene):
         nn.move_to(ORIGIN)
         # Make Animation
         self.add(nn)
+        #self.play(Create(nn))
         forward_propagation_animation = nn.make_forward_pass_animation(run_time=5, passing_flash=True)
 
         self.play(forward_propagation_animation)

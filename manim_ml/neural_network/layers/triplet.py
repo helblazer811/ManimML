@@ -67,7 +67,7 @@ class TripletLayer(NeuralNetworkLayer):
         return assets
 
     @override_animation(Create)
-    def _create_layer(self):
+    def _create_override(self):
         # TODO make Create animation that is custom
         return FadeIn(self.assets)
 

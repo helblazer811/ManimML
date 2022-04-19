@@ -48,6 +48,6 @@ class FeedForwardToEmbedding(ConnectiveLayer):
         return animation_group
 
     @override_animation(Create)
-    def _create_embedding_layer(self, **kwargs):
+    def _create_override(self, **kwargs):
         return AnimationGroup()
 

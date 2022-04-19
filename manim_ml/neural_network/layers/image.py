@@ -17,7 +17,7 @@ class ImageLayer(NeuralNetworkLayer):
         self.add(self.image_mobject)
 
     @override_animation(Create)
-    def _create_animation(self, **kwargs):
+    def _create_override(self, **kwargs):
         return FadeIn(self.image_mobject)
 
     def make_forward_pass_animation(self):

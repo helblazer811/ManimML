@@ -57,7 +57,7 @@ class FeedForwardToFeedForward(ConnectiveLayer):
         return path_animations
 
     @override_animation(Create)
-    def _create_animation(self, **kwargs):
+    def _create_override(self, **kwargs):
         animations = []
 
         for edge in self.edges:

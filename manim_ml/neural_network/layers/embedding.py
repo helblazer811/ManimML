@@ -65,7 +65,7 @@ class EmbeddingLayer(VGroupNeuralNetworkLayer):
         return animation_group
 
     @override_animation(Create)
-    def _create_embedding_layer(self, **kwargs):
+    def _create_override(self, **kwargs):
         # Plot each point at once
         point_animations = []
         for point in self.point_cloud:

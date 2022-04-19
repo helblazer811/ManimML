@@ -55,7 +55,7 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         return succession
 
     @override_animation(Create)
-    def _create_animation(self, **kwargs):
+    def _create_override(self, **kwargs):
         animations = []
 
         animations.append(Create(self.surrounding_rectangle))
