@@ -1,5 +1,6 @@
 from tempfile import _TemporaryFileWrapper
-from manim_ml.neural_network.layers.paired_query_to_feed_forward import PairedQueryToFeedForward
+from .feed_forward_to_vector import FeedForwardToVector
+from .paired_query_to_feed_forward import PairedQueryToFeedForward
 from .embedding_to_feed_forward import EmbeddingToFeedForward
 from .embedding import EmbeddingLayer
 from .feed_forward_to_embedding import FeedForwardToEmbedding
@@ -23,4 +24,5 @@ connective_layers_list = (
     PairedQueryToFeedForward,
     TripletToFeedForward,
     PairedQueryToFeedForward,
+    FeedForwardToVector,
 )
