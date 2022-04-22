@@ -23,7 +23,7 @@ class NeuralNetworkLayer(ABC, Group):
 class VGroupNeuralNetworkLayer(NeuralNetworkLayer):
 
     def __init__(self, **kwargs):
-        super(NeuralNetworkLayer, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @abstractmethod
     def make_forward_pass_animation(self):

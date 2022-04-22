@@ -15,6 +15,6 @@ def get_connective_layer(input_layer, output_layer):
 
     if connective_layer is None:
         raise Exception(f"Unrecognized class pair {input_layer.__class__.__name__}" + \
-                        " and {output_layer.__class__.__name__}")
-                        
+                        f" and {output_layer.__class__.__name__}")
+
     return connective_layer

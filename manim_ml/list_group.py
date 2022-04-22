@@ -67,7 +67,7 @@ class ListGroup(Mobject):
         """Length of items"""
         return len(self.items)
 
-    def set_z_index(self, z_index_value):
+    def set_z_index(self, z_index_value, family=True):
         """Sets z index of all values in ListGroup"""
         for item in self.items:
-            item.set_z_index(z_index_value)
+            item.set_z_index(z_index_value, family=True)

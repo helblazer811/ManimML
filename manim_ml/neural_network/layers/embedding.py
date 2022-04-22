@@ -6,7 +6,7 @@ class EmbeddingLayer(VGroupNeuralNetworkLayer):
     """NeuralNetwork embedding object that can show probability distributions"""
 
     def __init__(self, point_radius=0.02, **kwargs):
-        super(EmbeddingLayer, self).__init__(**kwargs)
+        super(VGroupNeuralNetworkLayer, self).__init__(**kwargs)
         self.point_radius = point_radius
         self.axes = Axes(
             tips=False,

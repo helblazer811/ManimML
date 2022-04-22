@@ -13,20 +13,23 @@ class ImageLayer(NeuralNetworkLayer):
             self.image_mobject = GrayscaleImageMobject(self.numpy_image, height=height)
         elif len(np.shape(self.numpy_image)) == 3:
             # Assumed RGB
-            self.image_mobject = ImageMobject(self.numpy_image)
+            self.image_mobject = ImageMobject(self.numpy_image).scale_to_fit_height(height)
         self.add(self.image_mobject)
 
     @override_animation(Create)
     def _create_override(self, **kwargs):
+        debug_mode = False
+        if debug_mode:
+            return FadeIn(SurroundingRectangle(self.image_mobject))
         return FadeIn(self.image_mobject)
 
     def make_forward_pass_animation(self):
-        return Create(self.image_mobject)
-
-    def move_to(self, location):
-        """Override of move to"""
-        self.image_mobject.move_to(location)
-
+        return FadeIn(self.image_mobject)
+    
+    # def move_to(self, location):
+    #     """Override of move to"""
+    #     self.image_mobject.move_to(location)
+    
     def get_right(self):
         """Override get right"""
         return self.image_mobject.get_right()

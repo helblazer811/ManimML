@@ -8,13 +8,12 @@ class VectorLayer(VGroupNeuralNetworkLayer):
 
     def __init__(self, num_values, value_func=lambda: random.uniform(0, 1),
                 **kwargs):
-        print("vector layer")
         super().__init__(**kwargs)
-        print("after init")
         self.num_values = num_values
         self.value_func = value_func
         # Make the vector
         self.vector_label = self.make_vector()
+        self.add(self.vector_label)
 
     def make_vector(self):
         """Makes the vector"""
@@ -24,7 +23,8 @@ class VectorLayer(VGroupNeuralNetworkLayer):
             values = values[None, :].T
             vector = Matrix(values)
 
-        vector_label = Text(f"[{self.value_func()}]")
+        vector_label = Text(f"[{self.value_func():.2}]")
+        vector_label.scale(0.5)
 
         return vector_label
 
@@ -34,4 +34,4 @@ class VectorLayer(VGroupNeuralNetworkLayer):
     @override_animation(Create)
     def _create_override(self):
         """Create animation"""
-        return Create(self.vector_label)
+        return Write(self.vector_label)
