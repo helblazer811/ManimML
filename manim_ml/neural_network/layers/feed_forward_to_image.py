@@ -18,7 +18,7 @@ class FeedForwardToImage(ConnectiveLayer):
         self.feed_forward_layer = input_layer
         self.image_layer = output_layer
 
-    def make_forward_pass_animation(self):
+    def make_forward_pass_animation(self, **kwargs):
         """Makes dots diverge from the given location and move to the feed forward nodes decoder"""
         animations = []
         image_mobject = self.image_layer.image_mobject

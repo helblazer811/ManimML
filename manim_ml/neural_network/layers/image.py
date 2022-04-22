@@ -5,9 +5,10 @@ from manim_ml.neural_network.layers.parent_layers import NeuralNetworkLayer
 class ImageLayer(NeuralNetworkLayer):
     """Single Image Layer for Neural Network"""
 
-    def __init__(self, numpy_image, height=1.5, **kwargs):
+    def __init__(self, numpy_image, height=1.5, show_image_on_create=True, **kwargs):
         super().__init__(**kwargs)
         self.numpy_image = numpy_image
+        self.show_image_on_create = show_image_on_create
         if len(np.shape(self.numpy_image)) == 2:
             # Assumed Grayscale
             self.image_mobject = GrayscaleImageMobject(self.numpy_image, height=height)
@@ -21,9 +22,12 @@ class ImageLayer(NeuralNetworkLayer):
         debug_mode = False
         if debug_mode:
             return FadeIn(SurroundingRectangle(self.image_mobject))
-        return FadeIn(self.image_mobject)
+        if self.show_image_on_create:
+            return FadeIn(self.image_mobject)
+        else:
+            return AnimationGroup()
 
-    def make_forward_pass_animation(self):
+    def make_forward_pass_animation(self, **kwargs):
         return FadeIn(self.image_mobject)
     
     # def move_to(self, location):
@@ -37,3 +41,7 @@ class ImageLayer(NeuralNetworkLayer):
     @property
     def width(self):
         return self.image_mobject.width
+
+    @property
+    def height(self):
+        return self.image_mobject.height

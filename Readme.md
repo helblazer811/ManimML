@@ -31,43 +31,40 @@ Checkout the ```examples``` directory for some example videos with source code.
 
 ### Neural Networks
 
-This is a visualization of a Neural Network made using ManimML. It has a Pytorch style list of layers that can be composed in arbitrary order. The following video is made with the code from below.  
+This is a visualization of a Variational Autoencoder made using ManimML. It has a Pytorch style list of layers that can be composed in arbitrary order. The following video is made with the code from below.  
 
-<img src="examples/media/ImageNeuralNetworkScene.gif">
+<img src="examples/media/VAEScene.gif">
 
 ```python
-from manim import *
-from manim_ml.neural_network.layers import FeedForwardLayer, ImageLayer
-from manim_ml.neural_network.neural_network import NeuralNetwork
-from PIL import Image
-import numpy as np
-
-class ImageNeuralNetworkScene(Scene):
+class VariationalAutoencoderScene(Scene):
 
     def construct(self):
+        embedding_layer = EmbeddingLayer(dist_theme="ellipse").scale(2)
+        
         image = Image.open('images/image.jpeg')
         numpy_image = np.asarray(image)
         # Make nn
-        layers = [
-            ImageLayer(numpy_image, height=1.0),
-            FeedForwardLayer(3), 
+        neural_network = NeuralNetwork([
+            ImageLayer(numpy_image, height=1.4),
             FeedForwardLayer(5),
-            FeedForwardLayer(3)
-        ]
-        nn = NeuralNetwork(layers)
-        # Center the nn
-        nn.move_to(ORIGIN)
-        self.add(nn)
-        # Play animation
-        self.play(nn.make_forward_pass_animation())
+            FeedForwardLayer(3),
+            embedding_layer,
+            FeedForwardLayer(3),
+            FeedForwardLayer(5),
+            ImageLayer(numpy_image, height=1.4),
+        ], layer_spacing=0.1)
+
+        neural_network.scale(1.3)
+
+        self.play(Create(neural_network))
+        self.play(neural_network.make_forward_pass_animation(run_time=15))
 ```
 
+### Generative Adversarial Network
 
-### Variational Autoencoders
+This is a visualization of a Generative Adversarial Network made using ManimML. 
 
-This is a visualization of a Variational Autoencoder. 
-
-<img src="examples/media/VAEScene.gif">
+<img src="examples/media/GANScene.gif">
 
 ### VAE Disentanglement 
 

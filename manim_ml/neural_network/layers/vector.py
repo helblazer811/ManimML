@@ -23,12 +23,12 @@ class VectorLayer(VGroupNeuralNetworkLayer):
             values = values[None, :].T
             vector = Matrix(values)
 
-        vector_label = Text(f"[{self.value_func():.2}]")
-        vector_label.scale(0.5)
+        vector_label = Text(f"[{self.value_func():.2f}]")
+        vector_label.scale(0.3)
 
         return vector_label
 
-    def make_forward_pass_animation(self):
+    def make_forward_pass_animation(self, **kwargs):
         return AnimationGroup()
         
     @override_animation(Create)

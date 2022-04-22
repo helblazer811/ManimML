@@ -107,18 +107,18 @@ class NeuralNetworkScene(Scene):
 
         self.play(forward_propagation_animation)
 
-class ImageNeuralNetworkScene(Scene):
+class GrayscaleImageNeuralNetworkScene(Scene):
 
     def construct(self):
         image = Image.open('images/image.jpeg')
         numpy_image = np.asarray(image)
         # Make nn
         layers = [
-            ImageLayer(numpy_image, height=1.4),
-            FeedForwardLayer(3), 
+            FeedForwardLayer(3),
             FeedForwardLayer(5),
             FeedForwardLayer(3),
-            FeedForwardLayer(6)
+            FeedForwardLayer(6),
+            ImageLayer(numpy_image, height=1.4)
         ]
         nn = NeuralNetwork(layers)
         nn.scale(1.3)
@@ -129,6 +129,27 @@ class ImageNeuralNetworkScene(Scene):
         self.play(nn.make_forward_pass_animation(run_time=5))
         self.play(nn.make_forward_pass_animation(run_time=5))
 
+class ImageNeuralNetworkScene(Scene):
+
+    def construct(self):
+        image = Image.open('../assets/gan/real_image.jpg')
+        numpy_image = np.asarray(image)
+        # Make nn
+        layers = [
+            FeedForwardLayer(3),
+            FeedForwardLayer(5),
+            FeedForwardLayer(3),
+            FeedForwardLayer(6),
+            ImageLayer(numpy_image, height=1.4)
+        ]
+        nn = NeuralNetwork(layers)
+        nn.scale(1.3)
+        # Center the nn
+        nn.move_to(ORIGIN)
+        self.add(nn)
+        # Play animation
+        self.play(nn.make_forward_pass_animation(run_time=5))
+        self.play(nn.make_forward_pass_animation(run_time=5))
 
 class EmbeddingNNScene(Scene):
 
@@ -174,7 +195,7 @@ class LayerRemovalScene(Scene):
         image = Image.open('images/image.jpeg')
         numpy_image = np.asarray(image)
 
-        layer = FeedForwardLayer(5),
+        layer = FeedForwardLayer(5)
         layers = [
             ImageLayer(numpy_image, height=1.4),
             FeedForwardLayer(3), 
@@ -186,7 +207,34 @@ class LayerRemovalScene(Scene):
         nn = NeuralNetwork(layers)
         
         self.play(Create(nn))
-        self.play(nn.remove_layer(layer))
+        remove_animation = nn.remove_layer(layer)
+        print("before remove")
+        self.play(remove_animation)
+        print(nn)
+        print("after remove")
+
+class LayerInsertionScene(Scene):
+
+    def construct(self):
+        image = Image.open('images/image.jpeg')
+        numpy_image = np.asarray(image)
+
+        layers = [
+            ImageLayer(numpy_image, height=1.4),
+            FeedForwardLayer(3),
+            FeedForwardLayer(3),
+            FeedForwardLayer(6)
+        ]
+
+        nn = NeuralNetwork(layers)
+        
+        self.play(Create(nn))
+
+        layer = FeedForwardLayer(5)
+        insert_animation = nn.insert_layer(layer, 4)
+        self.play(insert_animation)
+        print(nn)
+        print("after remove")
 
 if __name__ == "__main__":
     """Render all scenes"""

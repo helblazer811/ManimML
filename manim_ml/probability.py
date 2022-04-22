@@ -5,17 +5,23 @@ import math
 class GaussianDistribution(VGroup):
     """Object for drawing a Gaussian distribution"""
 
-    def __init__(self, axes, mean=None, cov=None, **kwargs):
+    def __init__(self, axes, mean=None, cov=None, dist_theme="gaussian", **kwargs):
         super(VGroup, self).__init__(**kwargs)
         self.axes = axes
         self.mean = mean
         self.cov = cov
+        self.dist_theme = dist_theme
         if mean is None:
             self.mean = np.array([0.0, 0.0])
         if cov is None:
-            self.cov = np.array([[3, 0], [0, 3]])
+            self.cov = np.array([[1, 0], [0, 1]])
         # Make the Gaussian
-        self.ellipses = self.construct_gaussian_distribution(self.mean, self.cov)
+        if self.dist_theme is "gaussian":
+            self.ellipses = self.construct_gaussian_distribution(self.mean, self.cov)
+        elif self.dist_theme is "ellipse":
+            self.ellipses = self.construct_simple_gaussian_ellipse(self.mean, self.cov)
+        else:
+            raise Exception(f"Uncrecognized distribution theme: {self.dist_theme}")
         
     @override_animation(Create)
     def _create_gaussian_distribution(self):
@@ -62,6 +68,33 @@ class GaussianDistribution(VGroup):
             ellipse.move_to(mean)
             ellipse.rotate(rotation)
             ellipses.add(ellipse)
+
+        return ellipses
+
+    def construct_simple_gaussian_ellipse(self, mean, covariance, color=ORANGE):
+        """Returns a 2d Gaussian distribution object with given mean and covariance"""
+        # map mean and covariance to frame coordinates
+        mean = self.axes.coords_to_point(*mean)
+        # Figure out the scale and angle of rotation
+        # TODO fix this
+        # rotation, width, height = self.compute_covariance_rotation_and_scale(covariance)
+        mean = np.array([0, 0, 0])
+        mean = self.axes.coords_to_point(*mean)
+        rotation = 0.0
+        # Make covariance ellipses
+        opacity = 0.0
+        ellipses = VGroup()
+        opacity = 0.2
+        ellipse = Ellipse(
+            width=0.6, 
+            height=0.6, 
+            color=color, 
+            fill_opacity=opacity, 
+            stroke_width=2.0
+        )
+        ellipse.move_to(mean)
+        ellipse.rotate(rotation)
+        ellipses.add(ellipse)
 
         return ellipses
 

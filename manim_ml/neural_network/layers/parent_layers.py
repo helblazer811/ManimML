@@ -7,10 +7,12 @@ class NeuralNetworkLayer(ABC, Group):
     def __init__(self, text=None, **kwargs):
         super(Group, self).__init__()
         self.title_text = kwargs["title"] if "title" in kwargs else " "
-        self.title = Text(self.title_text, font_size=DEFAULT_FONT_SIZE/3)
+        self.title = Text(self.title_text, font_size=DEFAULT_FONT_SIZE/3).scale(0.6)
+        # self.title.next_to(self, UP, 1.2)
+        # self.add(self.title)
 
     @abstractmethod
-    def make_forward_pass_animation(self):
+    def make_forward_pass_animation(self, **kwargs):
         pass
 
     @override_animation(Create)
@@ -26,7 +28,7 @@ class VGroupNeuralNetworkLayer(NeuralNetworkLayer):
         super().__init__(**kwargs)
 
     @abstractmethod
-    def make_forward_pass_animation(self):
+    def make_forward_pass_animation(self, **kwargs):
         pass 
 
     @override_animation(Create)
@@ -49,7 +51,7 @@ class ConnectiveLayer(VGroupNeuralNetworkLayer):
         assert isinstance(output_layer, self.output_class)
 
     @abstractmethod
-    def make_forward_pass_animation(self):
+    def make_forward_pass_animation(self, **kwargs):
         pass
 
     @override_animation(Create)

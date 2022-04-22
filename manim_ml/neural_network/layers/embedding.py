@@ -5,18 +5,17 @@ from manim_ml.neural_network.layers.parent_layers import VGroupNeuralNetworkLaye
 class EmbeddingLayer(VGroupNeuralNetworkLayer):
     """NeuralNetwork embedding object that can show probability distributions"""
 
-    def __init__(self, point_radius=0.02, **kwargs):
+    def __init__(self, point_radius=0.02, mean = np.array([0, 0]), 
+                covariance=np.array([[1.5, 0], [0, 1.5]]), **kwargs):
         super(VGroupNeuralNetworkLayer, self).__init__(**kwargs)
         self.point_radius = point_radius
         self.axes = Axes(
             tips=False,
-            x_length=1,
-            y_length=1
+            x_length=0.8,
+            y_length=0.8
         )
         self.add(self.axes)
         # Make point cloud
-        mean = np.array([0, 0])
-        covariance = np.array([[1.5, 0], [0, 1.5]])
         self.point_cloud = self.construct_gaussian_point_cloud(mean, covariance)
         self.add(self.point_cloud)
         # Make latent distribution
@@ -50,10 +49,14 @@ class EmbeddingLayer(VGroupNeuralNetworkLayer):
 
         return point_dots
 
-    def make_forward_pass_animation(self):
+    def make_forward_pass_animation(self, dist_theme="gaussian", **kwargs):
         """Forward pass animation"""
         # Make ellipse object corresponding to the latent distribution
-        self.latent_distribution = GaussianDistribution(self.axes) # Use defaults
+        self.latent_distribution = GaussianDistribution(
+            self.axes, 
+            dist_theme=dist_theme, 
+            cov=np.array([[0.8, 0], [0.0, 0.8]])
+        ) # Use defaults
         # Create animation
         animations = []
         #create_distribution = Create(self.latent_distribution.construct_gaussian_distribution(self.latent_distribution.mean, self.latent_distribution.cov)) #Create(self.latent_distribution)

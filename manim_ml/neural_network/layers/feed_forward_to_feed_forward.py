@@ -33,7 +33,18 @@ class FeedForwardToFeedForward(ConnectiveLayer):
         edges = VGroup(*edges)
         return edges
 
-    def make_forward_pass_animation(self, run_time=1):
+    @override_animation(FadeOut)
+    def _fadeout_animation(self):
+        animations = []
+        
+        for edge in self.edges:
+            animations.append(FadeOut(edge))
+
+        animation_group = AnimationGroup(*animations)
+
+        return animation_group
+
+    def make_forward_pass_animation(self, run_time=1, **kwargs):
         """Animation for passing information from one FeedForwardLayer to the next"""
         path_animations = []
         dots = []

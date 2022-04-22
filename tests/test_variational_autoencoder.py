@@ -1,19 +1,17 @@
 from manim import *
 from PIL import Image
-from manim_ml.neural_network.embedding import EmbeddingLayer
-from manim_ml.neural_network.feed_forward import FeedForwardLayer
-from manim_ml.neural_network.image import ImageLayer
+from manim_ml.neural_network.layers import EmbeddingLayer, FeedForwardLayer, ImageLayer
 from manim_ml.neural_network.neural_network import NeuralNetwork
 
 config.pixel_height = 720
 config.pixel_width = 1280
-config.frame_height = 6.0
-config.frame_width = 6.0
+config.frame_height = 8.0
+config.frame_width = 8.0
 
 class VariationalAutoencoderScene(Scene):
 
     def construct(self):
-        embedding_layer = EmbeddingLayer()
+        embedding_layer = EmbeddingLayer(dist_theme="ellipse").scale(2)
         
         image = Image.open('images/image.jpeg')
         numpy_image = np.asarray(image)
@@ -26,7 +24,7 @@ class VariationalAutoencoderScene(Scene):
             FeedForwardLayer(3),
             FeedForwardLayer(5),
             ImageLayer(numpy_image, height=1.4),
-        ])
+        ], layer_spacing=0.1)
 
         neural_network.scale(1.3)
 
