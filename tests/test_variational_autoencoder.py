@@ -28,5 +28,6 @@ class VariationalAutoencoderScene(Scene):
 
         neural_network.scale(1.3)
 
-        self.play(Create(neural_network))
-        self.play(neural_network.make_forward_pass_animation(run_time=15))
+        self.play(Create(neural_network), run_time=3)
+        self.play(neural_network.make_forward_pass_animation(), run_time=5)
+        self.play(neural_network.make_forward_pass_animation(), run_time=5)
