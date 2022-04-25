@@ -18,7 +18,7 @@ class TripletToFeedForward(ConnectiveLayer):
         self.feed_forward_layer = output_layer
         self.triplet_layer = input_layer
 
-    def make_forward_pass_animation(self, **kwargs):
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
         """Makes dots diverge from the given location and move to the feed forward nodes decoder"""
         animations = []
         # Loop through each image

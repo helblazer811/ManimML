@@ -44,7 +44,7 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         # Add the objects to the class
         self.add(self.surrounding_rectangle, self.node_group)
 
-    def make_forward_pass_animation(self, **kwargs):
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
         # make highlight animation
         succession = Succession(
             ApplyMethod(self.node_group.set_color, self.animation_dot_color, run_time=0.25),

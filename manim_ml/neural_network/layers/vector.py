@@ -28,7 +28,7 @@ class VectorLayer(VGroupNeuralNetworkLayer):
 
         return vector_label
 
-    def make_forward_pass_animation(self, **kwargs):
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
         return AnimationGroup()
         
     @override_animation(Create)

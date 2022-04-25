@@ -12,7 +12,7 @@ class NeuralNetworkLayer(ABC, Group):
         # self.add(self.title)
 
     @abstractmethod
-    def make_forward_pass_animation(self, **kwargs):
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
         pass
 
     @override_animation(Create)
@@ -51,7 +51,7 @@ class ConnectiveLayer(VGroupNeuralNetworkLayer):
         assert isinstance(output_layer, self.output_class)
 
     @abstractmethod
-    def make_forward_pass_animation(self, **kwargs):
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
         pass
 
     @override_animation(Create)

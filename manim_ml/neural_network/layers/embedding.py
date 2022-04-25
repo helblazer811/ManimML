@@ -6,16 +6,29 @@ class EmbeddingLayer(VGroupNeuralNetworkLayer):
     """NeuralNetwork embedding object that can show probability distributions"""
 
     def __init__(self, point_radius=0.02, mean = np.array([0, 0]), 
-                covariance=np.array([[1.5, 0], [0, 1.5]]), dist_theme="gaussian", **kwargs):
+                covariance=np.array([[1.0, 0], [0, 1.0]]), dist_theme="gaussian", 
+                paired_query_mode=False, **kwargs):
         super(VGroupNeuralNetworkLayer, self).__init__(**kwargs)
         self.point_radius = point_radius
         self.dist_theme = dist_theme
+        self.paired_query_mode = paired_query_mode
         self.axes = Axes(
             tips=False,
             x_length=0.8,
-            y_length=0.8
+            y_length=0.8,
+            x_range=(-2.0, 2.0),
+            y_range=(-2.0, 2.0),
+            x_axis_config={
+                "include_ticks": False,
+                "stroke_width": 0.0
+            },
+            y_axis_config={
+                "include_ticks": False,
+                "stroke_width": 0.0
+            }
         )
         self.add(self.axes)
+        self.axes.move_to(self.get_center())
         # Make point cloud
         self.point_cloud = self.construct_gaussian_point_cloud(mean, covariance)
         self.add(self.point_cloud)
@@ -51,23 +64,43 @@ class EmbeddingLayer(VGroupNeuralNetworkLayer):
 
         return point_dots
 
-    def make_forward_pass_animation(self, **kwargs):
-        """Forward pass animation"""
-        # Make ellipse object corresponding to the latent distribution
-        self.latent_distribution = GaussianDistribution(
-            self.axes, 
-            dist_theme=self.dist_theme, 
-            cov=np.array([[0.8, 0], [0.0, 0.8]])
-        ) # Use defaults
-        # Create animation
+    def make_paired_query_embedding_animation(self):
+        """Embed paired query"""
         animations = []
-        #create_distribution = Create(self.latent_distribution.construct_gaussian_distribution(self.latent_distribution.mean, self.latent_distribution.cov)) #Create(self.latent_distribution)
-        create_distribution = Create(self.latent_distribution.ellipses) 
-        animations.append(create_distribution)
-
-        animation_group = AnimationGroup(*animations)
-
+        # Make the animation
+        
+        # Animation group
+        animation_group = AnimationGroup(
+            *animations, 
+            lag_ratio=1.0
+        )
+        
         return animation_group
+
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
+        """Forward pass animation"""
+        animations = []
+        if not self.paired_query_mode:
+            # Normal embedding mode
+            # Make ellipse object corresponding to the latent distribution
+            self.latent_distribution = GaussianDistribution(
+                self.axes, 
+                dist_theme=self.dist_theme, 
+                cov=np.array([[0.8, 0], [0.0, 0.8]])
+            ) # Use defaults
+            # Create animation
+            #create_distribution = Create(self.latent_distribution.construct_gaussian_distribution(self.latent_distribution.mean, self.latent_distribution.cov)) #Create(self.latent_distribution)
+            create_distribution = Create(self.latent_distribution.ellipses) 
+            animations.append(create_distribution)
+            
+            animation_group = AnimationGroup(*animations)
+
+            return animation_group
+        else:
+            # Paired Query Mode
+            # Handle logic for embedding a paired query into the embedding layer
+            paired_query_embedding_animation = self.make_paired_query_embedding_animation()
+            return paired_query_embedding_animation
 
     @override_animation(Create)
     def _create_override(self, **kwargs):

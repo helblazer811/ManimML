@@ -17,7 +17,7 @@ class EmbeddingToFeedForward(ConnectiveLayer):
         self.animation_dot_color = animation_dot_color
         self.dot_radius = dot_radius
 
-    def make_forward_pass_animation(self, run_time=1.5, **kwargs):
+    def make_forward_pass_animation(self, layer_args={}, run_time=1.5, **kwargs):
         """Makes dots diverge from the given location and move the decoder"""
         # Find point to converge on by sampling from gaussian distribution
         location = self.embedding_layer.sample_point_location_from_distribution()

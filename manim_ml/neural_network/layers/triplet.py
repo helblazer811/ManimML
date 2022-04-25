@@ -71,6 +71,6 @@ class TripletLayer(NeuralNetworkLayer):
         # TODO make Create animation that is custom
         return FadeIn(self.assets)
 
-    def make_forward_pass_animation(self, **kwargs):
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
         """Forward pass for triplet"""
         return AnimationGroup()

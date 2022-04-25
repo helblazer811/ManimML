@@ -18,7 +18,7 @@ class FeedForwardToVector(ConnectiveLayer):
         self.feed_forward_layer = input_layer
         self.vector_layer = output_layer
 
-    def make_forward_pass_animation(self):
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
         """Makes dots diverge from the given location and move to the feed forward nodes decoder"""
         animations = []
         # Move the dots to the centers of each of the nodes in the FeedForwardLayer

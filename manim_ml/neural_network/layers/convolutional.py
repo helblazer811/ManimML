@@ -16,7 +16,7 @@ class ConvolutionalLayer(VGroupNeuralNetworkLayer):
         """Creates the neural network layer"""
         pass
 
-    def make_forward_pass_animation(self):
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
         # make highlight animation
         return None
 

@@ -44,7 +44,7 @@ class FeedForwardToFeedForward(ConnectiveLayer):
 
         return animation_group
 
-    def make_forward_pass_animation(self, run_time=1, **kwargs):
+    def make_forward_pass_animation(self, layer_args={}, run_time=1, **kwargs):
         """Animation for passing information from one FeedForwardLayer to the next"""
         path_animations = []
         dots = []
