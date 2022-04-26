@@ -13,6 +13,7 @@ class NeuralNetworkScene(Scene):
             FeedForwardLayer(3)
         ]
         nn = NeuralNetwork(layers)
+        nn.scale(2)
         nn.move_to(ORIGIN)
         # Make Animation
         self.add(nn)
