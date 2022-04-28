@@ -34,15 +34,17 @@ class GrayscaleImageMobject(ImageMobject):
 class LabeledColorImage(Group):
     """Labeled Color Image"""
 
-    def __init__(self, image, color=RED, label="Positive", stroke_width=5):
+    def __init__(self, image, color=RED, label="Positive", stroke_width=5,
+                font_size=24, buff=0.2):
         super().__init__()
         self.image = image
         self.color = color
         self.label = label
         self.stroke_width = stroke_width
+        self.font_size = font_size
 
-        text = Text(label).scale(2)
-        text.next_to(self.image, UP, buff=1.0)
+        text = Text(label, font_size=self.font_size)
+        text.next_to(self.image, UP, buff=buff)
         rectangle = SurroundingRectangle(
             self.image, 
             color=color,

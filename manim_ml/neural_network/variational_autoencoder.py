@@ -7,11 +7,8 @@ and Traditional Autoencoders.
 from manim import *
 import numpy as np
 from PIL import Image
-import os
-from manim_ml.neural_network.feed_forward import FeedForwardLayer
-from manim_ml.neural_network.image import ImageLayer
+from manim_ml.neural_network.layers import FeedForwardLayer, EmbeddingLayer, ImageLayer
 from manim_ml.neural_network.neural_network import NeuralNetwork
-from manim_ml.neural_network.embedding import EmbeddingLayer
 
 class VariationalAutoencoder(VGroup):
     """Variational Autoencoder Manim Visualization"""
@@ -66,47 +63,3 @@ class VariationalAutoencoder(VGroup):
         )
 
         return animation_group
-
-        """
-        # Make encoder forward pass
-        encoder_forward_pass = self.encoder.make_forward_propagation_animation(run_time=per_unit_runtime)
-        # Make red dot in embedding
-        mean = [1.0, 1.5]
-        mean_point = self.embedding.axes.coords_to_point(*mean)
-        std = [0.8, 1.2]
-        # Make the dot convergence animation
-        dot_convergence_animation = self.make_dot_convergence_animation(mean, run_time=per_unit_runtime)
-        encoding_succesion = Succession(
-            encoder_forward_pass, 
-            dot_convergence_animation
-        )
-        # Make an ellipse centered at mean_point witAnimationGraph std outline
-        center_dot = Dot(mean_point, radius=self.dot_radius, color=RED)
-        ellipse = Ellipse(width=std[0], height=std[1], color=RED, fill_opacity=0.3, stroke_width=self.ellipse_stroke_width)
-        ellipse.move_to(mean_point)
-        self.distribution_objects = VGroup(
-            center_dot, 
-            ellipse
-        )
-        # Make ellipse animation
-        ellipse_animation = AnimationGroup(
-            GrowFromCenter(center_dot), 
-            GrowFromCenter(ellipse),
-        )
-        # Make the dot divergence animation
-        sampled_point = [0.51, 1.0]
-        divergence_point = self.embedding.axes.coords_to_point(*sampled_point)
-        dot_divergence_animation = self.make_dot_divergence_animation(divergence_point, run_time=per_unit_runtime)
-        # Make decoder foward pass
-        decoder_forward_pass = self.decoder.make_forward_propagation_animation(run_time=per_unit_runtime)
-        # Add the animations to the group
-        animation_group = AnimationGroup(
-            FadeIn(self.input_image),
-            encoding_succesion,
-            ellipse_animation,
-            dot_divergence_animation,
-            decoder_forward_pass,
-            FadeIn(self.output_image),
-            lag_ratio=1,
-        )
-        """

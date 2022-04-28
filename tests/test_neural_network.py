@@ -94,7 +94,7 @@ class NeuralNetworkScene(Scene):
     def construct(self):
         # Make the Layer object
         layers = [
-            FeedForwardLayer(3, title="Title Test"), 
+            FeedForwardLayer(3), 
             FeedForwardLayer(5), 
             FeedForwardLayer(3)
         ]
@@ -150,23 +150,6 @@ class ImageNeuralNetworkScene(Scene):
         # Play animation
         self.play(nn.make_forward_pass_animation(run_time=5))
         self.play(nn.make_forward_pass_animation(run_time=5))
-
-class EmbeddingNNScene(Scene):
-
-    def construct(self):
-        embedding_layer = EmbeddingLayer()
-
-        neural_network = NeuralNetwork([
-            FeedForwardLayer(5),
-            FeedForwardLayer(3),
-            embedding_layer,
-            FeedForwardLayer(3),
-            FeedForwardLayer(5)
-        ])
-
-        self.play(Create(neural_network))
-
-        self.play(neural_network.make_forward_pass_animation(run_time=5))
 
 class RecursiveNNScene(Scene):
 

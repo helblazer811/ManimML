@@ -2,6 +2,8 @@ from manim import *
 from manim_ml.image import GrayscaleImageMobject
 from manim_ml.neural_network.layers.parent_layers import NeuralNetworkLayer
 
+from PIL import Image
+
 class ImageLayer(NeuralNetworkLayer):
     """Single Image Layer for Neural Network"""
 
@@ -16,6 +18,17 @@ class ImageLayer(NeuralNetworkLayer):
             # Assumed RGB
             self.image_mobject = ImageMobject(self.numpy_image).scale_to_fit_height(height)
         self.add(self.image_mobject)
+
+    @classmethod
+    def from_path(cls, image_path, grayscale=True, **kwargs):
+        """Creates a query using the paths"""
+        # Load images from path
+        image = Image.open(image_path)
+        numpy_image = np.asarray(image)
+        # Make the layer
+        image_layer = cls(numpy_image, **kwargs)
+
+        return image_layer
 
     @override_animation(Create)
     def _create_override(self, **kwargs):

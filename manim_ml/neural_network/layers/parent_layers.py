@@ -8,7 +8,7 @@ class NeuralNetworkLayer(ABC, Group):
         super(Group, self).__init__()
         self.title_text = kwargs["title"] if "title" in kwargs else " "
         self.title = Text(self.title_text, font_size=DEFAULT_FONT_SIZE/3).scale(0.6)
-        # self.title.next_to(self, UP, 1.2)
+        self.title.next_to(self, UP, 1.2)
         # self.add(self.title)
 
     @abstractmethod

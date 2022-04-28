@@ -18,7 +18,7 @@ class ListGroup(Mobject):
 
     def remove_at_index(self, index):
         """Removes item at index"""
-        if index < 0 or index > len(self.items):
+        if index > len(self.items):
             raise Exception(f"ListGroup index out of range: {index}")
         item = self.items[index]
         del self.items[index]

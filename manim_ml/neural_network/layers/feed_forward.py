@@ -41,6 +41,7 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         self.surrounding_rectangle = SurroundingRectangle(self.node_group, color=self.rectangle_color, 
                                                         fill_color=self.rectangle_fill_color, fill_opacity=1.0, 
                                                         buff=self.layer_buffer, stroke_width=self.rectangle_stroke_width)
+        self.surrounding_rectangle.set_z_index(1)                                                
         # Add the objects to the class
         self.add(self.surrounding_rectangle, self.node_group)
 

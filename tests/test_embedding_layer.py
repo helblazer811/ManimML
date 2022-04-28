@@ -26,6 +26,52 @@ class EmbeddingNNScene(Scene):
 
         self.play(neural_network.make_forward_pass_animation(run_time=5))
 
+
+class TripletEmbeddingNNScene(Scene):
+
+    def construct(self):
+        embedding_layer = EmbeddingLayer()
+
+        neural_network = NeuralNetwork([
+            FeedForwardLayer(5),
+            FeedForwardLayer(3),
+            embedding_layer,
+            FeedForwardLayer(3),
+            FeedForwardLayer(5)
+        ])
+
+        self.play(Create(neural_network))
+
+        self.play(
+            neural_network.make_forward_pass_animation(
+                layer_args={
+                    embedding_layer: {
+                        "triplet_args": {
+                            "anchor_dist": {
+                                "cov": np.array([[0.3, 0], [0, 0.3]]),
+                                "mean": np.array([0.7, 1.4]),
+                                "dist_theme": "ellipse",
+                                "color": BLUE
+                            },
+                            "positive_dist": {
+                                "cov": np.array([[0.2, 0], [0, 0.2]]),
+                                "mean": np.array([0.8, -0.4]),
+                                "dist_theme": "ellipse",
+                                "color": GREEN
+                            },
+                            "negative_dist": {
+                                "cov": np.array([[0.4, 0], [0, 0.25]]),
+                                "mean": np.array([-1, -1.2]),
+                                "dist_theme": "ellipse",
+                                "color": RED
+                            }
+                        }
+                    }
+                },
+                run_time=5
+            )
+        )
+
 class QueryEmbeddingNNScene(Scene):
 
     def construct(self):
@@ -47,7 +93,18 @@ class QueryEmbeddingNNScene(Scene):
                 run_time=5,
                 layer_args={
                     embedding_layer: {
-                        "query_locations": (np.array([2, 2]), np.array([1, 1]))
+                        "positive_dist_args": {
+                            "cov": np.array([[1, 0], [0, 1]]),
+                            "mean": np.array([1, 1]),
+                            "dist_theme": "ellipse",
+                            "color": GREEN
+                        },
+                        "negative_dist_args": {
+                            "cov": np.array([[1, 0], [0, 1]]),
+                            "mean": np.array([-1, -1]),
+                            "dist_theme": "ellipse",
+                            "color": RED
+                        }
                     }
                 } 
             )
