@@ -1,0 +1,977 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
+
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/><title>Index - ManimML documentation</title>
+<link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">ManimML  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">ManimML  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          
+<section class="genindex-section">
+  <h1 id="index">Index</h1>
+  <div class="genindex-jumpbox"><a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#V"><strong>V</strong></a> | <a href="#W"><strong>W</strong></a></div>
+</section>
+<section id="A" class="genindex-section">
+  <h2>A</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.html#manim_ml.list_group.ListGroup.add">add() (manim_ml.list_group.ListGroup method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.add_gaussian_distribution">add_gaussian_distribution() (manim_ml.neural_network.layers.embedding.EmbeddingLayer method)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.image.GrayscaleImageMobject.animation_overrides">animation_overrides (manim_ml.image.GrayscaleImageMobject attribute)</a>
+
+        <ul>
+          <li><a href="manim_ml.html#manim_ml.image.LabeledColorImage.animation_overrides">(manim_ml.image.LabeledColorImage attribute)</a>
+</li>
+          <li><a href="manim_ml.html#manim_ml.list_group.ListGroup.animation_overrides">(manim_ml.list_group.ListGroup attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.convolutional.ConvolutionalLayer.animation_overrides">(manim_ml.neural_network.layers.convolutional.ConvolutionalLayer attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional.animation_overrides">(manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.animation_overrides">(manim_ml.neural_network.layers.embedding.EmbeddingLayer attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward.animation_overrides">(manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.animation_overrides">(manim_ml.neural_network.layers.feed_forward.FeedForwardLayer attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding.animation_overrides">(manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.animation_overrides">(manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage.animation_overrides">(manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector.animation_overrides">(manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.animation_overrides">(manim_ml.neural_network.layers.image.ImageLayer attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward.animation_overrides">(manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer.animation_overrides">(manim_ml.neural_network.layers.paired_query.PairedQueryLayer attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward.animation_overrides">(manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.BlankConnective.animation_overrides">(manim_ml.neural_network.layers.parent_layers.BlankConnective attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.ConnectiveLayer.animation_overrides">(manim_ml.neural_network.layers.parent_layers.ConnectiveLayer attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.NeuralNetworkLayer.animation_overrides">(manim_ml.neural_network.layers.parent_layers.NeuralNetworkLayer attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.VGroupNeuralNetworkLayer.animation_overrides">(manim_ml.neural_network.layers.parent_layers.VGroupNeuralNetworkLayer attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer.animation_overrides">(manim_ml.neural_network.layers.triplet.TripletLayer attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward.animation_overrides">(manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.vector.VectorLayer.animation_overrides">(manim_ml.neural_network.layers.vector.VectorLayer attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network.FeedForwardNeuralNetwork.animation_overrides">(manim_ml.neural_network.neural_network.FeedForwardNeuralNetwork attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network.NeuralNetwork.animation_overrides">(manim_ml.neural_network.neural_network.NeuralNetwork attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.variational_autoencoder.VariationalAutoencoder.animation_overrides">(manim_ml.neural_network.variational_autoencoder.VariationalAutoencoder attribute)</a>
+</li>
+          <li><a href="manim_ml.html#manim_ml.probability.GaussianDistribution.animation_overrides">(manim_ml.probability.GaussianDistribution attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="B" class="genindex-section">
+  <h2>B</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.BlankConnective">BlankConnective (class in manim_ml.neural_network.layers.parent_layers)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="C" class="genindex-section">
+  <h2>C</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.html#manim_ml.probability.GaussianDistribution.compute_covariance_rotation_and_scale">compute_covariance_rotation_and_scale() (manim_ml.probability.GaussianDistribution method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.ConnectiveLayer">ConnectiveLayer (class in manim_ml.neural_network.layers.parent_layers)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.NeuralNetworkEmbeddingTestScene.construct">construct() (manim_ml.neural_network.layers.embedding.NeuralNetworkEmbeddingTestScene method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.construct_edges">construct_edges() (manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward method)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.probability.GaussianDistribution.construct_gaussian_distribution">construct_gaussian_distribution() (manim_ml.probability.GaussianDistribution method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.construct_gaussian_point_cloud">construct_gaussian_point_cloud() (manim_ml.neural_network.layers.embedding.EmbeddingLayer method)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.probability.GaussianDistribution.construct_simple_gaussian_ellipse">construct_simple_gaussian_ellipse() (manim_ml.probability.GaussianDistribution method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.convolutional.ConvolutionalLayer">ConvolutionalLayer (class in manim_ml.neural_network.layers.convolutional)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional">ConvolutionalToConvolutional (class in manim_ml.neural_network.layers.convolutional_to_convolutional)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.image.GrayscaleImageMobject.create">create() (manim_ml.image.GrayscaleImageMobject method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="E" class="genindex-section">
+  <h2>E</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer">EmbeddingLayer (class in manim_ml.neural_network.layers.embedding)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward">EmbeddingToFeedForward (class in manim_ml.neural_network.layers.embedding_to_feed_forward)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="F" class="genindex-section">
+  <h2>F</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer">FeedForwardLayer (class in manim_ml.neural_network.layers.feed_forward)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network.FeedForwardNeuralNetwork">FeedForwardNeuralNetwork (class in manim_ml.neural_network.neural_network)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding">FeedForwardToEmbedding (class in manim_ml.neural_network.layers.feed_forward_to_embedding)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward">FeedForwardToFeedForward (class in manim_ml.neural_network.layers.feed_forward_to_feed_forward)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage">FeedForwardToImage (class in manim_ml.neural_network.layers.feed_forward_to_image)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector">FeedForwardToVector (class in manim_ml.neural_network.layers.feed_forward_to_vector)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.image.GrayscaleImageMobject.from_path">from_path() (manim_ml.image.GrayscaleImageMobject class method)</a>
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.from_path">(manim_ml.neural_network.layers.image.ImageLayer class method)</a>
+</li>
+        </ul></li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer.from_paths">from_paths() (manim_ml.neural_network.layers.paired_query.PairedQueryLayer class method)</a>
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer.from_paths">(manim_ml.neural_network.layers.triplet.TripletLayer class method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="G" class="genindex-section">
+  <h2>G</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.html#manim_ml.probability.GaussianDistribution">GaussianDistribution (class in manim_ml.probability)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.list_group.ListGroup.get">get() (manim_ml.list_group.ListGroup method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.util.get_connective_layer">get_connective_layer() (in module manim_ml.neural_network.layers.util)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.InsertLayer.get_connective_layer_widths">get_connective_layer_widths() (manim_ml.neural_network.neural_network_transformations.InsertLayer method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.RemoveLayer.get_connective_layers">get_connective_layers() (manim_ml.neural_network.neural_network_transformations.RemoveLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.get_distribution_location">get_distribution_location() (manim_ml.neural_network.layers.embedding.EmbeddingLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.get_right">get_right() (manim_ml.neural_network.layers.image.ImageLayer method)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.image.GrayscaleImageMobject">GrayscaleImageMobject (class in manim_ml.image)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="H" class="genindex-section">
+  <h2>H</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.height">height (manim_ml.neural_network.layers.image.ImageLayer property)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="I" class="genindex-section">
+  <h2>I</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer">ImageLayer (class in manim_ml.neural_network.layers.image)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward">ImageToFeedForward (class in manim_ml.neural_network.layers.image_to_feed_forward)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.list_group.ListGroup.index_of">index_of() (manim_ml.list_group.ListGroup method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional.input_class">input_class (manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional attribute)</a>
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward.input_class">(manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding.input_class">(manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.input_class">(manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage.input_class">(manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector.input_class">(manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward.input_class">(manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward.input_class">(manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward.input_class">(manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.html#manim_ml.list_group.ListGroup.insert">insert() (manim_ml.list_group.ListGroup method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network.NeuralNetwork.insert_layer">insert_layer() (manim_ml.neural_network.neural_network.NeuralNetwork method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.InsertLayer">InsertLayer (class in manim_ml.neural_network.neural_network_transformations)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="L" class="genindex-section">
+  <h2>L</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.html#manim_ml.image.LabeledColorImage">LabeledColorImage (class in manim_ml.image)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.html#manim_ml.list_group.ListGroup">ListGroup (class in manim_ml.list_group)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="M" class="genindex-section">
+  <h2>M</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer.make_assets">make_assets() (manim_ml.neural_network.layers.paired_query.PairedQueryLayer method)</a>
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer.make_assets">(manim_ml.neural_network.layers.triplet.TripletLayer method)</a>
+</li>
+        </ul></li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.InsertLayer.make_create_connective_layers_animation">make_create_connective_layers_animation() (manim_ml.neural_network.neural_network_transformations.InsertLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.InsertLayer.make_create_layer_animation">make_create_layer_animation() (manim_ml.neural_network.neural_network_transformations.InsertLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.convolutional.ConvolutionalLayer.make_filter_corner_lines">make_filter_corner_lines() (manim_ml.neural_network.layers.convolutional.ConvolutionalLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.convolutional.ConvolutionalLayer.make_forward_pass_animation">make_forward_pass_animation() (manim_ml.neural_network.layers.convolutional.ConvolutionalLayer method)</a>
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional.make_forward_pass_animation">(manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.make_forward_pass_animation">(manim_ml.neural_network.layers.embedding.EmbeddingLayer method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward.make_forward_pass_animation">(manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.make_forward_pass_animation">(manim_ml.neural_network.layers.feed_forward.FeedForwardLayer method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding.make_forward_pass_animation">(manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.make_forward_pass_animation">(manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage.make_forward_pass_animation">(manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector.make_forward_pass_animation">(manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.make_forward_pass_animation">(manim_ml.neural_network.layers.image.ImageLayer method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward.make_forward_pass_animation">(manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer.make_forward_pass_animation">(manim_ml.neural_network.layers.paired_query.PairedQueryLayer method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward.make_forward_pass_animation">(manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.BlankConnective.make_forward_pass_animation">(manim_ml.neural_network.layers.parent_layers.BlankConnective method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.ConnectiveLayer.make_forward_pass_animation">(manim_ml.neural_network.layers.parent_layers.ConnectiveLayer method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.NeuralNetworkLayer.make_forward_pass_animation">(manim_ml.neural_network.layers.parent_layers.NeuralNetworkLayer method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.VGroupNeuralNetworkLayer.make_forward_pass_animation">(manim_ml.neural_network.layers.parent_layers.VGroupNeuralNetworkLayer method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer.make_forward_pass_animation">(manim_ml.neural_network.layers.triplet.TripletLayer method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward.make_forward_pass_animation">(manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.vector.VectorLayer.make_forward_pass_animation">(manim_ml.neural_network.layers.vector.VectorLayer method)</a>
+</li>
+          <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network.NeuralNetwork.make_forward_pass_animation">(manim_ml.neural_network.neural_network.NeuralNetwork method)</a>
+</li>
+        </ul></li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.variational_autoencoder.VariationalAutoencoder.make_image_forward_pass">make_image_forward_pass() (manim_ml.neural_network.variational_autoencoder.VariationalAutoencoder method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional.make_lines">make_lines() (manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.RemoveLayer.make_move_animation">make_move_animation() (manim_ml.neural_network.neural_network_transformations.RemoveLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.InsertLayer.make_move_layers_animation">make_move_layers_animation() (manim_ml.neural_network.neural_network_transformations.InsertLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.RemoveLayer.make_new_connective_animation">make_new_connective_animation() (manim_ml.neural_network.neural_network_transformations.RemoveLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.RemoveLayer.make_remove_animation">make_remove_animation() (manim_ml.neural_network.neural_network_transformations.RemoveLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.RemoveLayer.make_remove_connective_layers_animation">make_remove_connective_layers_animation() (manim_ml.neural_network.neural_network_transformations.RemoveLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.RemoveLayer.make_remove_layer_animation">make_remove_layer_animation() (manim_ml.neural_network.neural_network_transformations.RemoveLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.variational_autoencoder.VariationalAutoencoder.make_triplet_forward_pass">make_triplet_forward_pass() (manim_ml.neural_network.variational_autoencoder.VariationalAutoencoder method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.vector.VectorLayer.make_vector">make_vector() (manim_ml.neural_network.layers.vector.VectorLayer method)</a>
+</li>
+        <li>
+    manim_ml
+
+        <ul>
+          <li><a href="manim_ml.html#module-manim_ml">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.image
+
+        <ul>
+          <li><a href="manim_ml.html#module-manim_ml.image">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.list_group
+
+        <ul>
+          <li><a href="manim_ml.html#module-manim_ml.list_group">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.manifold
+
+        <ul>
+          <li><a href="manim_ml.html#module-manim_ml.manifold">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network
+
+        <ul>
+          <li><a href="manim_ml.neural_network.html#module-manim_ml.neural_network">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.convolutional
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.convolutional">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.convolutional_to_convolutional
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.convolutional_to_convolutional">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.embedding
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.embedding">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.embedding_to_feed_forward
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.embedding_to_feed_forward">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.feed_forward
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.feed_forward_to_embedding
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_embedding">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.feed_forward_to_feed_forward
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_feed_forward">module</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    manim_ml.neural_network.layers.feed_forward_to_image
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_image">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.feed_forward_to_vector
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_vector">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.image
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.image">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.image_to_feed_forward
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.image_to_feed_forward">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.paired_query
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.paired_query">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.paired_query_to_feed_forward
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.paired_query_to_feed_forward">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.parent_layers
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.parent_layers">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.triplet
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.triplet">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.triplet_to_feed_forward
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.triplet_to_feed_forward">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.util
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.util">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.layers.vector
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.vector">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.neural_network
+
+        <ul>
+          <li><a href="manim_ml.neural_network.html#module-manim_ml.neural_network.neural_network">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.neural_network_transformations
+
+        <ul>
+          <li><a href="manim_ml.neural_network.html#module-manim_ml.neural_network.neural_network_transformations">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.neural_network.variational_autoencoder
+
+        <ul>
+          <li><a href="manim_ml.neural_network.html#module-manim_ml.neural_network.variational_autoencoder">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.one_to_one_sync
+
+        <ul>
+          <li><a href="manim_ml.html#module-manim_ml.one_to_one_sync">module</a>
+</li>
+        </ul></li>
+        <li>
+    manim_ml.probability
+
+        <ul>
+          <li><a href="manim_ml.html#module-manim_ml.probability">module</a>
+</li>
+        </ul></li>
+        <li>
+    module
+
+        <ul>
+          <li><a href="manim_ml.html#module-manim_ml">manim_ml</a>
+</li>
+          <li><a href="manim_ml.html#module-manim_ml.image">manim_ml.image</a>
+</li>
+          <li><a href="manim_ml.html#module-manim_ml.list_group">manim_ml.list_group</a>
+</li>
+          <li><a href="manim_ml.html#module-manim_ml.manifold">manim_ml.manifold</a>
+</li>
+          <li><a href="manim_ml.neural_network.html#module-manim_ml.neural_network">manim_ml.neural_network</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers">manim_ml.neural_network.layers</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.convolutional">manim_ml.neural_network.layers.convolutional</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.convolutional_to_convolutional">manim_ml.neural_network.layers.convolutional_to_convolutional</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.embedding">manim_ml.neural_network.layers.embedding</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.embedding_to_feed_forward">manim_ml.neural_network.layers.embedding_to_feed_forward</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward">manim_ml.neural_network.layers.feed_forward</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_embedding">manim_ml.neural_network.layers.feed_forward_to_embedding</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_feed_forward">manim_ml.neural_network.layers.feed_forward_to_feed_forward</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_image">manim_ml.neural_network.layers.feed_forward_to_image</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_vector">manim_ml.neural_network.layers.feed_forward_to_vector</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.image">manim_ml.neural_network.layers.image</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.image_to_feed_forward">manim_ml.neural_network.layers.image_to_feed_forward</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.paired_query">manim_ml.neural_network.layers.paired_query</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.paired_query_to_feed_forward">manim_ml.neural_network.layers.paired_query_to_feed_forward</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.parent_layers">manim_ml.neural_network.layers.parent_layers</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.triplet">manim_ml.neural_network.layers.triplet</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.triplet_to_feed_forward">manim_ml.neural_network.layers.triplet_to_feed_forward</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.util">manim_ml.neural_network.layers.util</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.vector">manim_ml.neural_network.layers.vector</a>
+</li>
+          <li><a href="manim_ml.neural_network.html#module-manim_ml.neural_network.neural_network">manim_ml.neural_network.neural_network</a>
+</li>
+          <li><a href="manim_ml.neural_network.html#module-manim_ml.neural_network.neural_network_transformations">manim_ml.neural_network.neural_network_transformations</a>
+</li>
+          <li><a href="manim_ml.neural_network.html#module-manim_ml.neural_network.variational_autoencoder">manim_ml.neural_network.variational_autoencoder</a>
+</li>
+          <li><a href="manim_ml.html#module-manim_ml.one_to_one_sync">manim_ml.one_to_one_sync</a>
+</li>
+          <li><a href="manim_ml.html#module-manim_ml.probability">manim_ml.probability</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="N" class="genindex-section">
+  <h2>N</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network.NeuralNetwork">NeuralNetwork (class in manim_ml.neural_network.neural_network)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.NeuralNetworkEmbeddingTestScene">NeuralNetworkEmbeddingTestScene (class in manim_ml.neural_network.layers.embedding)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.NeuralNetworkLayer">NeuralNetworkLayer (class in manim_ml.neural_network.layers.parent_layers)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="O" class="genindex-section">
+  <h2>O</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.html#manim_ml.one_to_one_sync.OneToOneSync">OneToOneSync (class in manim_ml.one_to_one_sync)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional.output_class">output_class (manim_ml.neural_network.layers.convolutional_to_convolutional.ConvolutionalToConvolutional attribute)</a>
+
+        <ul>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward.output_class">(manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding.output_class">(manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.output_class">(manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage.output_class">(manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector.output_class">(manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward.output_class">(manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward.output_class">(manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward attribute)</a>
+</li>
+          <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward.output_class">(manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="P" class="genindex-section">
+  <h2>P</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer">PairedQueryLayer (class in manim_ml.neural_network.layers.paired_query)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward">PairedQueryToFeedForward (class in manim_ml.neural_network.layers.paired_query_to_feed_forward)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="R" class="genindex-section">
+  <h2>R</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.html#manim_ml.list_group.ListGroup.remove">remove() (manim_ml.list_group.ListGroup method)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.list_group.ListGroup.remove_at_index">remove_at_index() (manim_ml.list_group.ListGroup method)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.list_group.ListGroup.remove_at_indices">remove_at_indices() (manim_ml.list_group.ListGroup method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.InsertLayer.remove_connective_layer_animation">remove_connective_layer_animation() (manim_ml.neural_network.neural_network_transformations.InsertLayer method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.remove_gaussian_distribution">remove_gaussian_distribution() (manim_ml.neural_network.layers.embedding.EmbeddingLayer method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network.NeuralNetwork.remove_layer">remove_layer() (manim_ml.neural_network.neural_network.NeuralNetwork method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network_transformations.RemoveLayer">RemoveLayer (class in manim_ml.neural_network.neural_network_transformations)</a>
+</li>
+        <li><a href="manim_ml.html#manim_ml.list_group.ListGroup.replace">replace() (manim_ml.list_group.ListGroup method)</a>
+</li>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network.NeuralNetwork.replace_layer">replace_layer() (manim_ml.neural_network.neural_network.NeuralNetwork method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="S" class="genindex-section">
+  <h2>S</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.sample_point_location_from_distribution">sample_point_location_from_distribution() (manim_ml.neural_network.layers.embedding.EmbeddingLayer method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.html#manim_ml.list_group.ListGroup.set_z_index">set_z_index() (manim_ml.list_group.ListGroup method)</a>
+
+        <ul>
+          <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.neural_network.NeuralNetwork.set_z_index">(manim_ml.neural_network.neural_network.NeuralNetwork method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="T" class="genindex-section">
+  <h2>T</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer">TripletLayer (class in manim_ml.neural_network.layers.triplet)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward">TripletToFeedForward (class in manim_ml.neural_network.layers.triplet_to_feed_forward)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="V" class="genindex-section">
+  <h2>V</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.html#manim_ml.neural_network.variational_autoencoder.VariationalAutoencoder">VariationalAutoencoder (class in manim_ml.neural_network.variational_autoencoder)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.vector.VectorLayer">VectorLayer (class in manim_ml.neural_network.layers.vector)</a>
+</li>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.VGroupNeuralNetworkLayer">VGroupNeuralNetworkLayer (class in manim_ml.neural_network.layers.parent_layers)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="W" class="genindex-section">
+  <h2>W</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.width">width (manim_ml.neural_network.layers.image.ImageLayer property)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Alec Helbling
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
+</html>
