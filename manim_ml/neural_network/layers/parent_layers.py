@@ -17,7 +17,7 @@ class NeuralNetworkLayer(ABC, Group):
 
     @override_animation(Create)
     def _create_override(self):
-        pass
+        return AnimationGroup()
 
     def __repr__(self):
         return f"{type(self).__name__}"
@@ -53,6 +53,21 @@ class ConnectiveLayer(VGroupNeuralNetworkLayer):
     @abstractmethod
     def make_forward_pass_animation(self, layer_args={}, **kwargs):
         pass
+
+    @override_animation(Create)
+    def _create_override(self):
+        return super()._create_override()
+
+class BlankConnective(ConnectiveLayer):
+    """Connective layer to be used when the given pair of layers is undefined"""
+
+    def __init__(self, input_layer, output_layer, input_class=None, output_class=None, **kwargs):
+        input_class = input_layer.__class__
+        output_class = output_layer.__class__
+        super().__init__(input_layer, output_layer, input_class, output_class, **kwargs)
+
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
+        return AnimationGroup()
 
     @override_animation(Create)
     def _create_override(self):

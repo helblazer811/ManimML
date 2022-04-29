@@ -1,4 +1,4 @@
-from tempfile import _TemporaryFileWrapper
+from .convolutional_to_convolutional import ConvolutionalToConvolutional
 from .feed_forward_to_vector import FeedForwardToVector
 from .paired_query_to_feed_forward import PairedQueryToFeedForward
 from .embedding_to_feed_forward import EmbeddingToFeedForward
@@ -25,4 +25,5 @@ connective_layers_list = (
     TripletToFeedForward,
     PairedQueryToFeedForward,
     FeedForwardToVector,
+    ConvolutionalToConvolutional,
 )
