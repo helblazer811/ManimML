@@ -1,4 +1,7 @@
-from .convolutional_to_convolutional import ConvolutionalToConvolutional
+from .convolutional3d_to_convolutional3d import Convolutional3DToConvolutional3D
+from .convolutional2d_to_convolutional2d import Convolutional2DToConvolutional2D
+from .convolutional_3d import Convolutional3DLayer
+from .convolutional_2d import Convolutional2DLayer
 from .feed_forward_to_vector import FeedForwardToVector
 from .paired_query_to_feed_forward import PairedQueryToFeedForward
 from .embedding_to_feed_forward import EmbeddingToFeedForward
@@ -25,5 +28,5 @@ connective_layers_list = (
     TripletToFeedForward,
     PairedQueryToFeedForward,
     FeedForwardToVector,
-    ConvolutionalToConvolutional,
+    Convolutional3DToConvolutional3D,
 )
