@@ -1,15 +1,16 @@
+from cProfile import run
 from manim import *
-from manim_ml.neural_network.layers.convolutional import ConvolutionalLayer
+from manim_ml.neural_network.layers.convolutional_3d import Convolutional3DLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
 
-class ConvolutionalToConvolutional(ConnectiveLayer):
+class Convolutional3DToConvolutional3D(ConnectiveLayer):
     """Feed Forward to Embedding Layer"""
-    input_class = ConvolutionalLayer
-    output_class = ConvolutionalLayer
+    input_class = Convolutional3DLayer
+    output_class = Convolutional3DLayer
 
     def __init__(self, input_layer, output_layer, color=WHITE, pulse_color=RED,
                 **kwargs):
-        super().__init__(input_layer, output_layer, input_class=ConvolutionalLayer, output_class=ConvolutionalLayer,
+        super().__init__(input_layer, output_layer, input_class=Convolutional3DLayer, output_class=Convolutional3DLayer,
                         **kwargs)
         self.color = color
         self.pulse_color = pulse_color
@@ -47,12 +48,14 @@ class ConvolutionalToConvolutional(ConnectiveLayer):
                 line.copy()
                     .set_color(self.pulse_color)
                     .set_stroke(opacity=1.0), 
-                    time_width=0.5
+                    time_width=0.5,
+                    run_time=run_time
                 )
             animations.append(pulse)
         # Make animation group
         animation_group = AnimationGroup(
-            *animations
+            *animations,
+            run_time=run_time
         )
 
         return animation_group

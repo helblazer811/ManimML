@@ -29,4 +29,5 @@ connective_layers_list = (
     PairedQueryToFeedForward,
     FeedForwardToVector,
     Convolutional3DToConvolutional3D,
+    Convolutional2DToConvolutional2D,
 )

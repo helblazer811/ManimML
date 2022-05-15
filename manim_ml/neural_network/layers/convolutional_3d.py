@@ -1,9 +1,7 @@
-
 from manim import *
-from torch import _fake_quantize_learnable_per_tensor_affine
 from manim_ml.neural_network.layers.parent_layers import VGroupNeuralNetworkLayer
 
-class ConvolutionalLayer(VGroupNeuralNetworkLayer):
+class Convolutional3DLayer(VGroupNeuralNetworkLayer):
     """Handles rendering a convolutional layer for a nn"""
 
     def __init__(self, num_filters, filter_width, filter_height, filter_spacing=0.1, color=BLUE, 
@@ -83,20 +81,38 @@ class ConvolutionalLayer(VGroupNeuralNetworkLayer):
 
         return corner_lines
 
-    def make_forward_pass_animation(self, layer_args={}, **kwargs):
+    def make_forward_pass_animation(self, run_time=5, layer_args={}, **kwargs):
         """Convolution forward pass animation"""
-        animations = []
+        passing_flashes = []
         for line in self.corner_lines:
             pulse = ShowPassingFlash(
                 line.copy()
                     .set_color(self.pulse_color)
                     .set_stroke(opacity=1.0), 
-                time_width=0.5
+                time_width=0.5,
+                run_time=run_time,
+                rate_func=rate_functions.linear
             )
-            animations.append(pulse)
+            passing_flashes.append(pulse)
+
+        per_filter_run_time = run_time / len(self.rectangles)
+        filter_flashes = []
+        for filter in self.rectangles:
+            single_flash = Succession(
+                ApplyMethod(filter.set_color, self.pulse_color, run_time=per_filter_run_time/4),
+                Wait(per_filter_run_time/2),
+                ApplyMethod(filter.set_color, self.color, run_time=per_filter_run_time/4),
+                ApplyMethod(filter.set_stroke_color, WHITE, run_time=0.0)
+            )
+            filter_flashes.append(single_flash)
+
+        filter_flashes = Succession(
+            *filter_flashes,
+        )
         # Make animation group
         animation_group = AnimationGroup(
-            *animations
+            *passing_flashes,
+            filter_flashes
         )
 
         return animation_group

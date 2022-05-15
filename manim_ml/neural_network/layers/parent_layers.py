@@ -51,7 +51,7 @@ class ConnectiveLayer(VGroupNeuralNetworkLayer):
         assert isinstance(output_layer, self.output_class)
 
     @abstractmethod
-    def make_forward_pass_animation(self, layer_args={}, **kwargs):
+    def make_forward_pass_animation(self, run_time=2.0, layer_args={}, **kwargs):
         pass
 
     @override_animation(Create)
@@ -66,8 +66,8 @@ class BlankConnective(ConnectiveLayer):
         output_class = output_layer.__class__
         super().__init__(input_layer, output_layer, input_class, output_class, **kwargs)
 
-    def make_forward_pass_animation(self, layer_args={}, **kwargs):
-        return AnimationGroup()
+    def make_forward_pass_animation(self, run_time=1.5, layer_args={}, **kwargs):
+        return AnimationGroup(run_time=run_time)
 
     @override_animation(Create)
     def _create_override(self):
