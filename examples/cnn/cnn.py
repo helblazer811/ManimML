@@ -1,19 +1,23 @@
+from pathlib import Path
+
 from manim import *
 from PIL import Image
 
-from manim_ml.neural_network.layers.convolutional import ConvolutionalLayer
+from manim_ml.neural_network.layers import Convolutional3DLayer
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.image import ImageLayer
 from manim_ml.neural_network.neural_network import NeuralNetwork
+
+ROOT_DIR = Path(__file__).parents[2]
 
 def make_code_snippet():
     code_str = """
         # Make nn
         nn = NeuralNetwork([
             ImageLayer(numpy_image),
-            ConvolutionalLayer(3, 3, 3),
-            ConvolutionalLayer(5, 2, 2),
-            ConvolutionalLayer(10, 2, 1),
+            Convolutional3DLayer(3, 3, 3),
+            Convolutional3DLayer(5, 2, 2),
+            Convolutional3DLayer(10, 2, 1),
             FeedForwardLayer(3),
             FeedForwardLayer(1)
         ], layer_spacing=0.2)
@@ -46,14 +50,14 @@ config.frame_width = 12.0
 
 class CombinedScene(ThreeDScene, Scene):
     def construct(self):
-        image = Image.open('../../assets/mnist/digit.jpeg')
+        image = Image.open(ROOT_DIR / 'assets/mnist/digit.jpeg')
         numpy_image = np.asarray(image)
         # Make nn
         nn = NeuralNetwork([
             ImageLayer(numpy_image, height=3.5),
-            ConvolutionalLayer(3, 3, 3, filter_spacing=0.2),
-            ConvolutionalLayer(5, 2, 2, filter_spacing=0.2),
-            ConvolutionalLayer(10, 2, 1, filter_spacing=0.2),
+            Convolutional3DLayer(3, 3, 3, filter_spacing=0.2),
+            Convolutional3DLayer(5, 2, 2, filter_spacing=0.2),
+            Convolutional3DLayer(10, 2, 1, filter_spacing=0.2),
             FeedForwardLayer(3, rectangle_stroke_width=4, node_stroke_width=4).scale(2),
             FeedForwardLayer(1, rectangle_stroke_width=4, node_stroke_width=4).scale(2)
         ], layer_spacing=0.2)

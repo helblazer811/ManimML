@@ -1,13 +1,17 @@
 
 """Visualization of VAE Interpolation"""
-import sys
-import os
-sys.path.append(os.environ["PROJECT_ROOT"])
+from pathlib import Path
+
 from manim import *
-import pickle
 import numpy as np
-import manim_ml.neural_network as neural_network
-import examples.variational_autoencoder.variational_autoencoder as variational_autoencoder
+from PIL import Image
+from manim_ml.neural_network.layers import EmbeddingLayer
+from manim_ml.neural_network.layers import FeedForwardLayer
+from manim_ml.neural_network.layers import ImageLayer
+from manim_ml.neural_network.neural_network import NeuralNetwork
+
+ROOT_DIR = Path(__file__).parents[2]
+
 
 """
     The VAE Scene for the twitter video. 
@@ -24,7 +28,17 @@ class InterpolationScene(MovingCameraScene):
 
     def construct(self):
         # Set Scene config
-        vae = variational_autoencoder.VariationalAutoencoder(dot_radius=0.035, layer_spacing=0.5)
+        numpy_image = np.asarray(Image.open(ROOT_DIR / 'assets/mnist/digit.jpeg'))
+        vae = NeuralNetwork([
+            ImageLayer(numpy_image, height=1.4),
+            FeedForwardLayer(5),
+            FeedForwardLayer(3),
+            EmbeddingLayer(dist_theme="ellipse").scale(2),
+            FeedForwardLayer(3),
+            FeedForwardLayer(5),
+            ImageLayer(numpy_image, height=1.4),
+        ])
+
         vae.move_to(ORIGIN)
         vae.encoder.shift(LEFT*0.5)
         vae.decoder.shift(RIGHT*0.5)
