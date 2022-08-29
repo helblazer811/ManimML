@@ -1,4 +1,6 @@
 import random
+from pathlib import Path
+
 from PIL import Image
 from manim import *
 from manim_ml.neural_network.layers.embedding import EmbeddingLayer
@@ -7,6 +9,8 @@ from manim_ml.neural_network.layers.image import ImageLayer
 from manim_ml.neural_network.layers.vector import VectorLayer
 
 from manim_ml.neural_network.neural_network import NeuralNetwork
+
+ROOT_DIR = Path(__file__).parents[2]
 
 config.pixel_height = 1080
 config.pixel_width = 1080
@@ -25,7 +29,7 @@ class GAN(Mobject):
     def make_entities(self, image_height=1.2):
         """Makes all of the network entities"""
         # Make the fake image layer
-        default_image = Image.open('../../assets/gan/fake_image.png')
+        default_image = Image.open(ROOT_DIR / 'assets/gan/fake_image.png')
         numpy_image = np.asarray(default_image)
         self.fake_image_layer = ImageLayer(numpy_image, height=image_height, show_image_on_create=False) 
         # Make the Generator Network
@@ -45,7 +49,7 @@ class GAN(Mobject):
         ], layer_spacing=0.1)
         self.add(self.discriminator)
         # Make Ground Truth Dataset
-        default_image = Image.open('../../assets/gan/real_image.jpg')
+        default_image = Image.open(ROOT_DIR / 'assets/gan/real_image.jpg')
         numpy_image = np.asarray(default_image)
         self.ground_truth_layer = ImageLayer(numpy_image, height=image_height)
         self.add(self.ground_truth_layer)
