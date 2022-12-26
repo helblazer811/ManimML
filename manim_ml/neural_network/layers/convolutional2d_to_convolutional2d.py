@@ -1,6 +1,6 @@
 from cv2 import line
 from manim import *
-from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
+from manim_ml.neural_network.layers.convolutional2d import Convolutional2DLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
 
 class Convolutional2DToConvolutional2D(ConnectiveLayer):

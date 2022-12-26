@@ -14,16 +14,18 @@ import textwrap
 from manim_ml.neural_network.layers.embedding import EmbeddingLayer
 
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
-from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
+from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeDLayer
 from manim_ml.neural_network.layers.util import get_connective_layer
 from manim_ml.list_group import ListGroup
 from manim_ml.neural_network.neural_network_transformations import InsertLayer, RemoveLayer
 
 class NeuralNetwork(Group):
+    """Neural Network Visualization Container Class"""
 
     def __init__(self, input_layers, edge_color=WHITE, layer_spacing=0.2,
                     animation_dot_color=RED, edge_width=2.5, dot_radius=0.03,
-                    title=" "):
+                    title=" ", camera=None, camera_phi=-70 * DEGREES, 
+                    camera_theta=-80 * DEGREES):
         super(Group, self).__init__()
         self.input_layers = ListGroup(*input_layers)
         self.edge_width = edge_width
@@ -33,6 +35,11 @@ class NeuralNetwork(Group):
         self.dot_radius = dot_radius
         self.title_text = title
         self.created = False
+        self.camera = camera
+        # Set the camera orientation for 3D Layers
+        if not self.camera is None:
+            self.camera.set_phi(camera_phi)
+            self.camera.set_theta(camera_theta)
         # TODO take layer_node_count [0, (1, 2), 0] 
         # and make it have explicit distinct subspaces
         self._place_layers()
@@ -59,7 +66,8 @@ class NeuralNetwork(Group):
             current_layer = self.input_layers[layer_index]
             current_layer.move_to(previous_layer)
             # TODO Temp fix
-            if isinstance(current_layer, EmbeddingLayer) or isinstance(previous_layer, EmbeddingLayer):
+            if isinstance(current_layer, EmbeddingLayer) \
+                or isinstance(previous_layer, EmbeddingLayer):
                 shift_vector = np.array([(previous_layer.get_width()/2 + current_layer.get_width()/2 - 0.2), 0, 0]) 
             else:
                 shift_vector = np.array([(previous_layer.get_width()/2 + current_layer.get_width()/2) + self.layer_spacing, 0, 0])
@@ -71,6 +79,11 @@ class NeuralNetwork(Group):
         all_layers = ListGroup()
         for layer_index in range(len(self.input_layers) - 1):
             current_layer = self.input_layers[layer_index]
+            # Make the layer fixed in frame if its not 3D
+            if not isinstance(current_layer, ThreeDLayer):
+                self.camera.add_fixed_orientation_mobjects(current_layer)
+                self.camera.add_fixed_in_frame_mobjects(current_layer)
+            # Add the layer to the list of layers
             all_layers.add(current_layer)
             next_layer = self.input_layers[layer_index + 1]
             # Check if layer is actually a nested NeuralNetwork
@@ -83,7 +96,16 @@ class NeuralNetwork(Group):
             # Find connective layer with correct layer pair
             connective_layer = get_connective_layer(current_layer, next_layer)
             connective_layers.add(connective_layer)
+            # Make the layer fixed in frame if its not 3D
+            if not isinstance(current_layer, ThreeDLayer):
+                self.camera.add_fixed_orientation_mobjects(connective_layer)
+                self.camera.add_fixed_in_frame_mobjects(connective_layer)
+            # Add the layer to the list of layers
             all_layers.add(connective_layer)
+        # Check if final layer is a 3D layer
+        if not isinstance(self.input_layers[-1], ThreeDLayer):
+            self.camera.add_fixed_orientation_mobjects(self.input_layers[-1])
+            self.camera.add_fixed_in_frame_mobjects(self.input_layers[-1])
         # Add final layer
         all_layers.add(self.input_layers[-1])
         # Handle layering
@@ -114,11 +136,11 @@ class NeuralNetwork(Group):
 
         return animation_group
 
-    def make_forward_pass_animation(self, run_time=10, passing_flash=True, layer_args={},
+    def make_forward_pass_animation(self, run_time=None, passing_flash=True, layer_args={},
                                     **kwargs):
         """Generates an animation for feed forward propagation"""
         all_animations = []
-        per_layer_runtime = run_time/len(self.all_layers)
+        per_layer_runtime = run_time / len(self.all_layers) if not run_time is None else None
         for layer_index, layer in enumerate(self.all_layers):
             # Get the layer args
             if isinstance(layer, ConnectiveLayer):
@@ -148,7 +170,6 @@ class NeuralNetwork(Group):
         # Make the animation group
         animation_group = Succession(
             *all_animations, 
-            run_time=run_time, 
             lag_ratio=1.0
         )
 

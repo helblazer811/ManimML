@@ -35,6 +35,12 @@ class VGroupNeuralNetworkLayer(NeuralNetworkLayer):
     def _create_override(self):
         return super()._create_override()
 
+class ThreeDLayer(ABC):
+    """Abstract class for 3D layers"""
+
+    def __init__(self):
+        pass
+
 class ConnectiveLayer(VGroupNeuralNetworkLayer):
     """Forward pass animation for a given pair of layers"""
 
