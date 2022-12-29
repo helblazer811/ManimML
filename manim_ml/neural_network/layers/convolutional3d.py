@@ -40,7 +40,7 @@ class Convolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     def construct_feature_maps(self):
         """Creates the neural network layer"""
         # Draw rectangles that are filled in with opacity
-        feature_maps = VGroup()
+        feature_maps = []
         for filter_index in range(self.num_feature_maps):
             rectangle = GriddedRectangle(
                 color=self.color, 
@@ -54,19 +54,13 @@ class Convolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
                 # grid_ystep=self.cell_width,
                 # grid_stroke_width=DEFAULT_STROKE_WIDTH/2
             )
+            # Move the feature map
             rectangle.move_to(
                 [0, 0, filter_index * self.filter_spacing]
             )
-            # Rotate about z axis
-            """
-            rectangle.rotate_about_origin(
-                90 * DEGREES, 
-                np.array([0, 1, 0])
-            ) 
-            """
-            feature_maps.add(rectangle)
-        
-        return feature_maps
+            feature_maps.append(rectangle)
+
+        return VGroup(*feature_maps)
 
     def make_forward_pass_animation(
             self, 
@@ -79,6 +73,7 @@ class Convolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         # Note: most of this animation is done in the Convolution3DToConvolution3D layer
         print(f"Corner pulses: {corner_pulses}")
         if corner_pulses:
+            raise NotImplementedError()
             passing_flashes = []
             for line in self.corner_lines:
                 pulse = ShowPassingFlash(

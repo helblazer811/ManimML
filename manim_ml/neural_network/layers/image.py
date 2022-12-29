@@ -43,7 +43,7 @@ class ImageLayer(NeuralNetworkLayer):
             return AnimationGroup()
 
     def make_forward_pass_animation(self, layer_args={}, **kwargs):
-        return FadeIn(self.image_mobject)
+        return AnimationGroup()
     
     # def move_to(self, location):
     #     """Override of move to"""

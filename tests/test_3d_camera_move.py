@@ -19,26 +19,28 @@ class CombinedScene(ThreeDScene):
         # Make nn
         nn = NeuralNetwork(
             [
-                ImageLayer(numpy_image, height=1.4),
-                Convolutional3DLayer(1, 7, 7, 3, 3, filter_spacing=0.2),
-                Convolutional3DLayer(3, 5, 5, 3, 3, filter_spacing=0.2),
-                Convolutional3DLayer(5, 3, 3, 1, 1, filter_spacing=0.2),
-                FeedForwardLayer(3, rectangle_stroke_width=4, node_stroke_width=4),
-                FeedForwardLayer(3, rectangle_stroke_width=4, node_stroke_width=4),
+                ImageLayer(numpy_image, height=2.0),
+                Convolutional3DLayer(1, 7, 7, 3, 3, filter_spacing=0.32),
+                Convolutional3DLayer(3, 5, 5, 3, 3, filter_spacing=0.32),
+                Convolutional3DLayer(5, 3, 3, 1, 1, filter_spacing=0.18),
+                FeedForwardLayer(3),
+                FeedForwardLayer(3),
             ], 
-            layer_spacing=0.5,
+            layer_spacing=0.25,
             # camera=self.camera
         )
         # Center the nn
-        self.add(nn)
+        # self.add(nn)
         nn.move_to(ORIGIN)
+        self.play(
+            FadeIn(nn)
+        )
         # Play animation
         forward_pass = nn.make_forward_pass_animation(
             corner_pulses=False,
-            layer_args={
-                "all_filters_at_once": True
-            }
+            all_filters_at_once=True
         )
+        self.wait(1)
         self.play(
             forward_pass
         ) 
