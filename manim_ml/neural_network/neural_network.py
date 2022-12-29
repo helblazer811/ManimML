@@ -9,10 +9,10 @@ Example:
     # Create the object with default style settings
     NeuralNetwork(layer_node_count)
 """
-from manim import *
 import textwrap
-from manim_ml.neural_network.layers.embedding import EmbeddingLayer
+from manim import *
 
+from manim_ml.neural_network.layers.embedding import EmbeddingLayer
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeDLayer
 from manim_ml.neural_network.layers.util import get_connective_layer
@@ -24,8 +24,8 @@ class NeuralNetwork(Group):
 
     def __init__(self, input_layers, edge_color=WHITE, layer_spacing=0.2,
                     animation_dot_color=RED, edge_width=2.5, dot_radius=0.03,
-                    title=" ", camera=None, camera_phi=-70 * DEGREES, 
-                    camera_theta=-80 * DEGREES):
+                    title=" ", three_d_phi=-70 * DEGREES, 
+                    three_d_theta=-80 * DEGREES):
         super(Group, self).__init__()
         self.input_layers = ListGroup(*input_layers)
         self.edge_width = edge_width
@@ -35,17 +35,31 @@ class NeuralNetwork(Group):
         self.dot_radius = dot_radius
         self.title_text = title
         self.created = False
-        self.camera = camera
-        # Set the camera orientation for 3D Layers
-        if not self.camera is None:
-            self.camera.set_phi(camera_phi)
-            self.camera.set_theta(camera_theta)
+        # Make the layer fixed in frame if its not 3D
+        ThreeDLayer.three_d_theta = three_d_theta
+        ThreeDLayer.three_d_phi = three_d_phi
+        """
+        for layer in self.input_layers:
+            if not isinstance(layer, ThreeDLayer):
+                self.camera.add_fixed_orientation_mobjects(layer)
+                self.camera.add_fixed_in_frame_mobjects(layer)
+        """
         # TODO take layer_node_count [0, (1, 2), 0] 
         # and make it have explicit distinct subspaces
+        # Add camera to input layers
+        """
+        for input_layer in input_layers:
+            if input_layer.camera is None:
+                input_layer.camera = self.camera
+        """
+        # Place the layers
         self._place_layers()
         self.connective_layers, self.all_layers = self._construct_connective_layers()
         # Make overhead title
-        self.title = Text(self.title_text, font_size=DEFAULT_FONT_SIZE/2)
+        self.title = Text(
+            self.title_text, 
+            font_size=DEFAULT_FONT_SIZE/2
+        )
         self.title.next_to(self, UP, 1.0)
         self.add(self.title)
         # Place layers at correct z index
@@ -56,6 +70,12 @@ class NeuralNetwork(Group):
         self.add(self.all_layers)
         # Print neural network
         print(repr(self))
+        # Set the camera orientation for 3D Layers
+        """
+        if not self.camera is None and isinstance(self.camera, ThreeDCamera):
+            self.camera.set_phi(camera_phi)
+            self.camera.set_theta(camera_theta)
+        """
 
     def _place_layers(self):
         """Creates the neural network"""
@@ -79,10 +99,6 @@ class NeuralNetwork(Group):
         all_layers = ListGroup()
         for layer_index in range(len(self.input_layers) - 1):
             current_layer = self.input_layers[layer_index]
-            # Make the layer fixed in frame if its not 3D
-            if not isinstance(current_layer, ThreeDLayer):
-                self.camera.add_fixed_orientation_mobjects(current_layer)
-                self.camera.add_fixed_in_frame_mobjects(current_layer)
             # Add the layer to the list of layers
             all_layers.add(current_layer)
             next_layer = self.input_layers[layer_index + 1]
@@ -95,17 +111,21 @@ class NeuralNetwork(Group):
                 next_layer = next_layer.all_layers[0]
             # Find connective layer with correct layer pair
             connective_layer = get_connective_layer(current_layer, next_layer)
-            connective_layers.add(connective_layer)
-            # Make the layer fixed in frame if its not 3D
-            if not isinstance(current_layer, ThreeDLayer):
+            """
+            if not isinstance(connective_layer, ThreeDLayer):
+                # Make the layer fixed in frame if its not 3D
                 self.camera.add_fixed_orientation_mobjects(connective_layer)
                 self.camera.add_fixed_in_frame_mobjects(connective_layer)
+            """
+            connective_layers.add(connective_layer)
             # Add the layer to the list of layers
             all_layers.add(connective_layer)
         # Check if final layer is a 3D layer
+        """
         if not isinstance(self.input_layers[-1], ThreeDLayer):
             self.camera.add_fixed_orientation_mobjects(self.input_layers[-1])
             self.camera.add_fixed_in_frame_mobjects(self.input_layers[-1])
+        """
         # Add final layer
         all_layers.add(self.input_layers[-1])
         # Handle layering

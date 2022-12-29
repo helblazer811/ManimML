@@ -13,9 +13,11 @@ class ImageLayer(NeuralNetworkLayer):
         self.show_image_on_create = show_image_on_create
         if len(np.shape(self.numpy_image)) == 2:
             # Assumed Grayscale
+            self.num_channels = 1
             self.image_mobject = GrayscaleImageMobject(self.numpy_image, height=height)
         elif len(np.shape(self.numpy_image)) == 3:
             # Assumed RGB
+            self.num_channels = 3
             self.image_mobject = ImageMobject(self.numpy_image).scale_to_fit_height(height)
         self.add(self.image_mobject)
 

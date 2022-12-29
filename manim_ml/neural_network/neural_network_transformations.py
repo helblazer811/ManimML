@@ -9,7 +9,7 @@ class RemoveLayer(AnimationGroup):
         Animation for removing a layer from a neural network.
 
         Note: I needed to do something strange for creating the new connective layer.
-        The issue with creating it intially is that the positions of the sides of the 
+        The issue with creating it initially is that the positions of the sides of the 
         connective layer depend upon the location of the moved layers **after** the
         move animations are performed. However, all of these animations are performed
         after the animations have been created. This means that the animation depends upon
@@ -142,7 +142,7 @@ class RemoveLayer(AnimationGroup):
             if self.anim_count == 1:
                 if not self.before_layer is None and not self.after_layer is None:
                     print(neural_network)
-                    new_connective = get_connective_layer(self.before_layer, self.after_layer)
+                    new_connective_class = get_connective_layer(self.before_layer, self.after_layer)
                     before_layer_index = neural_network.all_layers.index_of(self.before_layer) + 1
                     neural_network.all_layers.insert(before_layer_index, new_connective)
                     print(neural_network)

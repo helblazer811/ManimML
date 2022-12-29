@@ -71,3 +71,13 @@ class ListGroup(Mobject):
         """Sets z index of all values in ListGroup"""
         for item in self.items:
             item.set_z_index(z_index_value, family=True)
+
+    def __iter__(self):
+        self.current_index = -1
+        return self
+
+    def __next__(self): # Python 2: def next(self)
+        self.current_index += 1
+        if self.current_index < len(self.items):
+            return self.items[self.current_index]
+        raise StopIteration

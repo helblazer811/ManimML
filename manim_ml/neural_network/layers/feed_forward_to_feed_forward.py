@@ -1,3 +1,6 @@
+from typing import List, Union
+import numpy as np
+
 from manim import *
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
@@ -9,7 +12,7 @@ class FeedForwardToFeedForward(ConnectiveLayer):
 
     def __init__(self, input_layer, output_layer, passing_flash=True,
                 dot_radius=0.05, animation_dot_color=RED, edge_color=WHITE,
-                edge_width=1.5, **kwargs):
+                edge_width=1.5, camera=None, **kwargs):
         super().__init__(input_layer, output_layer, input_class=FeedForwardLayer, output_class=FeedForwardLayer,
                         **kwargs)
         self.passing_flash = passing_flash
@@ -49,14 +52,27 @@ class FeedForwardToFeedForward(ConnectiveLayer):
         path_animations = []
         dots = []
         for edge in self.edges:
-            dot = Dot(color=self.animation_dot_color, fill_opacity=1.0, radius=self.dot_radius)   
+            dot = Dot(
+                color=self.animation_dot_color, 
+                fill_opacity=1.0, 
+                radius=self.dot_radius
+            )   
             # Add to dots group
             dots.append(dot)
             # Make the animation
             if self.passing_flash:
-                anim = ShowPassingFlash(edge.copy().set_color(self.animation_dot_color), time_width=0.2)
+                copy_edge = edge.copy()
+                anim = ShowPassingFlash(
+                    copy_edge.set_color(self.animation_dot_color), 
+                    time_width=0.2
+                )
             else:
-                anim = MoveAlongPath(dot, edge, run_time=run_time, rate_function=sigmoid)
+                anim = MoveAlongPath(
+                    dot,
+                    edge, 
+                    run_time=run_time, 
+                    rate_function=sigmoid
+                )
             path_animations.append(anim)
 
         if not self.passing_flash:
@@ -66,6 +82,36 @@ class FeedForwardToFeedForward(ConnectiveLayer):
         path_animations = AnimationGroup(*path_animations)
 
         return path_animations
+
+    def modify_edge_colors(
+            self, 
+            colors=None, 
+            magnitudes=None, 
+            color_scheme="inferno"
+        ):
+        """Changes the colors of edges"""
+        # TODO implement
+        pass
+
+    def modify_edge_stroke_widths(self, widths):
+        """Changes the widths of the edges"""
+        assert len(widths) > 0
+        # Note: 1d-arrays are assumed to be in row major order
+        widths = np.array(widths)
+        widths = np.flatten(widths)
+        # Check thickness size
+        assert np.shape(widths)[0] == len(self.edges)
+        # Make animation
+        animations = []
+
+        for index, edge in enumerate(self.edges):
+            width = widths[index]
+            change_width = edge.animate.set_stroke_width(width)
+            animations.append(change_width)
+
+        animation_group = AnimationGroup(*animations)
+
+        return animation_group
 
     @override_animation(Create)
     def _create_override(self, **kwargs):
