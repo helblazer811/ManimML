@@ -46,6 +46,52 @@ class ImageToConvolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         animations = []
         image_mobject = self.input_layer.image_mobject
         target_feature_map = self.output_layer.feature_maps[0]
+        # Map image mobject to feature map
+        # Make rotation of image
+        x_rotation = ApplyMethod(
+            image_mobject.rotate,
+            ThreeDLayer.three_d_x_rotation,
+            [1, 0, 0], 
+            image_mobject.get_center(),
+            run_time=0.5
+        )
+        y_rotation = ApplyMethod(
+            image_mobject.rotate,
+            ThreeDLayer.three_d_y_rotation,
+            [0, 1, 0], 
+            image_mobject.get_center(),
+            run_time=0.5
+        )
+        # Set opacity
+        set_opacity = ApplyMethod(
+            image_mobject.set_opacity,
+            0.2,
+            run_time=0.5
+        )
+        # Scale the max of width or height to the 
+        # width of the feature_map
+        max_width_height = max(image_mobject.width, image_mobject.height)
+        scale_factor = target_feature_map.rectangle_width / max_width_height
+        scale_image = ApplyMethod(
+            image_mobject.scale,
+            scale_factor,
+            run_time=0.5
+        )
+        # Move the image
+        move_image = ApplyMethod(
+            image_mobject.move_to,
+            target_feature_map
+        )
+        # Compose the animations
+        animation = Succession(
+            x_rotation,
+            y_rotation,
+            scale_image,
+            set_opacity,
+            move_image,
+        )
+        return animation
+        """
         # Make the object 3D by adding it back into camera frame
         def remove_fixed_func(image_mobject):
             # self.camera.remove_fixed_orientation_mobjects(image_mobject)
@@ -71,10 +117,9 @@ class ImageToConvolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             image_mobject
         )
         animations.append(make_fixed)
-
-        return AnimationGroup()
         
         return AnimationGroup(*animations)
+        """
 
     def scale(self, scale_factor, **kwargs):
         super().scale(scale_factor, **kwargs)

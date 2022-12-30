@@ -20,6 +20,8 @@ class GriddedRectangle(VGroup):
         self.grid_stroke_opacity = grid_stroke_opacity
         self.stroke_width = stroke_width
         self.rotation_angles = [0, 0, 0]
+        self.rectangle_width = width
+        self.rectangle_height = height
         # Make rectangle
         self.rectangle = Rectangle(
             width=width, 
