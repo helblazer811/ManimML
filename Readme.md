@@ -60,6 +60,12 @@ class VariationalAutoencoderScene(Scene):
         self.play(neural_network.make_forward_pass_animation(run_time=15))
 ```
 
+### Convolutional Neural Network
+
+This is a visualization of a Convolutional Neural Network.
+
+<img src="examples/media/CNNScene.gif">
+
 ### Generative Adversarial Network
 
 This is a visualization of a Generative Adversarial Network made using ManimML. 
