@@ -1,38 +1,42 @@
 """This module is dedicated to visualizing VAE disentanglement"""
-import sys
-import os
-sys.path.append(os.environ["PROJECT_ROOT"])
+from pathlib import Path
+
 from manim import *
-from manim_ml.neural_network import NeuralNetwork
-import manim_ml.util as util
+
+from manim_ml.neural_network.layers import FeedForwardLayer
+from manim_ml.neural_network.neural_network import NeuralNetwork
 import pickle
 
-class VAEDecoder(VGroup):
-    """Just shows the VAE encoder"""
+ROOT_DIR = Path(__file__).parents[2]
 
-    def __init__(self):
-        super(VGroup, self).__init__()
-        # Setup the Neural Network
-        node_counts = [3, 5]
-        self.neural_network = NeuralNetwork(node_counts, layer_spacing=0.55)
-        self.add(self.neural_network)
 
-    def make_encoding_animation(self):
-        pass     
+def construct_image_mobject(input_image, height=2.3):
+    """Constructs an ImageMobject from a numpy grayscale image"""
+    # Convert image to rgb
+    if len(input_image.shape) == 2:
+        input_image = np.repeat(input_image, 3, axis=0)
+        input_image = np.rollaxis(input_image, 0, start=3)
+    #  Make the ImageMobject
+    image_mobject = ImageMobject(input_image, image_mode="RGB")
+    image_mobject.set_resampling_algorithm(RESAMPLING_ALGORITHMS["nearest"])
+    image_mobject.height = height
+
+    return image_mobject
 
 class DisentanglementVisualization(VGroup):
 
-    def __init__(self, model_path=os.path.join(os.environ["PROJECT_ROOT"], "examples/variational_autoencoder/autoencoder_models/saved_models/model_dim2.pth"), image_height=0.35):
+    def __init__(self, model_path=ROOT_DIR / "examples/variational_autoencoder/autoencoder_models/saved_models/model_dim2.pth", image_height=0.35):
         self.model_path = model_path
         self.image_height = image_height
         # Load disentanglement image objects
-        with open(os.path.join(os.environ["PROJECT_ROOT"], "examples/variational_autoencoder/autoencoder_models/disentanglement.pkl"), "rb") as f:
+        with open(ROOT_DIR/ "examples/variational_autoencoder/autoencoder_models/disentanglement.pkl", "rb") as f:
             self.image_handler = pickle.load(f)
+
 
     def make_disentanglement_generation_animation(self):
         animation_list = []
         for image_index, image in enumerate(self.image_handler["images"]):
-            image_mobject = util.construct_image_mobject(image, height=self.image_height)
+            image_mobject = construct_image_mobject(image, height=self.image_height)
             r, c = self.image_handler["bin_indices"][image_index]
             # Move the image to the correct location
             r_offset = -1.2
@@ -80,7 +84,11 @@ class DisentanglementScene(Scene):
 
     def construct(self):
         # Make the VAE decoder
-        vae_decoder = VAEDecoder()
+        vae_decoder =  NeuralNetwork([
+            FeedForwardLayer(3),
+            FeedForwardLayer(5),
+        ], layer_spacing=0.55)
+
         vae_decoder.shift([-0.55, 0, 0])
         self.play(Create(vae_decoder), run_time=1)
         # Make the embedding

@@ -1,6 +1,8 @@
 """
     Here is a animated explanatory figure for the "Oracle Guided Image Synthesis with Relative Queries" paper. 
 """
+from pathlib import Path
+
 from manim import *
 from manim_ml.neural_network.layers import triplet
 from manim_ml.neural_network.layers.image import ImageLayer
@@ -19,6 +21,8 @@ config.pixel_width = 1900
 config.frame_height = 6.0
 config.frame_width = 6.0
 
+ROOT_DIR = Path(__file__).parents[3]
+
 class Localizer():
     """
         Holds the localizer object, which contains the queries, images, etc.
@@ -30,8 +34,8 @@ class Localizer():
         self.index = -1
         self.axes = axes
         self.num_queries = 3
-        self.assets_path = "../../../assets/oracle_guidance"
-        self.ground_truth_image_path = os.path.join(self.assets_path, "ground_truth.jpg")
+        self.assets_path = ROOT_DIR / "assets/oracle_guidance"
+        self.ground_truth_image_path = self.assets_path  / "ground_truth.jpg"
         self.ground_truth_location = np.array([2, 3])
         # Prior distribution
         print("initial gaussian")
@@ -119,7 +123,7 @@ class OracleGuidanceVisualization(Scene):
         self.title = None
         # Set image paths
         # VAE embedding animation image paths
-        self.assets_path = "../../../assets/oracle_guidance"
+        self.assets_path = ROOT_DIR / "assets/oracle_guidance"
         self.input_embed_image_path = os.path.join(self.assets_path, "input_image.jpg")
         self.output_embed_image_path = os.path.join(self.assets_path, "output_image.jpg")
 
