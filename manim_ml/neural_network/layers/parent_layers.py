@@ -45,7 +45,7 @@ class ThreeDLayer(ABC):
     three_d_x_rotation = 90 * DEGREES #-90 * DEGREES
     three_d_y_rotation = 0 * DEGREES # -10 * DEGREES
     rotation_angle = 60 * DEGREES
-    rotation_axis = [0.1, 0.9, 0]
+    rotation_axis = [0.0, 0.9, 0.0]
 
 class ConnectiveLayer(VGroupNeuralNetworkLayer):
     """Forward pass animation for a given pair of layers"""
