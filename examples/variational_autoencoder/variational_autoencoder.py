@@ -148,7 +148,7 @@ class VariationalAutoencoder(VGroup):
 
         return animation_group
         
-    def make_forward_pass_animation(self, image_pair, run_time=1.5):
+    def make_forward_pass_animation(self, image_pair, run_time=1.5, **kwargs):
         """Overriden forward pass animation specific to a VAE"""
         per_unit_runtime = run_time
         # Setup images
