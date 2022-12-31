@@ -48,6 +48,14 @@ class ImageToConvolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         target_feature_map = self.output_layer.feature_maps[0]
         # Map image mobject to feature map
         # Make rotation of image
+        rotation = ApplyMethod(
+            image_mobject.rotate,
+            ThreeDLayer.rotation_angle,
+            ThreeDLayer.rotation_axis,
+            image_mobject.get_center(),
+            run_time=0.5
+        )
+        """
         x_rotation = ApplyMethod(
             image_mobject.rotate,
             ThreeDLayer.three_d_x_rotation,
@@ -62,6 +70,7 @@ class ImageToConvolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             image_mobject.get_center(),
             run_time=0.5
         )
+        """
         # Set opacity
         set_opacity = ApplyMethod(
             image_mobject.set_opacity,
@@ -84,43 +93,13 @@ class ImageToConvolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         )
         # Compose the animations
         animation = Succession(
-            x_rotation,
-            y_rotation,
+            rotation,
             scale_image,
             set_opacity,
             move_image,
         )
         return animation
-        """
-        # Make the object 3D by adding it back into camera frame
-        def remove_fixed_func(image_mobject):
-            # self.camera.remove_fixed_orientation_mobjects(image_mobject)
-            # self.camera.remove_fixed_in_frame_mobjects(image_mobject)
-            return image_mobject
-
-        remove_fixed = ApplyFunction(
-            remove_fixed_func,
-            image_mobject
-        )
-        animations.append(remove_fixed)
-        # Make a transformation of the image_mobject to the first feature map
-        input_to_feature_map_transformation = Transform(image_mobject, target_feature_map)
-        animations.append(input_to_feature_map_transformation)
-        # Make the object fixed in 2D again
-        def make_fixed_func(image_mobject):
-            # self.camera.add_fixed_orientation_mobjects(image_mobject)
-            # self.camera.add_fixed_in_frame_mobjects(image_mobject)
-            return image_mobject
-            
-        make_fixed = ApplyFunction(
-            make_fixed_func,
-            image_mobject
-        )
-        animations.append(make_fixed)
         
-        return AnimationGroup(*animations)
-        """
-
     def scale(self, scale_factor, **kwargs):
         super().scale(scale_factor, **kwargs)
 

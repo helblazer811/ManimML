@@ -1,3 +1,4 @@
+from manim_ml.neural_network.layers.convolutional_3d_to_feed_forward import Convolutional3DToFeedForward
 from manim_ml.neural_network.layers.image_to_convolutional3d import ImageToConvolutional3DLayer
 from .convolutional3d_to_convolutional3d import Convolutional3DToConvolutional3D
 from .convolutional2d_to_convolutional2d import Convolutional2DToConvolutional2D
@@ -32,4 +33,5 @@ connective_layers_list = (
     Convolutional3DToConvolutional3D,
     Convolutional2DToConvolutional2D,
     ImageToConvolutional3DLayer,
+    Convolutional3DToFeedForward
 )

@@ -62,8 +62,7 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer):
 
     def make_filter_propagation_animation(self):
         """Make filter propagation animation"""
-        old_z_index = self.filter_lines.z_index
-        lines_copy = self.filter_lines.copy().set_color(ORANGE).set_z_index(old_z_index + 1)
+        lines_copy = self.filter_lines.copy().set_color(ORANGE)
         animation_group = AnimationGroup(
             Create(lines_copy, lag_ratio=0.0),
             # FadeOut(self.filter_lines),
