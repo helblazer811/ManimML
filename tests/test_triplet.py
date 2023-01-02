@@ -8,22 +8,22 @@ config.pixel_width = 1280
 config.frame_height = 6.0
 config.frame_width = 6.0
 
-class TripletScene(Scene):
 
+class TripletScene(Scene):
     def construct(self):
         anchor_path = "../assets/triplet/anchor.jpg"
         positive_path = "../assets/triplet/positive.jpg"
         negative_path = "../assets/triplet/negative.jpg"
-        
-        triplet_layer = TripletLayer.from_paths(anchor_path, positive_path, negative_path, grayscale=False)
+
+        triplet_layer = TripletLayer.from_paths(
+            anchor_path, positive_path, negative_path, grayscale=False
+        )
 
         triplet_layer.scale(0.08)
 
-        neural_network = NeuralNetwork([
-            triplet_layer, 
-            FeedForwardLayer(5),
-            FeedForwardLayer(3)
-        ])
+        neural_network = NeuralNetwork(
+            [triplet_layer, FeedForwardLayer(5), FeedForwardLayer(3)]
+        )
 
         neural_network.scale(1)
 

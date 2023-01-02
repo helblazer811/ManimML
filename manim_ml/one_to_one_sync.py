@@ -6,5 +6,6 @@
     views of the same concept and visualize them at the same time. 
 """
 
-class OneToOneSync():
+
+class OneToOneSync:
     pass

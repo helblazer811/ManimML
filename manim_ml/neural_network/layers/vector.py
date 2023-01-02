@@ -3,11 +3,11 @@ import random
 
 from manim_ml.neural_network.layers.parent_layers import VGroupNeuralNetworkLayer
 
+
 class VectorLayer(VGroupNeuralNetworkLayer):
     """Shows a vector"""
 
-    def __init__(self, num_values, value_func=lambda: random.uniform(0, 1),
-                **kwargs):
+    def __init__(self, num_values, value_func=lambda: random.uniform(0, 1), **kwargs):
         super().__init__(**kwargs)
         self.num_values = num_values
         self.value_func = value_func
@@ -30,7 +30,7 @@ class VectorLayer(VGroupNeuralNetworkLayer):
 
     def make_forward_pass_animation(self, layer_args={}, **kwargs):
         return AnimationGroup()
-        
+
     @override_animation(Create)
     def _create_override(self):
         """Create animation"""

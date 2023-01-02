@@ -2,13 +2,14 @@ from manim import *
 import numpy as np
 from PIL import Image
 
+
 class GrayscaleImageMobject(ImageMobject):
     """Mobject for creating images in Manim from numpy arrays"""
 
     def __init__(self, numpy_image, height=2.3):
         self.numpy_image = numpy_image
 
-        assert len(np.shape(self.numpy_image)) == 2 
+        assert len(np.shape(self.numpy_image)) == 2
         input_image = self.numpy_image[None, :, :]
         # Convert grayscale to rgb version of grayscale
         input_image = np.repeat(input_image, 3, axis=0)
@@ -31,11 +32,13 @@ class GrayscaleImageMobject(ImageMobject):
     def create(self, run_time=2):
         return FadeIn(self)
 
+
 class LabeledColorImage(Group):
     """Labeled Color Image"""
 
-    def __init__(self, image, color=RED, label="Positive", stroke_width=5,
-                font_size=24, buff=0.2):
+    def __init__(
+        self, image, color=RED, label="Positive", stroke_width=5, font_size=24, buff=0.2
+    ):
         super().__init__()
         self.image = image
         self.color = color
@@ -46,10 +49,7 @@ class LabeledColorImage(Group):
         text = Text(label, font_size=self.font_size)
         text.next_to(self.image, UP, buff=buff)
         rectangle = SurroundingRectangle(
-            self.image, 
-            color=color,
-            buff=0.0,
-            stroke_width=self.stroke_width
+            self.image, color=color, buff=0.0, stroke_width=self.stroke_width
         )
 
         self.add(text)

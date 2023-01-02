@@ -3,15 +3,28 @@ from manim_ml.neural_network.layers.embedding import EmbeddingLayer
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
 
+
 class FeedForwardToEmbedding(ConnectiveLayer):
     """Feed Forward to Embedding Layer"""
+
     input_class = FeedForwardLayer
     output_class = EmbeddingLayer
 
-    def __init__(self, input_layer, output_layer, animation_dot_color=RED, dot_radius=0.03,
-                **kwargs):
-        super().__init__(input_layer, output_layer, input_class=FeedForwardLayer, output_class=EmbeddingLayer,
-                        **kwargs)
+    def __init__(
+        self,
+        input_layer,
+        output_layer,
+        animation_dot_color=RED,
+        dot_radius=0.03,
+        **kwargs
+    ):
+        super().__init__(
+            input_layer,
+            output_layer,
+            input_class=FeedForwardLayer,
+            output_class=EmbeddingLayer,
+            **kwargs
+        )
         self.feed_forward_layer = input_layer
         self.embedding_layer = output_layer
         self.animation_dot_color = animation_dot_color
@@ -27,7 +40,11 @@ class FeedForwardToEmbedding(ConnectiveLayer):
         # Move the dots to the centers of each of the nodes in the FeedForwardLayer
         dots = []
         for node in self.feed_forward_layer.node_group:
-            new_dot = Dot(node.get_center(), radius=self.dot_radius, color=self.animation_dot_color)
+            new_dot = Dot(
+                node.get_center(),
+                radius=self.dot_radius,
+                color=self.animation_dot_color,
+            )
             per_node_succession = Succession(
                 Create(new_dot),
                 new_dot.animate.move_to(location),
@@ -50,4 +67,3 @@ class FeedForwardToEmbedding(ConnectiveLayer):
     @override_animation(Create)
     def _create_override(self, **kwargs):
         return AnimationGroup()
-

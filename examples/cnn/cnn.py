@@ -15,6 +15,7 @@ config.frame_height = 7.0
 config.frame_width = 7.0
 ROOT_DIR = Path(__file__).parents[2]
 
+
 def make_code_snippet():
     code_str = """
         # Make nn
@@ -31,32 +32,34 @@ def make_code_snippet():
     """
 
     code = Code(
-        code = code_str, 
+        code=code_str,
         tab_width=4,
         background_stroke_width=1,
         background_stroke_color=WHITE,
         insert_line_no=False,
-        style='monokai',
-        #background="window",
+        style="monokai",
+        # background="window",
         language="py",
     )
     code.scale(0.50)
 
     return code
 
+
 class CombinedScene(ThreeDScene):
     def construct(self):
-        image = Image.open(ROOT_DIR / 'assets/mnist/digit.jpeg')
+        image = Image.open(ROOT_DIR / "assets/mnist/digit.jpeg")
         numpy_image = np.asarray(image)
         # Make nn
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 ImageLayer(numpy_image, height=1.5),
                 Convolutional3DLayer(1, 7, 7, 3, 3, filter_spacing=0.32),
                 Convolutional3DLayer(3, 5, 5, 3, 3, filter_spacing=0.32),
                 Convolutional3DLayer(5, 3, 3, 1, 1, filter_spacing=0.18),
                 FeedForwardLayer(3),
                 FeedForwardLayer(3),
-            ], 
+            ],
             layer_spacing=0.25,
         )
         # Center the nn
@@ -71,10 +74,7 @@ class CombinedScene(ThreeDScene):
         group.move_to(ORIGIN)
         # Play animation
         forward_pass = nn.make_forward_pass_animation(
-            corner_pulses=False,
-            all_filters_at_once=False
+            corner_pulses=False, all_filters_at_once=False
         )
         self.wait(1)
-        self.play(
-           forward_pass
-        ) 
+        self.play(forward_pass)

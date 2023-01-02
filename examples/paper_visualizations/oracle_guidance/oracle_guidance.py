@@ -23,19 +23,20 @@ config.frame_width = 6.0
 
 ROOT_DIR = Path(__file__).parents[3]
 
-class Localizer():
+
+class Localizer:
     """
-        Holds the localizer object, which contains the queries, images, etc.
-        needed to represent a localization run. 
+    Holds the localizer object, which contains the queries, images, etc.
+    needed to represent a localization run.
     """
-    
+
     def __init__(self, axes):
-        # Set dummy values for these 
+        # Set dummy values for these
         self.index = -1
         self.axes = axes
         self.num_queries = 3
         self.assets_path = ROOT_DIR / "assets/oracle_guidance"
-        self.ground_truth_image_path = self.assets_path  / "ground_truth.jpg"
+        self.ground_truth_image_path = self.assets_path / "ground_truth.jpg"
         self.ground_truth_location = np.array([2, 3])
         # Prior distribution
         print("initial gaussian")
@@ -45,52 +46,61 @@ class Localizer():
             cov=np.array([[3, 0], [0, 3]]),
             dist_theme="ellipse",
             color=GREEN,
-        ) 
+        )
         # Define the query images and embedded locations
         # Contains image paths [(positive_path, negative_path), ...]
         self.query_image_paths = [
-            (os.path.join(self.assets_path, "positive_1.jpg"), os.path.join(self.assets_path, "negative_1.jpg")),
-            (os.path.join(self.assets_path, "positive_2.jpg"), os.path.join(self.assets_path, "negative_2.jpg")),
-            (os.path.join(self.assets_path, "positive_3.jpg"), os.path.join(self.assets_path, "negative_3.jpg")),
-        ] 
+            (
+                os.path.join(self.assets_path, "positive_1.jpg"),
+                os.path.join(self.assets_path, "negative_1.jpg"),
+            ),
+            (
+                os.path.join(self.assets_path, "positive_2.jpg"),
+                os.path.join(self.assets_path, "negative_2.jpg"),
+            ),
+            (
+                os.path.join(self.assets_path, "positive_3.jpg"),
+                os.path.join(self.assets_path, "negative_3.jpg"),
+            ),
+        ]
         # Contains 2D locations for each image [([2, 3], [2, 4]), ...]
         self.query_locations = [
             (np.array([-1, -1]), np.array([1, 1])),
-            (np.array([1, -1]), np.array([-1, 1])), 
+            (np.array([1, -1]), np.array([-1, 1])),
             (np.array([0.3, -0.6]), np.array([-0.5, 0.7])),
-        ] 
+        ]
         # Make the covariances for each query
         self.query_covariances = [
             (np.array([[0.3, 0], [0.0, 0.2]]), np.array([[0.2, 0], [0.0, 0.2]])),
-            (np.array([[0.2, 0], [0.0, 0.2]]), np.array([[0.2, 0], [0.0, 0.2]])), 
             (np.array([[0.2, 0], [0.0, 0.2]]), np.array([[0.2, 0], [0.0, 0.2]])),
-        ] 
+            (np.array([[0.2, 0], [0.0, 0.2]]), np.array([[0.2, 0], [0.0, 0.2]])),
+        ]
         # Posterior distributions over time GaussianDistribution objects
         self.posterior_distributions = [
             GaussianDistribution(
-                self.axes, 
-                dist_theme="ellipse", 
+                self.axes,
+                dist_theme="ellipse",
                 color=GREEN,
                 mean=np.array([-0.3, -0.3]),
-                cov=np.array([[5, -4], [-4, 6]])
+                cov=np.array([[5, -4], [-4, 6]]),
             ).scale(0.6),
             GaussianDistribution(
-                self.axes, 
-                dist_theme="ellipse", 
+                self.axes,
+                dist_theme="ellipse",
                 color=GREEN,
                 mean=np.array([0.25, -0.25]),
-                cov=np.array([[3, -2], [-2, 4]])
+                cov=np.array([[3, -2], [-2, 4]]),
             ).scale(0.35),
             GaussianDistribution(
-                self.axes, 
-                dist_theme="ellipse", 
+                self.axes,
+                dist_theme="ellipse",
                 color=GREEN,
                 mean=np.array([0.4, -0.35]),
-                cov=np.array([[1, 0], [0, 1]])
+                cov=np.array([[1, 0], [0, 1]]),
             ).scale(0.3),
         ]
         # Some assumptions
-        assert len(self.query_locations) == len(self.query_image_paths) 
+        assert len(self.query_locations) == len(self.query_image_paths)
         assert len(self.query_locations) == len(self.posterior_distributions)
 
     def __iter__(self):
@@ -105,16 +115,16 @@ class Localizer():
 
         # Return query_paths, query_locations, posterior
         out_tuple = (
-            self.query_image_paths[self.index], 
-            self.query_locations[self.index], 
+            self.query_image_paths[self.index],
+            self.query_locations[self.index],
             self.posterior_distributions[self.index],
-            self.query_covariances[self.index]
+            self.query_covariances[self.index],
         )
 
         return out_tuple
 
-class OracleGuidanceVisualization(Scene):
 
+class OracleGuidanceVisualization(Scene):
     def __init__(self):
         super().__init__()
         self.neural_network, self.embedding_layer = self.make_vae()
@@ -125,36 +135,37 @@ class OracleGuidanceVisualization(Scene):
         # VAE embedding animation image paths
         self.assets_path = ROOT_DIR / "assets/oracle_guidance"
         self.input_embed_image_path = os.path.join(self.assets_path, "input_image.jpg")
-        self.output_embed_image_path = os.path.join(self.assets_path, "output_image.jpg")
+        self.output_embed_image_path = os.path.join(
+            self.assets_path, "output_image.jpg"
+        )
 
     def make_vae(self):
         """Makes a simple VAE architecture"""
         embedding_layer = EmbeddingLayer(dist_theme="ellipse")
-        self.encoder = NeuralNetwork([
-            FeedForwardLayer(5),
-            FeedForwardLayer(3),
-            embedding_layer,
-        ])
+        self.encoder = NeuralNetwork(
+            [
+                FeedForwardLayer(5),
+                FeedForwardLayer(3),
+                embedding_layer,
+            ]
+        )
 
-        self.decoder = NeuralNetwork([
-            FeedForwardLayer(3), 
-            FeedForwardLayer(5),
-        ])
+        self.decoder = NeuralNetwork(
+            [
+                FeedForwardLayer(3),
+                FeedForwardLayer(5),
+            ]
+        )
 
-        neural_network = NeuralNetwork([
-            self.encoder, 
-            self.decoder
-        ])
+        neural_network = NeuralNetwork([self.encoder, self.decoder])
 
-        neural_network.shift(DOWN*0.4)
+        neural_network.shift(DOWN * 0.4)
         return neural_network, embedding_layer
 
     @override_animation(Create)
     def _create_animation(self):
-        animation_group = AnimationGroup(
-            Create(self.neural_network)
-        )
-        
+        animation_group = AnimationGroup(Create(self.neural_network))
+
         return animation_group
 
     def insert_at_start(self, layer, create=True):
@@ -168,20 +179,14 @@ class OracleGuidanceVisualization(Scene):
         self.encoder.all_layers.insert(1, connective_layer)
         # Move layers to the correct location
         # TODO: Fix this cause its hacky
-        layer.shift(DOWN*0.4)
-        layer.shift(LEFT*2.35)
+        layer.shift(DOWN * 0.4)
+        layer.shift(LEFT * 2.35)
         # Make insert animation
         if not create:
-            animation_group = AnimationGroup(
-                Create(connective_layer)
-            )
+            animation_group = AnimationGroup(Create(connective_layer))
         else:
-            animation_group = AnimationGroup(
-                Create(layer),
-                Create(connective_layer)
-            )
+            animation_group = AnimationGroup(Create(layer), Create(connective_layer))
         self.play(animation_group)
-        
 
     def remove_start_layer(self):
         """Removes the first layer of the network"""
@@ -189,8 +194,7 @@ class OracleGuidanceVisualization(Scene):
         first_connective = self.encoder.all_layers.remove_at_index(0)
         # Make remove animations
         animation_group = AnimationGroup(
-            FadeOut(first_layer),
-            FadeOut(first_connective)
+            FadeOut(first_layer), FadeOut(first_connective)
         )
 
         self.play(animation_group)
@@ -205,13 +209,10 @@ class OracleGuidanceVisualization(Scene):
         self.decoder.all_layers.add(layer)
         # Move layers to the correct location
         # TODO: Fix this cause its hacky
-        layer.shift(DOWN*0.4)
-        layer.shift(RIGHT*2.35)
+        layer.shift(DOWN * 0.4)
+        layer.shift(RIGHT * 2.35)
         # Make insert animation
-        animation_group = AnimationGroup(
-            Create(layer),
-            Create(connective_layer)
-        )
+        animation_group = AnimationGroup(Create(layer), Create(connective_layer))
         self.play(animation_group)
 
     def remove_end_layer(self):
@@ -220,8 +221,7 @@ class OracleGuidanceVisualization(Scene):
         first_connective = self.decoder.all_layers.remove_at_index(-1)
         # Make remove animations
         animation_group = AnimationGroup(
-            FadeOut(first_layer),
-            FadeOut(first_connective)
+            FadeOut(first_layer), FadeOut(first_connective)
         )
 
         self.play(animation_group)
@@ -271,19 +271,18 @@ class OracleGuidanceVisualization(Scene):
         self.encoder.all_layers.insert(1, connective_layer)
         # Move layers to the correct location
         # TODO: Fix this cause its hacky
-        input_image_layer.shift(DOWN*0.4)
-        input_image_layer.shift(LEFT*2.35)
+        input_image_layer.shift(DOWN * 0.4)
+        input_image_layer.shift(LEFT * 2.35)
         # Play full forward pass
         forward_pass = self.neural_network.make_forward_pass_animation(
-            layer_args=
-            {
+            layer_args={
                 self.encoder: {
                     self.embedding_layer: {
                         "dist_args": {
                             "cov": np.array([[1.5, 0], [0, 1.5]]),
                             "mean": np.array([0.5, 0.5]),
                             "dist_theme": "ellipse",
-                            "color": ORANGE
+                            "color": ORANGE,
                         }
                     }
                 }
@@ -302,14 +301,14 @@ class OracleGuidanceVisualization(Scene):
 
     def make_localization_time_step(self, old_posterior):
         """
-            Performs one query update for the localization procedure
-            
-            Procedure:
-            a. Embed query input images
-            b. Oracle is asked a query
-            c. Query is embedded
-            d. Show posterior update
-            e. Show current recomendation
+        Performs one query update for the localization procedure
+
+        Procedure:
+        a. Embed query input images
+        b. Oracle is asked a query
+        c. Query is embedded
+        d. Show posterior update
+        e. Show current recomendation
         """
         # Helper functions
         def embed_query_to_latent_space(query_locations, query_covariance):
@@ -331,41 +330,42 @@ class OracleGuidanceVisualization(Scene):
                             "cov": query_covariance[0],
                             "mean": query_locations[0],
                             "dist_theme": "ellipse",
-                            "color": BLUE
+                            "color": BLUE,
                         },
                         "negative_dist_args": {
                             "cov": query_covariance[1],
                             "mean": query_locations[1],
                             "dist_theme": "ellipse",
-                            "color": RED
-                        }
+                            "color": RED,
+                        },
                     }
-                } 
+                },
             )
             self.play(embed_query_animation)
 
         # Access localizer information
-        query_paths, query_locations, posterior_distribution, query_covariances = next(self.localizer)
+        query_paths, query_locations, posterior_distribution, query_covariances = next(
+            self.localizer
+        )
         positive_path, negative_path = query_paths
         # Make subtitle for present user with query
         self.change_subtitle("2. Present User with Query")
         # Insert the layer into the encoder
-        query_layer = PairedQueryLayer.from_paths(positive_path, negative_path, grayscale=False)
+        query_layer = PairedQueryLayer.from_paths(
+            positive_path, negative_path, grayscale=False
+        )
         query_layer.scale(0.5)
         self.insert_at_start(query_layer)
         # Embed query to latent space
         query_to_latent_space_animation = embed_query_to_latent_space(
-            query_locations,
-            query_covariances
+            query_locations, query_covariances
         )
         # Wait
         self.play(Wait(1))
         # Update the posterior
         self.change_subtitle("4. Update the Posterior")
         # Remove the old posterior
-        self.play(
-            ReplacementTransform(old_posterior, posterior_distribution)
-        )
+        self.play(ReplacementTransform(old_posterior, posterior_distribution))
         """
         self.play(
             self.embedding_layer.remove_gaussian_distribution(self.localizer.posterior_distribution)
@@ -376,12 +376,12 @@ class OracleGuidanceVisualization(Scene):
         # Remove query layer
         self.remove_start_layer()
         # Remove query ellipses
-        
+
         fade_outs = []
         for dist in self.embedding_layer.gaussian_distributions:
             self.embedding_layer.gaussian_distributions.remove(dist)
             fade_outs.append(FadeOut(dist))
-        
+
         if not len(fade_outs) == 0:
             fade_outs = AnimationGroup(*fade_outs)
             self.play(fade_outs)
@@ -408,14 +408,21 @@ class OracleGuidanceVisualization(Scene):
         # Remove the image at the end
         print(self.neural_network)
         self.remove_end_layer()
-        
+
     def make_triplet_forward_animation(self):
         """Make triplet forward animation"""
         # Make triplet layer
         anchor_path = os.path.join(self.assets_path, "anchor.jpg")
         positive_path = os.path.join(self.assets_path, "positive.jpg")
         negative_path = os.path.join(self.assets_path, "negative.jpg")
-        triplet_layer = TripletLayer.from_paths(anchor_path, positive_path, negative_path, grayscale=False, font_size=100, buff=1.05)
+        triplet_layer = TripletLayer.from_paths(
+            anchor_path,
+            positive_path,
+            negative_path,
+            grayscale=False,
+            font_size=100,
+            buff=1.05,
+        )
         triplet_layer.scale(0.10)
         self.insert_at_start(triplet_layer)
         # Make latent triplet animation
@@ -428,35 +435,35 @@ class OracleGuidanceVisualization(Scene):
                                 "cov": np.array([[0.3, 0], [0, 0.3]]),
                                 "mean": np.array([0.7, 1.4]),
                                 "dist_theme": "ellipse",
-                                "color": BLUE
+                                "color": BLUE,
                             },
                             "positive_dist": {
                                 "cov": np.array([[0.2, 0], [0, 0.2]]),
                                 "mean": np.array([0.8, -0.4]),
                                 "dist_theme": "ellipse",
-                                "color": GREEN
+                                "color": GREEN,
                             },
                             "negative_dist": {
                                 "cov": np.array([[0.4, 0], [0, 0.25]]),
                                 "mean": np.array([-1, -1.2]),
                                 "dist_theme": "ellipse",
-                                "color": RED
-                            }
+                                "color": RED,
+                            },
                         }
                     }
                 },
-                run_time=3
+                run_time=3,
             )
         )
 
     def construct(self):
         """
-            Makes the whole visualization.
+        Makes the whole visualization.
 
-            1. Create the Architecture
-                a. Create the traditional VAE architecture with images
-            2. The Localization Procedure
-            3. The Training Procedure
+        1. Create the Architecture
+            a. Create the traditional VAE architecture with images
+        2. The Localization Procedure
+        3. The Training Procedure
         """
         # 1. Create the Architecture
         self.neural_network.scale(1.2)
@@ -482,7 +489,7 @@ class OracleGuidanceVisualization(Scene):
             self.play(Wait(1))
             if not query_index == self.localizer.num_queries - 1:
                 # Repeat
-                self.change_subtitle("5. Repeat") 
+                self.change_subtitle("5. Repeat")
                 # Wait a second
                 self.play(Wait(1))
         # Generate final estimate
@@ -499,8 +506,7 @@ class OracleGuidanceVisualization(Scene):
         # Do an Image forward pass
         self.change_subtitle("1. Unsupervised Image Reconstruction")
         self.make_embed_input_image_animation(
-            self.input_embed_image_path, 
-            self.output_embed_image_path
+            self.input_embed_image_path, self.output_embed_image_path
         )
         self.wait(1)
         # Do triplet forward pass

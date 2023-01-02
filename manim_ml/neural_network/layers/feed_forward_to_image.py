@@ -3,18 +3,31 @@ from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.image import ImageLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
 
+
 class FeedForwardToImage(ConnectiveLayer):
     """Image Layer to FeedForward layer"""
+
     input_class = FeedForwardLayer
     output_class = ImageLayer
 
-    def __init__(self, input_layer, output_layer, animation_dot_color=RED,
-                dot_radius=0.05, **kwargs):
-        super().__init__(input_layer, output_layer, input_class=FeedForwardLayer, output_class=ImageLayer,
-                        **kwargs)
+    def __init__(
+        self,
+        input_layer,
+        output_layer,
+        animation_dot_color=RED,
+        dot_radius=0.05,
+        **kwargs
+    ):
+        super().__init__(
+            input_layer,
+            output_layer,
+            input_class=FeedForwardLayer,
+            output_class=ImageLayer,
+            **kwargs
+        )
         self.animation_dot_color = animation_dot_color
         self.dot_radius = dot_radius
-        
+
         self.feed_forward_layer = input_layer
         self.image_layer = output_layer
 
@@ -23,9 +36,13 @@ class FeedForwardToImage(ConnectiveLayer):
         animations = []
         image_mobject = self.image_layer.image_mobject
         # Move the dots to the centers of each of the nodes in the FeedForwardLayer
-        image_location  = image_mobject.get_center()
+        image_location = image_mobject.get_center()
         for node in self.feed_forward_layer.node_group:
-            new_dot = Dot(node.get_center(), radius=self.dot_radius, color=self.animation_dot_color)
+            new_dot = Dot(
+                node.get_center(),
+                radius=self.dot_radius,
+                color=self.animation_dot_color,
+            )
             per_node_succession = Succession(
                 Create(new_dot),
                 new_dot.animate.move_to(image_location),

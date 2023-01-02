@@ -2,6 +2,7 @@ import manim.utils.opengl as opengl
 from manim import *
 from manim.opengl import *  # type: ignore
 
+
 class InlineShaderExample(Scene):
     def construct(self):
         config["background_color"] = "#333333"

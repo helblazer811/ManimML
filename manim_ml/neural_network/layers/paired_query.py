@@ -3,11 +3,13 @@ from manim_ml.neural_network.layers.parent_layers import NeuralNetworkLayer
 from manim_ml.image import GrayscaleImageMobject, LabeledColorImage
 import numpy as np
 
+
 class PairedQueryLayer(NeuralNetworkLayer):
     """Paired Query Layer"""
 
-    def __init__(self, positive, negative, stroke_width=5, font_size=18, 
-                spacing=0.5, **kwargs):
+    def __init__(
+        self, positive, negative, stroke_width=5, font_size=18, spacing=0.5, **kwargs
+    ):
         super().__init__(**kwargs)
         self.positive = positive
         self.negative = negative
@@ -19,7 +21,7 @@ class PairedQueryLayer(NeuralNetworkLayer):
         self.assets = self.make_assets()
         self.add(self.assets)
         self.add(self.title)
-    
+
     @classmethod
     def from_paths(cls, positive_path, negative_path, grayscale=True, **kwargs):
         """Creates a query using the paths"""
@@ -37,23 +39,23 @@ class PairedQueryLayer(NeuralNetworkLayer):
 
     def make_assets(self):
         """
-            Constructs the assets needed for a query layer
+        Constructs the assets needed for a query layer
         """
         # Handle positive
         positive_group = LabeledColorImage(
-            self.positive, 
+            self.positive,
             color=BLUE,
             label="Positive",
             font_size=self.font_size,
-            stroke_width=self.stroke_width
+            stroke_width=self.stroke_width,
         )
         # Handle negative
         negative_group = LabeledColorImage(
-            self.negative, 
+            self.negative,
             color=RED,
-            label="Negative", 
+            label="Negative",
             font_size=self.font_size,
-            stroke_width=self.stroke_width
+            stroke_width=self.stroke_width,
         )
         # Distribute the groups uniformly vertically
         assets = Group(positive_group, negative_group)

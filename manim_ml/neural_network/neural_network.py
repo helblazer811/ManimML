@@ -17,15 +17,27 @@ from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeDLayer
 from manim_ml.neural_network.layers.util import get_connective_layer
 from manim_ml.list_group import ListGroup
-from manim_ml.neural_network.neural_network_transformations import InsertLayer, RemoveLayer
+from manim_ml.neural_network.neural_network_transformations import (
+    InsertLayer,
+    RemoveLayer,
+)
+
 
 class NeuralNetwork(Group):
     """Neural Network Visualization Container Class"""
 
-    def __init__(self, input_layers, edge_color=WHITE, layer_spacing=0.2,
-                    animation_dot_color=RED, edge_width=2.5, dot_radius=0.03,
-                    title=" ", three_d_phi=-70 * DEGREES, 
-                    three_d_theta=-80 * DEGREES):
+    def __init__(
+        self,
+        input_layers,
+        edge_color=WHITE,
+        layer_spacing=0.2,
+        animation_dot_color=RED,
+        edge_width=2.5,
+        dot_radius=0.03,
+        title=" ",
+        three_d_phi=-70 * DEGREES,
+        three_d_theta=-80 * DEGREES,
+    ):
         super(Group, self).__init__()
         self.input_layers = ListGroup(*input_layers)
         self.edge_width = edge_width
@@ -44,7 +56,7 @@ class NeuralNetwork(Group):
                 self.camera.add_fixed_orientation_mobjects(layer)
                 self.camera.add_fixed_in_frame_mobjects(layer)
         """
-        # TODO take layer_node_count [0, (1, 2), 0] 
+        # TODO take layer_node_count [0, (1, 2), 0]
         # and make it have explicit distinct subspaces
         # Add camera to input layers
         """
@@ -56,10 +68,7 @@ class NeuralNetwork(Group):
         self._place_layers()
         self.connective_layers, self.all_layers = self._construct_connective_layers()
         # Make overhead title
-        self.title = Text(
-            self.title_text, 
-            font_size=DEFAULT_FONT_SIZE/2
-        )
+        self.title = Text(self.title_text, font_size=DEFAULT_FONT_SIZE / 2)
         self.title.next_to(self, UP, 1.0)
         self.add(self.title)
         # Place layers at correct z index
@@ -86,11 +95,29 @@ class NeuralNetwork(Group):
             current_layer = self.input_layers[layer_index]
             current_layer.move_to(previous_layer)
             # TODO Temp fix
-            if isinstance(current_layer, EmbeddingLayer) \
-                or isinstance(previous_layer, EmbeddingLayer):
-                shift_vector = np.array([(previous_layer.get_width()/2 + current_layer.get_width()/2 - 0.2), 0, 0]) 
+            if isinstance(current_layer, EmbeddingLayer) or isinstance(
+                previous_layer, EmbeddingLayer
+            ):
+                shift_vector = np.array(
+                    [
+                        (
+                            previous_layer.get_width() / 2
+                            + current_layer.get_width() / 2
+                            - 0.2
+                        ),
+                        0,
+                        0,
+                    ]
+                )
             else:
-                shift_vector = np.array([(previous_layer.get_width()/2 + current_layer.get_width()/2) + self.layer_spacing, 0, 0])
+                shift_vector = np.array(
+                    [
+                        (previous_layer.get_width() / 2 + current_layer.get_width() / 2)
+                        + self.layer_spacing,
+                        0,
+                        0,
+                    ]
+                )
             current_layer.shift(shift_vector)
 
     def _construct_connective_layers(self):
@@ -149,24 +176,25 @@ class NeuralNetwork(Group):
         insert_animation = self.insert_layer(layer, insert_index)
         # Make the animation
         animation_group = AnimationGroup(
-            FadeOut(self.all_layers[insert_index]),
-            FadeIn(layer),
-            lag_ratio=1.0
+            FadeOut(self.all_layers[insert_index]), FadeIn(layer), lag_ratio=1.0
         )
 
         return animation_group
 
-    def make_forward_pass_animation(self, run_time=None, passing_flash=True, layer_args={},
-                                    **kwargs):
+    def make_forward_pass_animation(
+        self, run_time=None, passing_flash=True, layer_args={}, **kwargs
+    ):
         """Generates an animation for feed forward propagation"""
         all_animations = []
-        per_layer_runtime = run_time / len(self.all_layers) if not run_time is None else None
+        per_layer_runtime = (
+            run_time / len(self.all_layers) if not run_time is None else None
+        )
         for layer_index, layer in enumerate(self.all_layers):
             # Get the layer args
             if isinstance(layer, ConnectiveLayer):
                 """
-                    NOTE: By default a connective layer will get the combined
-                    layer_args of the layers it is connecting.
+                NOTE: By default a connective layer will get the combined
+                layer_args of the layers it is connecting.
                 """
                 before_layer_args = {}
                 after_layer_args = {}
@@ -182,16 +210,11 @@ class NeuralNetwork(Group):
                     current_layer_args = layer_args[layer]
             # Perform the forward pass of the current layer
             layer_forward_pass = layer.make_forward_pass_animation(
-                layer_args=current_layer_args, 
-                run_time=per_layer_runtime, 
-                **kwargs
+                layer_args=current_layer_args, run_time=per_layer_runtime, **kwargs
             )
             all_animations.append(layer_forward_pass)
         # Make the animation group
-        animation_group = Succession(
-            *all_animations, 
-            lag_ratio=1.0
-        )
+        animation_group = Succession(*all_animations, lag_ratio=1.0)
 
         return animation_group
 
@@ -212,14 +235,11 @@ class NeuralNetwork(Group):
             # Make titles
             create_title = Create(layer.title)
             # Create layer animation group
-            animation_group = AnimationGroup(
-                layer_animation, 
-                create_title
-            )
+            animation_group = AnimationGroup(layer_animation, create_title)
             animations.append(animation_group)
 
         animation_group = AnimationGroup(*animations, lag_ratio=1.0)
-        
+
         return animation_group
 
     def set_z_index(self, z_index_value: float, family=False):
@@ -240,7 +260,7 @@ class NeuralNetwork(Group):
         inner_string = ""
         for layer in self.all_layers:
             inner_string += f"{repr(layer)} ("
-            for key in metadata: 
+            for key in metadata:
                 value = getattr(layer, key)
                 if not value is "":
                     inner_string += f"{key}={value}, "
@@ -250,15 +270,17 @@ class NeuralNetwork(Group):
         string_repr = "NeuralNetwork([\n" + inner_string + "])"
         return string_repr
 
+
 class FeedForwardNeuralNetwork(NeuralNetwork):
     """NeuralNetwork with just feed forward layers"""
 
-    def __init__(self, layer_node_count, node_radius=0.08, 
-                node_color=BLUE, **kwargs):
+    def __init__(self, layer_node_count, node_radius=0.08, node_color=BLUE, **kwargs):
         # construct layers
         layers = []
         for num_nodes in layer_node_count:
-            layer = FeedForwardLayer(num_nodes, node_color=node_color, node_radius=node_radius)
+            layer = FeedForwardLayer(
+                num_nodes, node_color=node_color, node_radius=node_radius
+            )
             layers.append(layer)
         # call super class
         super().__init__(layers, **kwargs)

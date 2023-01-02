@@ -1,7 +1,7 @@
 from manim import *
 
-class LazyAnimation(Animation):
 
+class LazyAnimation(Animation):
     def __init__(self, animation_function):
         self.animation_function = animation_function
         super.__init__()

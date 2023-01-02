@@ -9,8 +9,8 @@ config.pixel_width = 720
 config.frame_height = 6.0
 config.frame_width = 6.0
 
-class VAECodeSnippetScene(Scene):
 
+class VAECodeSnippetScene(Scene):
     def make_code_snippet(self):
         code_str = """
             # Make Neural Network
@@ -28,33 +28,38 @@ class VAECodeSnippetScene(Scene):
         """
 
         code = Code(
-            code = code_str, 
+            code=code_str,
             tab_width=4,
             background_stroke_width=1,
             # background_stroke_color=WHITE,
             insert_line_no=False,
             background="window",
             # font="Monospace",
-            style='one-dark',
+            style="one-dark",
             language="py",
         )
 
         return code
 
     def construct(self):
-        image = Image.open('../../tests/images/image.jpeg')
+        image = Image.open("../../tests/images/image.jpeg")
         numpy_image = np.asarray(image)
-        embedding_layer = EmbeddingLayer(dist_theme="ellipse", point_radius=0.04).scale(1.0)
+        embedding_layer = EmbeddingLayer(dist_theme="ellipse", point_radius=0.04).scale(
+            1.0
+        )
         # Make nn
-        nn = NeuralNetwork([
-            ImageLayer(numpy_image, height=1.2),
-            FeedForwardLayer(5),
-            FeedForwardLayer(3),
-            embedding_layer,
-            FeedForwardLayer(3),
-            FeedForwardLayer(5),
-            ImageLayer(numpy_image, height=1.2),
-        ], layer_spacing=0.1)
+        nn = NeuralNetwork(
+            [
+                ImageLayer(numpy_image, height=1.2),
+                FeedForwardLayer(5),
+                FeedForwardLayer(3),
+                embedding_layer,
+                FeedForwardLayer(3),
+                FeedForwardLayer(5),
+                ImageLayer(numpy_image, height=1.2),
+            ],
+            layer_spacing=0.1,
+        )
 
         nn.scale(1.1)
         # Center the nn
@@ -73,13 +78,11 @@ class VAECodeSnippetScene(Scene):
         # code_snippet.shift([-1.25, 0, 0])
         self.add(code_snippet)
         # Play animation
-        self.play(
-            nn.make_forward_pass_animation(),
-            run_time=10
-        )
-        
+        self.play(nn.make_forward_pass_animation(), run_time=10)
+
+
 if __name__ == "__main__":
     """Render all scenes"""
-    # Neural Network 
+    # Neural Network
     nn_scene = VAECodeSnippetScene()
     nn_scene.render()

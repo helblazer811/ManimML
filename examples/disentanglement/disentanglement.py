@@ -23,15 +23,23 @@ def construct_image_mobject(input_image, height=2.3):
 
     return image_mobject
 
-class DisentanglementVisualization(VGroup):
 
-    def __init__(self, model_path=ROOT_DIR / "examples/variational_autoencoder/autoencoder_models/saved_models/model_dim2.pth", image_height=0.35):
+class DisentanglementVisualization(VGroup):
+    def __init__(
+        self,
+        model_path=ROOT_DIR
+        / "examples/variational_autoencoder/autoencoder_models/saved_models/model_dim2.pth",
+        image_height=0.35,
+    ):
         self.model_path = model_path
         self.image_height = image_height
         # Load disentanglement image objects
-        with open(ROOT_DIR/ "examples/variational_autoencoder/autoencoder_models/disentanglement.pkl", "rb") as f:
+        with open(
+            ROOT_DIR
+            / "examples/variational_autoencoder/autoencoder_models/disentanglement.pkl",
+            "rb",
+        ) as f:
             self.image_handler = pickle.load(f)
-
 
     def make_disentanglement_generation_animation(self):
         animation_list = []
@@ -41,17 +49,23 @@ class DisentanglementVisualization(VGroup):
             # Move the image to the correct location
             r_offset = -1.2
             c_offset = 0.25
-            image_location = [c_offset + c*self.image_height, r_offset + r*self.image_height, 0]
+            image_location = [
+                c_offset + c * self.image_height,
+                r_offset + r * self.image_height,
+                0,
+            ]
             image_mobject.move_to(image_location)
             animation_list.append(FadeIn(image_mobject))
 
         generation_animation = AnimationGroup(*animation_list[::-1], lag_ratio=1.0)
         return generation_animation
 
+
 config.pixel_height = 720
 config.pixel_width = 1280
 config.frame_height = 5.0
 config.frame_width = 5.0
+
 
 class DisentanglementScene(Scene):
     """Disentanglement Scene Object"""
@@ -76,7 +90,7 @@ class DisentanglementScene(Scene):
         self.point_dots = VGroup()
         for point in points:
             point_location = embedding.axes.coords_to_point(*point)
-            dot = Dot(point_location, color=point_color, radius=dot_radius/2) 
+            dot = Dot(point_location, color=point_color, radius=dot_radius / 2)
             self.point_dots.add(dot)
 
         embedding.add(self.point_dots)
@@ -84,10 +98,13 @@ class DisentanglementScene(Scene):
 
     def construct(self):
         # Make the VAE decoder
-        vae_decoder =  NeuralNetwork([
-            FeedForwardLayer(3),
-            FeedForwardLayer(5),
-        ], layer_spacing=0.55)
+        vae_decoder = NeuralNetwork(
+            [
+                FeedForwardLayer(3),
+                FeedForwardLayer(5),
+            ],
+            layer_spacing=0.55,
+        )
 
         vae_decoder.shift([-0.55, 0, 0])
         self.play(Create(vae_decoder), run_time=1)
@@ -99,6 +116,8 @@ class DisentanglementScene(Scene):
         self.play(Create(embedding))
         # Make disentanglment visualization
         disentanglement = DisentanglementVisualization()
-        disentanglement_animation = disentanglement.make_disentanglement_generation_animation()
+        disentanglement_animation = (
+            disentanglement.make_disentanglement_generation_animation()
+        )
         self.play(disentanglement_animation, run_time=3)
         self.play(Wait(2))

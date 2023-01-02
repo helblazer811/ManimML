@@ -1,16 +1,14 @@
 from manim import *
 from abc import ABC, abstractmethod
 
+
 class NeuralNetworkLayer(ABC, Group):
     """Abstract Neural Network Layer class"""
 
     def __init__(self, text=None, *args, **kwargs):
         super(Group, self).__init__()
         self.title_text = kwargs["title"] if "title" in kwargs else " "
-        self.title = Text(
-            self.title_text, 
-            font_size=DEFAULT_FONT_SIZE/3
-        ).scale(0.6)
+        self.title = Text(self.title_text, font_size=DEFAULT_FONT_SIZE / 3).scale(0.6)
         self.title.next_to(self, UP, 1.2)
         # self.add(self.title)
 
@@ -25,27 +23,30 @@ class NeuralNetworkLayer(ABC, Group):
     def __repr__(self):
         return f"{type(self).__name__}"
 
-class VGroupNeuralNetworkLayer(NeuralNetworkLayer):
 
+class VGroupNeuralNetworkLayer(NeuralNetworkLayer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # self.camera = camera
 
     @abstractmethod
     def make_forward_pass_animation(self, **kwargs):
-        pass 
+        pass
 
     @override_animation(Create)
     def _create_override(self):
         return super()._create_override()
 
+
 class ThreeDLayer(ABC):
     """Abstract class for 3D layers"""
+
     # Angle of ThreeD layers is static context
-    three_d_x_rotation = 90 * DEGREES #-90 * DEGREES
-    three_d_y_rotation = 0 * DEGREES # -10 * DEGREES
+    three_d_x_rotation = 90 * DEGREES  # -90 * DEGREES
+    three_d_y_rotation = 0 * DEGREES  # -10 * DEGREES
     rotation_angle = 60 * DEGREES
     rotation_axis = [0.0, 0.9, 0.0]
+
 
 class ConnectiveLayer(VGroupNeuralNetworkLayer):
     """Forward pass animation for a given pair of layers"""
@@ -66,6 +67,7 @@ class ConnectiveLayer(VGroupNeuralNetworkLayer):
     @override_animation(Create)
     def _create_override(self):
         return super()._create_override()
+
 
 class BlankConnective(ConnectiveLayer):
     """Connective layer to be used when the given pair of layers is undefined"""

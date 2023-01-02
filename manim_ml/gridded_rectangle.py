@@ -1,14 +1,27 @@
 from manim import *
 import numpy as np
 
+
 class GriddedRectangle(VGroup):
     """Rectangle object with grid lines"""
 
-    def __init__(self, color=ORANGE, height=2.0, width=4.0, 
-                mark_paths_closed=True, close_new_points=True,
-                grid_xstep=None, grid_ystep=None, grid_stroke_width=0.0, #DEFAULT_STROKE_WIDTH/2, 
-                grid_stroke_color=ORANGE, grid_stroke_opacity=1.0,
-                stroke_width=2.0, fill_opacity=0.2, show_grid_lines=False, **kwargs):
+    def __init__(
+        self,
+        color=ORANGE,
+        height=2.0,
+        width=4.0,
+        mark_paths_closed=True,
+        close_new_points=True,
+        grid_xstep=None,
+        grid_ystep=None,
+        grid_stroke_width=0.0,  # DEFAULT_STROKE_WIDTH/2,
+        grid_stroke_color=ORANGE,
+        grid_stroke_opacity=1.0,
+        stroke_width=2.0,
+        fill_opacity=0.2,
+        show_grid_lines=False,
+        **kwargs
+    ):
         super().__init__()
         # Fields
         self.mark_paths_closed = mark_paths_closed
@@ -25,8 +38,8 @@ class GriddedRectangle(VGroup):
         self.show_grid_lines = show_grid_lines
         # Make rectangle
         self.rectangle = Rectangle(
-            width=width, 
-            height=height, 
+            width=width,
+            height=height,
             color=color,
             stroke_width=stroke_width,
             fill_color=color,
@@ -44,29 +57,21 @@ class GriddedRectangle(VGroup):
         """Make corners dictionary"""
         corners_dict = {
             "top_right": Dot(
-                self.rectangle.get_corner([1, 1, 0]),
-                fill_opacity=0.0,
-                radius=0.0
+                self.rectangle.get_corner([1, 1, 0]), fill_opacity=0.0, radius=0.0
             ),
             "top_left": Dot(
-                self.rectangle.get_corner([-1, 1, 0]),
-                fill_opacity=0.0,
-                radius=0.0
+                self.rectangle.get_corner([-1, 1, 0]), fill_opacity=0.0, radius=0.0
             ),
             "bottom_left": Dot(
-                self.rectangle.get_corner([-1, -1, 0]),
-                fill_opacity=0.0,
-                radius=0.0
+                self.rectangle.get_corner([-1, -1, 0]), fill_opacity=0.0, radius=0.0
             ),
             "bottom_right": Dot(
-                self.rectangle.get_corner([1, -1, 0]),
-                fill_opacity=0.0,
-                radius=0.0
+                self.rectangle.get_corner([1, -1, 0]), fill_opacity=0.0, radius=0.0
             ),
         }
 
         return corners_dict
-        
+
     def get_corners_dict(self):
         """Returns a dictionary of the corners"""
         # Sort points through clockwise rotation of a vector in the xy plane
@@ -87,13 +92,13 @@ class GriddedRectangle(VGroup):
                         v[1] + i * grid_xstep * RIGHT + self.height * DOWN,
                         stroke_color=self.grid_stroke_color,
                         stroke_width=self.grid_stroke_width,
-                        stroke_opacity = self.grid_stroke_opacity
+                        stroke_opacity=self.grid_stroke_opacity,
                     )
                     for i in range(1, count)
                 )
             )
             grid_lines.add(grid)
-    
+
         if self.grid_ystep is not None:
             grid_ystep = abs(self.grid_ystep)
             count = int(self.height / grid_ystep)
@@ -103,12 +108,12 @@ class GriddedRectangle(VGroup):
                         v[1] + i * grid_ystep * DOWN,
                         v[1] + i * grid_ystep * DOWN + self.width * RIGHT,
                         stroke_color=self.grid_stroke_color,
-                        stroke_width = self.grid_stroke_width,
-                        stroke_opacity = self.grid_stroke_opacity
+                        stroke_width=self.grid_stroke_width,
+                        stroke_opacity=self.grid_stroke_opacity,
                     )
                     for i in range(1, count)
                 )
-            ) 
+            )
             grid_lines.add(grid)
 
         return grid_lines

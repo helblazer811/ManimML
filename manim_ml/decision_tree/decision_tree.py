@@ -5,19 +5,26 @@
 from manim import *
 from manim_ml.one_to_one_sync import OneToOneSync
 
+
 class LeafNode(VGroup):
     pass
+
 
 class NonLeafNode(VGroup):
     pass
 
+
 class DecisionTreeDiagram(Graph):
     """Decision Tree Digram Class for Manim"""
+
     pass
 
-class DecisionTreeEmbedding():
+
+class DecisionTreeEmbedding:
     """Embedding for the decision tree"""
+
     pass
+
 
 class DecisionTreeContainer(OneToOneSync):
     """Connects the DecisionTreeDiagram to the DecisionTreeEmbedding"""

@@ -14,12 +14,12 @@ dataset = load_dataset()
 # Generate reconstructions
 num_images = 50
 image_pairs = []
-save_object = {"interpolation_path":[], "interpolation_images":[]}
+save_object = {"interpolation_path": [], "interpolation_images": []}
 
 # Make interpolation path
 image_a, image_b = dataset[0][0], dataset[1][0]
-image_a = image_a.view(32*32)
-image_b = image_b.view(32*32)
+image_a = image_a.view(32 * 32)
+image_b = image_b.view(32 * 32)
 z_a, _, _, _ = vae.forward(image_a)
 z_a = z_a.detach().cpu().numpy()
 z_b, _, _, _ = vae.forward(image_b)
@@ -29,7 +29,7 @@ interpolation_path = np.linspace(z_a, z_b, num=num_images)
 save_object["interpolation_path"] = interpolation_path
 
 for i in range(num_images):
-    # Generate 
+    # Generate
     z = torch.Tensor(interpolation_path[i]).unsqueeze(0)
     gen_image = vae.decode(z).detach().numpy()
     gen_image = np.reshape(gen_image, (32, 32)) * 255

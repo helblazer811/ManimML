@@ -8,21 +8,21 @@ config.pixel_width = 1280
 config.frame_height = 6.0
 config.frame_width = 6.0
 
-class PairedQueryScene(Scene):
 
+class PairedQueryScene(Scene):
     def construct(self):
         positive_path = "../assets/triplet/positive.jpg"
         negative_path = "../assets/triplet/negative.jpg"
-        
-        paired_layer = PairedQueryLayer.from_paths(positive_path, negative_path, grayscale=False)
+
+        paired_layer = PairedQueryLayer.from_paths(
+            positive_path, negative_path, grayscale=False
+        )
 
         paired_layer.scale(0.08)
 
-        neural_network = NeuralNetwork([
-            paired_layer, 
-            FeedForwardLayer(5),
-            FeedForwardLayer(3)
-        ])
+        neural_network = NeuralNetwork(
+            [paired_layer, FeedForwardLayer(5), FeedForwardLayer(3)]
+        )
 
         neural_network.scale(1)
 

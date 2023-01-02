@@ -1,4 +1,5 @@
-from manim import * 
+from manim import *
+
 
 class ListGroup(Mobject):
     """Indexable Group with traditional list operations"""
@@ -10,7 +11,7 @@ class ListGroup(Mobject):
     def __getitem__(self, indices):
         """Traditional list indexing"""
         return self.items[indices]
-        
+
     def insert(self, index, item):
         """Inserts item at index"""
         self.items.insert(index, item)
@@ -39,7 +40,7 @@ class ListGroup(Mobject):
         """Removes first instance of item"""
         self.items.remove(item)
         self.submobjects = self.items
-        
+
         return item
 
     def get(self, index):
@@ -76,7 +77,7 @@ class ListGroup(Mobject):
         self.current_index = -1
         return self
 
-    def __next__(self): # Python 2: def next(self)
+    def __next__(self):  # Python 2: def next(self)
         self.current_index += 1
         if self.current_index < len(self.items):
             return self.items[self.current_index]

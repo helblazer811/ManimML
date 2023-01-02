@@ -2,10 +2,13 @@ from manim import *
 import numpy as np
 import math
 
+
 class GaussianDistribution(VGroup):
     """Object for drawing a Gaussian distribution"""
 
-    def __init__(self, axes, mean=None, cov=None, dist_theme="gaussian", color=ORANGE, **kwargs):
+    def __init__(
+        self, axes, mean=None, cov=None, dist_theme="gaussian", color=ORANGE, **kwargs
+    ):
         super(VGroup, self).__init__(**kwargs)
         self.axes = axes
         self.mean = mean
@@ -18,10 +21,14 @@ class GaussianDistribution(VGroup):
             self.cov = np.array([[1, 0], [0, 1]])
         # Make the Gaussian
         if self.dist_theme is "gaussian":
-            self.ellipses = self.construct_gaussian_distribution(self.mean, self.cov, color=self.color)
+            self.ellipses = self.construct_gaussian_distribution(
+                self.mean, self.cov, color=self.color
+            )
             self.add(self.ellipses)
         elif self.dist_theme is "ellipse":
-            self.ellipses = self.construct_simple_gaussian_ellipse(self.mean, self.cov, color=self.color)
+            self.ellipses = self.construct_simple_gaussian_ellipse(
+                self.mean, self.cov, color=self.color
+            )
             self.add(self.ellipses)
         else:
             raise Exception(f"Uncrecognized distribution theme: {self.dist_theme}")
@@ -33,11 +40,10 @@ class GaussianDistribution(VGroup):
     """
 
     def compute_covariance_rotation_and_scale(self, covariance):
-
         def eigsorted(cov):
-            '''
+            """
             Eigenvalues and eigenvectors of the covariance matrix.
-            '''
+            """
             vals, vecs = np.linalg.eigh(cov)
             order = vals.argsort()[::-1]
             return vals[order], vecs[:, order]
@@ -56,13 +62,16 @@ class GaussianDistribution(VGroup):
             return width, height, theta
 
         width, height, angle = cov_ellipse(covariance, 1)
-        scale_factor = np.abs(self.axes.x_range[0] - self.axes.x_range[1]) / self.axes.x_length
+        scale_factor = (
+            np.abs(self.axes.x_range[0] - self.axes.x_range[1]) / self.axes.x_length
+        )
         width /= scale_factor
         height /= scale_factor
         return angle, width, height
 
-    def construct_gaussian_distribution(self, mean, covariance, color=ORANGE, 
-                                        num_ellipses=4):
+    def construct_gaussian_distribution(
+        self, mean, covariance, color=ORANGE, num_ellipses=4
+    ):
         """Returns a 2d Gaussian distribution object with given mean and covariance"""
         # map mean and covariance to frame coordinates
         mean = self.axes.coords_to_point(*mean)
@@ -76,11 +85,11 @@ class GaussianDistribution(VGroup):
             ellipse_width = width * (1 - opacity)
             ellipse_height = height * (1 - opacity)
             ellipse = Ellipse(
-                width=ellipse_width, 
-                height=ellipse_height, 
-                color=color, 
-                fill_opacity=opacity, 
-                stroke_width=0.0
+                width=ellipse_width,
+                height=ellipse_height,
+                color=color,
+                fill_opacity=opacity,
+                stroke_width=0.0,
             )
             ellipse.move_to(mean)
             ellipse.rotate(rotation)
@@ -97,11 +106,11 @@ class GaussianDistribution(VGroup):
         ellipses = VGroup()
         opacity = 0.4
         ellipse = Ellipse(
-            width=width, 
-            height=height, 
-            color=color, 
-            fill_opacity=opacity, 
-            stroke_width=1.0
+            width=width,
+            height=height,
+            color=color,
+            fill_opacity=opacity,
+            stroke_width=1.0,
         )
         ellipse.move_to(mean)
         ellipse.rotate(angle)

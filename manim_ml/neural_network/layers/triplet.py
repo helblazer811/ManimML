@@ -3,11 +3,20 @@ from manim_ml.neural_network.layers import NeuralNetworkLayer
 from manim_ml.image import GrayscaleImageMobject, LabeledColorImage
 import numpy as np
 
+
 class TripletLayer(NeuralNetworkLayer):
     """Shows triplet images"""
 
-    def __init__(self, anchor, positive, negative, stroke_width=5,
-                font_size=22, buff=0.2, **kwargs):
+    def __init__(
+        self,
+        anchor,
+        positive,
+        negative,
+        stroke_width=5,
+        font_size=22,
+        buff=0.2,
+        **kwargs
+    ):
         super().__init__(**kwargs)
         self.anchor = anchor
         self.positive = positive
@@ -19,10 +28,17 @@ class TripletLayer(NeuralNetworkLayer):
         # Make the assets
         self.assets = self.make_assets()
         self.add(self.assets)
-    
+
     @classmethod
-    def from_paths(cls, anchor_path, positive_path, negative_path, grayscale=True,
-                    font_size=22, buff=0.2):
+    def from_paths(
+        cls,
+        anchor_path,
+        positive_path,
+        negative_path,
+        grayscale=True,
+        font_size=22,
+        buff=0.2,
+    ):
         """Creates a triplet using the anchor paths"""
         # Load images from path
         if grayscale:
@@ -40,34 +56,34 @@ class TripletLayer(NeuralNetworkLayer):
 
     def make_assets(self):
         """
-            Constructs the assets needed for a triplet layer
+        Constructs the assets needed for a triplet layer
         """
         # Handle anchor
         anchor_group = LabeledColorImage(
-            self.anchor, 
+            self.anchor,
             color=WHITE,
-            label="Anchor", 
+            label="Anchor",
             stroke_width=self.stroke_width,
             font_size=self.font_size,
-            buff=self.buff
+            buff=self.buff,
         )
         # Handle positive
         positive_group = LabeledColorImage(
-            self.positive, 
+            self.positive,
             color=GREEN,
-            label="Positive", 
+            label="Positive",
             stroke_width=self.stroke_width,
             font_size=self.font_size,
-            buff=self.buff
+            buff=self.buff,
         )
         # Handle negative
         negative_group = LabeledColorImage(
-            self.negative, 
+            self.negative,
             color=RED,
-            label="Negative", 
+            label="Negative",
             stroke_width=self.stroke_width,
             font_size=self.font_size,
-            buff=self.buff
+            buff=self.buff,
         )
         # Distribute the groups uniformly vertically
         assets = Group(anchor_group, positive_group, negative_group)

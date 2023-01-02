@@ -17,9 +17,10 @@ config.pixel_width = 1080
 config.frame_height = 8.3
 config.frame_width = 8.3
 
+
 class GAN(Mobject):
     """Generative Adversarial Network"""
-    
+
     def __init__(self):
         super().__init__()
         self.make_entities()
@@ -29,27 +30,35 @@ class GAN(Mobject):
     def make_entities(self, image_height=1.2):
         """Makes all of the network entities"""
         # Make the fake image layer
-        default_image = Image.open(ROOT_DIR / 'assets/gan/fake_image.png')
+        default_image = Image.open(ROOT_DIR / "assets/gan/fake_image.png")
         numpy_image = np.asarray(default_image)
-        self.fake_image_layer = ImageLayer(numpy_image, height=image_height, show_image_on_create=False) 
+        self.fake_image_layer = ImageLayer(
+            numpy_image, height=image_height, show_image_on_create=False
+        )
         # Make the Generator Network
-        self.generator = NeuralNetwork([
-            EmbeddingLayer(covariance=np.array([[3.0, 0], [0, 3.0]])).scale(1.3),
-            FeedForwardLayer(3),
-            FeedForwardLayer(5),
-            self.fake_image_layer
-        ], layer_spacing=0.1)
+        self.generator = NeuralNetwork(
+            [
+                EmbeddingLayer(covariance=np.array([[3.0, 0], [0, 3.0]])).scale(1.3),
+                FeedForwardLayer(3),
+                FeedForwardLayer(5),
+                self.fake_image_layer,
+            ],
+            layer_spacing=0.1,
+        )
 
         self.add(self.generator)
         # Make the Discriminator
-        self.discriminator = NeuralNetwork([
-            FeedForwardLayer(5),
-            FeedForwardLayer(1),
-            VectorLayer(1, value_func=lambda: random.uniform(0, 1)),
-        ], layer_spacing=0.1)
+        self.discriminator = NeuralNetwork(
+            [
+                FeedForwardLayer(5),
+                FeedForwardLayer(1),
+                VectorLayer(1, value_func=lambda: random.uniform(0, 1)),
+            ],
+            layer_spacing=0.1,
+        )
         self.add(self.discriminator)
         # Make Ground Truth Dataset
-        default_image = Image.open(ROOT_DIR / 'assets/gan/real_image.jpg')
+        default_image = Image.open(ROOT_DIR / "assets/gan/real_image.jpg")
         numpy_image = np.asarray(default_image)
         self.ground_truth_layer = ImageLayer(numpy_image, height=image_height)
         self.add(self.ground_truth_layer)
@@ -90,7 +99,7 @@ class GAN(Mobject):
         self.probability_title = Text("Probability").scale(0.5)
         self.probability_title.move_to(self.discriminator.input_layers[-2])
         self.probability_title.shift(UP)
-        self.probability_title.shift(RIGHT*1.05)
+        self.probability_title.shift(RIGHT * 1.05)
         titles.add(self.probability_title)
 
         return titles
@@ -99,16 +108,10 @@ class GAN(Mobject):
         """Returns animation that highlights the generators contents"""
         group = VGroup()
 
-        generator_surrounding_group = Group(
-            self.generator, 
-            self.fake_image_layer_title
-        )
+        generator_surrounding_group = Group(self.generator, self.fake_image_layer_title)
 
         generator_surrounding_rectangle = SurroundingRectangle(
-            generator_surrounding_group,
-            buff=0.1, 
-            stroke_width=4.0,
-            color="#0FFF50"
+            generator_surrounding_group, buff=0.1, stroke_width=4.0, color="#0FFF50"
         )
         group.add(generator_surrounding_rectangle)
         title = Text("Generator").scale(0.5)
@@ -124,16 +127,13 @@ class GAN(Mobject):
             self.fake_image_layer,
             self.ground_truth_layer,
             self.fake_image_layer_title,
-            self.probability_title
+            self.probability_title,
         )
 
         group = VGroup()
 
         discriminator_surrounding_rectangle = SurroundingRectangle(
-            discriminator_group,
-            buff=0.05, 
-            stroke_width=4.0,
-            color="#0FFF50"
+            discriminator_group, buff=0.05, stroke_width=4.0, color="#0FFF50"
         )
         group.add(discriminator_surrounding_rectangle)
         title = Text("Discriminator").scale(0.5)
@@ -144,7 +144,7 @@ class GAN(Mobject):
 
     def make_generator_forward_pass(self):
         """Makes forward pass of the generator"""
-        
+
         forward_pass = self.generator.make_forward_pass_animation(dist_theme="ellipse")
 
         return forward_pass
@@ -153,7 +153,7 @@ class GAN(Mobject):
         """Makes forward pass of the discriminator"""
 
         disc_forward = self.discriminator.make_forward_pass_animation()
-        
+
         return disc_forward
 
     @override_animation(Create)
@@ -163,9 +163,10 @@ class GAN(Mobject):
             Create(self.generator),
             Create(self.discriminator),
             Create(self.ground_truth_layer),
-            Create(self.titles)
+            Create(self.titles),
         )
         return animation_group
+
 
 class GANScene(Scene):
     """GAN Scene"""
@@ -173,8 +174,8 @@ class GANScene(Scene):
     def construct(self):
         gan = GAN().scale(1.70)
         gan.move_to(ORIGIN)
-        gan.shift(DOWN*0.35)
-        gan.shift(LEFT*0.1)
+        gan.shift(DOWN * 0.35)
+        gan.shift(LEFT * 0.1)
         self.play(Create(gan), run_time=3)
         # Highlight generator
         highlight_generator_rectangle = gan.make_highlight_generator_rectangle()
@@ -184,7 +185,7 @@ class GANScene(Scene):
         self.play(gen_forward_pass, run_time=5)
         # Fade out generator highlight
         self.play(Uncreate(highlight_generator_rectangle), run_time=1)
-        # Highlight discriminator 
+        # Highlight discriminator
         highlight_discriminator_rectangle = gan.make_highlight_discriminator_rectangle()
         self.play(Create(highlight_discriminator_rectangle), run_time=1)
         # Discriminator forward pass
