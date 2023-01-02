@@ -1,7 +1,6 @@
 from manim import *
 from manim_ml.neural_network.layers.parent_layers import VGroupNeuralNetworkLayer
 
-
 class FeedForwardLayer(VGroupNeuralNetworkLayer):
     """Handles rendering a layer for a neural network"""
 
@@ -65,15 +64,51 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         # Add the objects to the class
         self.add(self.surrounding_rectangle, self.node_group)
 
-    def make_forward_pass_animation(self, layer_args={}, **kwargs):
-        # make highlight animation
+    def make_dropout_forward_pass_animation(self, layer_args, **kwargs):
+        """Makes a forward pass animation with dropout"""
+        # Make sure proper dropout information was passed
+        assert "dropout_node_indices" in layer_args
+        dropout_node_indices = layer_args["dropout_node_indices"]
+        # Only highlight nodes that were note dropped out
+        nodes_to_highlight = []
+        for index, node in enumerate(self.node_group):
+            if not index in dropout_node_indices:
+                nodes_to_highlight.append(node)
+        nodes_to_highlight = VGroup(*nodes_to_highlight)
+        # Make highlight animation
         succession = Succession(
             ApplyMethod(
-                self.node_group.set_color, self.animation_dot_color, run_time=0.25
+                nodes_to_highlight.set_color, 
+                self.animation_dot_color, 
+                run_time=0.25
             ),
             Wait(1.0),
-            ApplyMethod(self.node_group.set_color, self.node_color, run_time=0.25),
+            ApplyMethod(
+                nodes_to_highlight.set_color, 
+                self.node_color, 
+                run_time=0.25
+            ),
         )
+
+        return succession
+
+    def make_forward_pass_animation(self, layer_args={}, **kwargs):
+        # Check if dropout is a thing
+        if "dropout_node_indices" in layer_args:
+            # Drop out certain nodes
+            return self.make_dropout_forward_pass_animation(
+                layer_args=layer_args, 
+                **kwargs
+            )
+        else:
+            # Make highlight animation
+            succession = Succession(
+                ApplyMethod(
+                    self.node_group.set_color, self.animation_dot_color, run_time=0.25
+                ),
+                Wait(1.0),
+                ApplyMethod(self.node_group.set_color, self.node_color, run_time=0.25),
+            )
 
         return succession
 

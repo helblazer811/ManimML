@@ -22,7 +22,6 @@ from manim_ml.neural_network.neural_network_transformations import (
     RemoveLayer,
 )
 
-
 class NeuralNetwork(Group):
     """Neural Network Visualization Container Class"""
 
@@ -50,20 +49,8 @@ class NeuralNetwork(Group):
         # Make the layer fixed in frame if its not 3D
         ThreeDLayer.three_d_theta = three_d_theta
         ThreeDLayer.three_d_phi = three_d_phi
-        """
-        for layer in self.input_layers:
-            if not isinstance(layer, ThreeDLayer):
-                self.camera.add_fixed_orientation_mobjects(layer)
-                self.camera.add_fixed_in_frame_mobjects(layer)
-        """
         # TODO take layer_node_count [0, (1, 2), 0]
         # and make it have explicit distinct subspaces
-        # Add camera to input layers
-        """
-        for input_layer in input_layers:
-            if input_layer.camera is None:
-                input_layer.camera = self.camera
-        """
         # Place the layers
         self._place_layers()
         self.connective_layers, self.all_layers = self._construct_connective_layers()
@@ -79,12 +66,6 @@ class NeuralNetwork(Group):
         self.add(self.all_layers)
         # Print neural network
         print(repr(self))
-        # Set the camera orientation for 3D Layers
-        """
-        if not self.camera is None and isinstance(self.camera, ThreeDCamera):
-            self.camera.set_phi(camera_phi)
-            self.camera.set_theta(camera_theta)
-        """
 
     def _place_layers(self):
         """Creates the neural network"""
@@ -138,21 +119,9 @@ class NeuralNetwork(Group):
                 next_layer = next_layer.all_layers[0]
             # Find connective layer with correct layer pair
             connective_layer = get_connective_layer(current_layer, next_layer)
-            """
-            if not isinstance(connective_layer, ThreeDLayer):
-                # Make the layer fixed in frame if its not 3D
-                self.camera.add_fixed_orientation_mobjects(connective_layer)
-                self.camera.add_fixed_in_frame_mobjects(connective_layer)
-            """
             connective_layers.add(connective_layer)
             # Add the layer to the list of layers
             all_layers.add(connective_layer)
-        # Check if final layer is a 3D layer
-        """
-        if not isinstance(self.input_layers[-1], ThreeDLayer):
-            self.camera.add_fixed_orientation_mobjects(self.input_layers[-1])
-            self.camera.add_fixed_in_frame_mobjects(self.input_layers[-1])
-        """
         # Add final layer
         all_layers.add(self.input_layers[-1])
         # Handle layering
@@ -194,16 +163,22 @@ class NeuralNetwork(Group):
             if isinstance(layer, ConnectiveLayer):
                 """
                 NOTE: By default a connective layer will get the combined
-                layer_args of the layers it is connecting.
+                layer_args of the layers it is connecting and itself. 
                 """
                 before_layer_args = {}
+                current_layer_args = {}
                 after_layer_args = {}
                 if layer.input_layer in layer_args:
                     before_layer_args = layer_args[layer.input_layer]
+                current_layer_args = layer_args[layer]
                 if layer.output_layer in layer_args:
                     after_layer_args = layer_args[layer.output_layer]
                 # Merge the two dicts
-                current_layer_args = {**before_layer_args, **after_layer_args}
+                current_layer_args = {
+                    **before_layer_args, 
+                    **current_layer_args, 
+                    **after_layer_args
+                }
             else:
                 current_layer_args = {}
                 if layer in layer_args:
@@ -255,6 +230,17 @@ class NeuralNetwork(Group):
             layer.scale(scale_factor, **kwargs)
         # super().scale(scale_factor)
 
+    def filter_layers(self, function):
+        """Filters layers of the network given function"""
+        layers_to_return = []
+        for layer in self.all_layers:
+            func_out = function(layer)
+            assert isinstance(func_out, bool), "Filter layers function returned a non-boolean type."
+            if func_out:
+                layers_to_return.append(layer)
+
+        return layers_to_return
+
     def __repr__(self, metadata=["z_index", "title_text"]):
         """Print string representation of layers"""
         inner_string = ""
@@ -269,7 +255,6 @@ class NeuralNetwork(Group):
 
         string_repr = "NeuralNetwork([\n" + inner_string + "])"
         return string_repr
-
 
 class FeedForwardNeuralNetwork(NeuralNetwork):
     """NeuralNetwork with just feed forward layers"""

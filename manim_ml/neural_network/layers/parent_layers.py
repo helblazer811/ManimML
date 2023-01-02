@@ -68,6 +68,11 @@ class ConnectiveLayer(VGroupNeuralNetworkLayer):
     def _create_override(self):
         return super()._create_override()
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}(" + \
+            f"input_layer={self.input_layer.__class__.__name__}," + \
+            f"output_layer={self.output_layer.__class__.__name__}," + \
+            ")"
 
 class BlankConnective(ConnectiveLayer):
     """Connective layer to be used when the given pair of layers is undefined"""
