@@ -170,7 +170,8 @@ class NeuralNetwork(Group):
                 after_layer_args = {}
                 if layer.input_layer in layer_args:
                     before_layer_args = layer_args[layer.input_layer]
-                current_layer_args = layer_args[layer]
+                if layer in layer_args:
+                    current_layer_args = layer_args[layer]
                 if layer.output_layer in layer_args:
                     after_layer_args = layer_args[layer.output_layer]
                 # Merge the two dicts
