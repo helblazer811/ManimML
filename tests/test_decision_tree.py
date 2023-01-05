@@ -1,5 +1,5 @@
 from manim import *
-from manim_ml.decision_tree.decision_tree import DecisionTreeDiagram
+from manim_ml.decision_tree.decision_tree import DecisionTreeDiagram, DecisionTreeSurface, IrisDatasetPlot
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import datasets
 import sklearn
@@ -41,9 +41,35 @@ class DecisionTreeScene(Scene):
                 "Veriscolor",
                 "Virginica"
             ],
-            feature_names=["Sepal Length", "Sepal Width"]
+            feature_names=[
+                "Sepal Length", 
+                "Sepal Width"
+            ]
         )
         decision_tree.move_to(ORIGIN)
         create_decision_tree = Create(decision_tree, traversal_order="bfs")
         self.play(create_decision_tree)
         # self.play(create_decision_tree)
+
+
+class SurfacePlot(Scene):
+
+    def construct(self):
+        iris_dataset = datasets.load_iris()
+        iris_dataset_plot = IrisDatasetPlot(iris_dataset)
+        iris_dataset_plot.all_group.scale(1.0)
+        iris_dataset_plot.all_group.shift([-3, 0.2, 0])
+        self.play(Create(iris_dataset_plot))
+        # make the decision tree classifier
+        decision_tree_classifier, sklearn_tree = make_sklearn_tree(iris_dataset)
+        decision_tree_surface = DecisionTreeSurface(
+            decision_tree_classifier, 
+            iris_dataset.data, 
+            iris_dataset_plot.axes_group[0]
+        )
+        self.play(
+            Create(
+                decision_tree_surface
+            )
+        )
+        self.wait(1)

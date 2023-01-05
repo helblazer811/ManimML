@@ -1,78 +1,17 @@
 """
     Module for visualizing decision trees in Manim. 
     It parses a decision tree classifier from sklearn. 
+
+    TODO return a map from nodes to split animation for BFS tree expansion
+    TODO reimplement the decision 2D decision tree surface drawing. 
 """
 from manim import *
+from manim_ml.decision_tree.classification_areas import compute_decision_areas, merge_overlapping_polygons
+import manim_ml.decision_tree.helpers as helpers
 from manim_ml.one_to_one_sync import OneToOneSync
 
 import numpy as np
 from PIL import Image
-
-def compute_node_depths(tree):
-    """Computes the depths of nodes for level order traversal"""
-    def depth(node_index, current_node_index=0):
-        """Compute the height of a node"""
-        if current_node_index == node_index:
-            return 0
-        elif tree.children_left[current_node_index] == tree.children_right[current_node_index]:
-            return -1
-        else:
-            # Compute the height of each subtree
-            l_depth = depth(node_index, tree.children_left[current_node_index])
-            r_depth = depth(node_index, tree.children_right[current_node_index])
-            # The index is only in one of them
-            if l_depth != -1:
-                return l_depth + 1
-            elif r_depth != -1:
-                return r_depth + 1
-            else:
-                return -1
-
-    node_depths = [depth(index) for index in range(tree.node_count)]
-
-    return node_depths
-
-def compute_level_order_traversal(tree):
-    """Computes level order traversal of a sklearn tree"""
-    def depth(node_index, current_node_index=0):
-        """Compute the height of a node"""
-        if current_node_index == node_index:
-            return 0
-        elif tree.children_left[current_node_index] == tree.children_right[current_node_index]:
-            return -1
-        else:
-            # Compute the height of each subtree
-            l_depth = depth(node_index, tree.children_left[current_node_index])
-            r_depth = depth(node_index, tree.children_right[current_node_index])
-            # The index is only in one of them
-            if l_depth != -1:
-                return l_depth + 1
-            elif r_depth != -1:
-                return r_depth + 1
-            else:
-                return -1
-
-    node_depths = [(index, depth(index)) for index in range(tree.node_count)]
-    node_depths = sorted(node_depths, key=lambda x: x[1])
-    sorted_inds = [node_depth[0] for node_depth in node_depths]
-
-    return sorted_inds 
-
-def compute_node_to_parent_mapping(tree):
-    """Returns a hashmap mapping node indices to their parent indices"""
-    node_to_parent = {0: -1} # Root has no parent
-    num_nodes = tree.node_count
-    for node_index in range(num_nodes):
-        # Explore left children 
-        left_child_node_index = tree.children_left[node_index]
-        if left_child_node_index != -1:
-            node_to_parent[left_child_node_index] = node_index
-        # Explore right children
-        right_child_node_index = tree.children_right[node_index]
-        if right_child_node_index != -1:
-            node_to_parent[right_child_node_index] = node_index
-    
-    return node_to_parent
 
 class LeafNode(Group):
     """Leaf node in tree"""
@@ -244,7 +183,7 @@ class DecisionTreeDiagram(Group):
         """Expands the tree using BFS"""
         animations = []
         # Compute parent mapping
-        parent_mapping = compute_node_to_parent_mapping(self.tree)
+        parent_mapping = helpers.compute_node_to_parent_mapping(self.tree)
         # Create the root node
         animations.append(
             Create(self.nodes_map[0])
@@ -298,10 +237,184 @@ class DecisionTreeDiagram(Group):
         else:
             raise Exception(f"Uncrecognized traversal: {traversal_order}")
 
-class DecisionTreeEmbedding:
-    """Embedding for the decision tree"""
+class IrisDatasetPlot(VGroup):
 
-    pass
+    def __init__(self, iris):
+        points = iris.data[:, 0:2]
+        labels = iris.feature_names
+        targets = iris.target
+        # Make points
+        self.point_group = self._make_point_group(points, targets)
+        # Make axes
+        self.axes_group = self._make_axes_group(points, labels)
+        # Make legend
+        self.legend_group = self._make_legend(
+            [BLUE, ORANGE, GREEN], 
+            iris.target_names, 
+            self.axes_group
+        )
+        # Make title
+        #title_text = "Iris Dataset Plot"
+        #self.title = Text(title_text).match_y(self.axes_group).shift([0.5, self.axes_group.height / 2 + 0.5, 0])
+        # Make all group
+        self.all_group = Group(
+            self.point_group,
+            self.axes_group,
+            self.legend_group
+        )
+        # scale the groups
+        self.point_group.scale(1.6)
+        self.point_group.match_x(self.axes_group)
+        self.point_group.match_y(self.axes_group)
+        self.point_group.shift([0.2, 0, 0])
+        self.axes_group.scale(0.7)
+        self.all_group.shift([0, 0.2, 0])
+
+    @override_animation(Create)
+    def create_animation(self):
+        animation_group = AnimationGroup(
+            # Perform the animations
+            Create(self.point_group, run_time=2),
+            Wait(0.5),
+            Create(self.axes_group, run_time=2),
+            # add title
+            #Create(self.title),
+            Create(self.legend_group)
+        )
+        return animation_group
+
+    def _make_point_group(self, points, targets, class_colors=[BLUE, ORANGE, GREEN]):
+        point_group = VGroup()
+        for point_index, point in enumerate(points):
+            # draw the dot
+            current_target = targets[point_index]
+            color = class_colors[current_target]
+            dot = Dot(point=np.array([point[0], point[1], 0])).set_color(color)
+            dot.scale(0.5)
+            point_group.add(dot)
+        return point_group
+
+    def _make_legend(self, class_colors, feature_labels, axes):
+        legend_group = VGroup()
+        # Make Text
+        setosa = Text("Setosa", color=BLUE)
+        verisicolor = Text("Verisicolor", color=ORANGE)
+        virginica = Text("Virginica", color=GREEN)
+        labels = VGroup(setosa, verisicolor, virginica).arrange(direction=RIGHT, aligned_edge=LEFT, buff=2.0)
+        labels.scale(0.5)
+        legend_group.add(labels)
+        # surrounding rectangle
+        surrounding_rectangle = SurroundingRectangle(labels, color=WHITE)
+        surrounding_rectangle.move_to(labels)
+        legend_group.add(surrounding_rectangle)
+        # shift the legend group
+        legend_group.move_to(axes)
+        legend_group.shift([0, -3.0, 0])
+        legend_group.match_x(axes[0][0])
+
+        return legend_group
+
+    def _make_axes_group(self, points, labels, font='Source Han Sans', font_scale=0.75):
+        axes_group = VGroup()
+        # make the axes
+        x_range = [np.amin(points, axis=0)[0] - 0.2, np.amax(points, axis=0)[0] - 0.2, 0.5]
+        y_range = [np.amin(points, axis=0)[1] - 0.2, np.amax(points, axis=0)[1], 0.5]
+        axes = Axes(
+            x_range=x_range,
+            y_range=y_range,
+            x_length=9,
+            y_length=6.5,
+            # axis_config={"number_scale_value":0.75, "include_numbers":True},
+            tips=False,
+        ).shift([0.5, 0.25, 0])
+        axes_group.add(axes)
+        # make axis labels
+        # x_label
+        x_label = Text(labels[0], font=font) \
+                        .match_y(axes.get_axes()[0]) \
+                        .shift([0.5, -0.75, 0]) \
+                        .scale(font_scale)
+        axes_group.add(x_label)
+        # y_label
+        y_label = Text(labels[1], font=font) \
+                        .match_x(axes.get_axes()[1]) \
+                        .shift([-0.75, 0, 0]) \
+                        .rotate(np.pi / 2) \
+                        .scale(font_scale)
+        axes_group.add(y_label)
+
+        return axes_group
+
+class DecisionTreeSurface(VGroup):
+
+    def __init__(self, tree_clf, data, axes, class_colors=[BLUE, ORANGE, GREEN]):
+        # take the tree and construct the surface from it
+        self.tree_clf = tree_clf
+        self.data = data
+        self.axes = axes
+        self.class_colors = class_colors
+        self.surface_rectangles = self.generate_surface_rectangles()
+
+    def generate_surface_rectangles(self):
+        # compute data bounds
+        left = np.amin(self.data[:, 0]) - 0.2
+        right = np.amax(self.data[:, 0]) - 0.2
+        top = np.amax(self.data[:, 1])
+        bottom = np.amin(self.data[:, 1]) - 0.2
+        maxrange = [left, right, bottom, top]
+        rectangles = compute_decision_areas(
+            self.tree_clf,
+            maxrange, 
+            x=0, 
+            y=1, 
+            n_features=2
+        )
+        # turn the rectangle objects into manim rectangles
+        def convert_rectangle_to_polygon(rect):
+            # get the points for the rectangle in the plot coordinate frame
+            bottom_left = [rect[0], rect[3]]
+            bottom_right = [rect[1], rect[3]]
+            top_right = [rect[1], rect[2]]
+            top_left = [rect[0], rect[2]]
+            # convert those points into the entire manim coordinates
+            bottom_left_coord = self.axes.coords_to_point(*bottom_left)
+            bottom_right_coord = self.axes.coords_to_point(*bottom_right)
+            top_right_coord = self.axes.coords_to_point(*top_right)
+            top_left_coord = self.axes.coords_to_point(*top_left)
+            points = [bottom_left_coord, bottom_right_coord, top_right_coord, top_left_coord]
+            # construct a polygon object from those manim coordinates
+            rectangle = Polygon(*points, color=color, fill_opacity=0.3, stroke_opacity=0.0)
+            return rectangle
+
+        manim_rectangles = []
+        for rect in rectangles:
+            color = self.class_colors[int(rect[4])]
+            rectangle = convert_rectangle_to_polygon(rect)
+            manim_rectangles.append(rectangle)
+
+        manim_rectangles = merge_overlapping_polygons(manim_rectangles, colors=[BLUE, GREEN, ORANGE])
+
+        return manim_rectangles
+
+    @override_animation(Create)
+    def create_override(self):
+        # play a reveal of all of the surface rectangles
+        animations = []
+        for rectangle in self.surface_rectangles:
+            animations.append(Create(rectangle))
+        animation_group = AnimationGroup(*animations)
+
+        return animation_group
+
+    @override_animation(Uncreate)
+    def uncreate_override(self):
+        # play a reveal of all of the surface rectangles
+        animations = []
+        for rectangle in self.surface_rectangles:
+            animations.append(Uncreate(rectangle))
+        animation_group = AnimationGroup(*animations)
+
+        return animation_group
 
 class DecisionTreeContainer(OneToOneSync):
     """Connects the DecisionTreeDiagram to the DecisionTreeEmbedding"""
