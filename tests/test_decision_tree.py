@@ -43,7 +43,7 @@ class DecisionTreeScene(Scene):
             ],
             feature_names=["Sepal Length", "Sepal Width"]
         )
-        # create_decision_tree = Create(decision_tree)
-        self.add(decision_tree)
         decision_tree.move_to(ORIGIN)
+        create_decision_tree = Create(decision_tree, traversal_order="bfs")
+        self.play(create_decision_tree)
         # self.play(create_decision_tree)
