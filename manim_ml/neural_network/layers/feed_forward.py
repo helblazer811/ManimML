@@ -1,6 +1,7 @@
 from manim import *
 from manim_ml.neural_network.layers.parent_layers import VGroupNeuralNetworkLayer
 
+
 class FeedForwardLayer(VGroupNeuralNetworkLayer):
     """Handles rendering a layer for a neural network"""
 
@@ -78,16 +79,10 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         # Make highlight animation
         succession = Succession(
             ApplyMethod(
-                nodes_to_highlight.set_color, 
-                self.animation_dot_color, 
-                run_time=0.25
+                nodes_to_highlight.set_color, self.animation_dot_color, run_time=0.25
             ),
             Wait(1.0),
-            ApplyMethod(
-                nodes_to_highlight.set_color, 
-                self.node_color, 
-                run_time=0.25
-            ),
+            ApplyMethod(nodes_to_highlight.set_color, self.node_color, run_time=0.25),
         )
 
         return succession
@@ -97,8 +92,7 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         if "dropout_node_indices" in layer_args:
             # Drop out certain nodes
             return self.make_dropout_forward_pass_animation(
-                layer_args=layer_args, 
-                **kwargs
+                layer_args=layer_args, **kwargs
             )
         else:
             # Make highlight animation

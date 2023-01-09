@@ -4,6 +4,7 @@
 from manim import *
 from manim_ml.neural_network.layers.util import get_connective_layer
 
+
 class RemoveLayer(AnimationGroup):
     """
     Animation for removing a layer from a neural network.

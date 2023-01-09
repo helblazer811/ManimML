@@ -27,10 +27,10 @@ class ImageToConvolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         """Maps image to convolutional layer"""
         # Transform the image from the input layer to the
         num_image_channels = self.input_layer.num_channels
-        if num_image_channels == 3:
-            return self.rbg_image_animation()
-        elif num_image_channels == 1:
+        if num_image_channels == 1 or num_image_channels == 3:  # TODO fix this later
             return self.grayscale_image_animation()
+        elif num_image_channels == 3:
+            return self.rbg_image_animation()
         else:
             raise Exception(
                 f"Unrecognized number of image channels: {num_image_channels}"
@@ -43,7 +43,6 @@ class ImageToConvolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         # TODO create image mobjects for each channel and transform
         # it to the feature maps of the output_layer
         raise NotImplementedError()
-        pass
 
     def grayscale_image_animation(self):
         """Handles animation for 1 channel image"""
@@ -80,7 +79,7 @@ class ImageToConvolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         # Scale the max of width or height to the
         # width of the feature_map
         max_width_height = max(image_mobject.width, image_mobject.height)
-        scale_factor = target_feature_map.rectangle_width / max_width_height
+        scale_factor = target_feature_map.width / max_width_height
         scale_image = ApplyMethod(image_mobject.scale, scale_factor, run_time=0.5)
         # Move the image
         move_image = ApplyMethod(image_mobject.move_to, target_feature_map)

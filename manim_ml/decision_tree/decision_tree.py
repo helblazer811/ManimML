@@ -6,18 +6,23 @@
     TODO reimplement the decision 2D decision tree surface drawing. 
 """
 from manim import *
-from manim_ml.decision_tree.classification_areas import compute_decision_areas, merge_overlapping_polygons
+from manim_ml.decision_tree.classification_areas import (
+    compute_decision_areas,
+    merge_overlapping_polygons,
+)
 import manim_ml.decision_tree.helpers as helpers
 from manim_ml.one_to_one_sync import OneToOneSync
 
 import numpy as np
 from PIL import Image
 
+
 class LeafNode(Group):
     """Leaf node in tree"""
 
-    def __init__(self, class_index, display_type="image", class_image_paths=[],
-            class_colors=[]):
+    def __init__(
+        self, class_index, display_type="image", class_image_paths=[], class_colors=[]
+    ):
         super().__init__()
         self.display_type = display_type
         self.class_image_paths = class_image_paths
@@ -36,15 +41,16 @@ class LeafNode(Group):
         node = ImageMobject(pil_image)
         node.scale(1.5)
         rectangle = Rectangle(
-            width=node.width + 0.05, 
+            width=node.width + 0.05,
             height=node.height + 0.05,
-            color=self.class_colors[class_index], 
-            stroke_width=6
+            color=self.class_colors[class_index],
+            stroke_width=6,
         )
         rectangle.move_to(node.get_center())
         rectangle.shift([-0.02, 0.02, 0])
         self.add(rectangle)
         self.add(node)
+
 
 class SplitNode(VGroup):
     """Node for splitting decision in tree"""
@@ -53,25 +59,24 @@ class SplitNode(VGroup):
         super().__init__()
         node_text = f"{feature}\n<=  {threshold:.2f} cm"
         # Draw decision text
-        decision_text = Text(
-            node_text, 
-            color=WHITE
-        )
+        decision_text = Text(node_text, color=WHITE)
         # Draw the surrounding box
-        bounding_box = SurroundingRectangle(
-            decision_text, 
-            buff=0.3, 
-            color=WHITE
-        )
+        bounding_box = SurroundingRectangle(decision_text, buff=0.3, color=WHITE)
         self.add(bounding_box)
         self.add(decision_text)
+
 
 class DecisionTreeDiagram(Group):
     """Decision Tree Diagram Class for Manim"""
 
-    def __init__(self, sklearn_tree, feature_names=None,
-                class_names=None, class_images_paths=None,
-                class_colors=[RED, GREEN, BLUE]):
+    def __init__(
+        self,
+        sklearn_tree,
+        feature_names=None,
+        class_names=None,
+        class_images_paths=None,
+        class_colors=[RED, GREEN, BLUE],
+    ):
         super().__init__()
         self.tree = sklearn_tree
         self.feature_names = feature_names
@@ -87,14 +92,13 @@ class DecisionTreeDiagram(Group):
         node_index,
     ):
         """Make node"""
-        is_split_node = self.tree.children_left[node_index] != self.tree.children_right[node_index]
+        is_split_node = (
+            self.tree.children_left[node_index] != self.tree.children_right[node_index]
+        )
         if is_split_node:
             node_feature = self.tree.feature[node_index]
             node_threshold = self.tree.threshold[node_index]
-            node = SplitNode(
-                self.feature_names[node_feature], 
-                node_threshold
-            )
+            node = SplitNode(self.feature_names[node_feature], node_threshold)
         else:
             # Get the most abundant class for the given leaf node
             # Make the leaf node object
@@ -102,7 +106,7 @@ class DecisionTreeDiagram(Group):
             node = LeafNode(
                 class_index=tree_class_index,
                 class_colors=self.class_colors,
-                class_image_paths=self.class_image_paths
+                class_image_paths=self.class_image_paths,
             )
         return node
 
@@ -113,11 +117,7 @@ class DecisionTreeDiagram(Group):
         bottom_node_top_location = bottom.get_center()
         bottom_node_top_location[1] += bottom.height / 2
 
-        line = Line(
-            top_node_bottom_location, 
-            bottom_node_top_location, 
-            color=WHITE
-        )
+        line = Line(top_node_bottom_location, bottom_node_top_location, color=WHITE)
 
         return line
 
@@ -139,35 +139,53 @@ class DecisionTreeDiagram(Group):
         edge_map = {}
         # tree height
         tree_height = scale_factor * node_height * max_depth
-        tree_width = scale_factor * 2 ** max_depth * node_width
+        tree_width = scale_factor * 2**max_depth * node_width
         # traverse tree
         def recurse(node_index, depth, direction, parent_object, parent_node):
             # make the node object
-            is_leaf = self.tree.children_left[node_index] == self.tree.children_right[node_index]
+            is_leaf = (
+                self.tree.children_left[node_index]
+                == self.tree.children_right[node_index]
+            )
             node_object = self._make_node(node_index=node_index)
             nodes_map[node_index] = node_object
             node_height = node_object.height
             # set the node position
             direction_factor = -1 if direction == "left" else 1
-            shift_right_amount = 0.9 * direction_factor * scale_factor * tree_width / (2 ** depth) / 2
+            shift_right_amount = (
+                0.9 * direction_factor * scale_factor * tree_width / (2**depth) / 2
+            )
             if is_leaf:
                 shift_down_amount = -1.0 * scale_factor * node_height
             else:
                 shift_down_amount = -1.8 * scale_factor * node_height
-            node_object \
-                .match_x(parent_object) \
-                .match_y(parent_object) \
-                .shift([shift_right_amount, shift_down_amount, 0])
+            node_object.match_x(parent_object).match_y(parent_object).shift(
+                [shift_right_amount, shift_down_amount, 0]
+            )
             tree_group.add(node_object)
             # make a connection
-            connection = self._make_connection(parent_object, node_object, is_leaf=is_leaf)
-            edge_name = str(parent_node)+","+str(node_index)
+            connection = self._make_connection(
+                parent_object, node_object, is_leaf=is_leaf
+            )
+            edge_name = str(parent_node) + "," + str(node_index)
             edge_map[edge_name] = connection
             tree_group.add(connection)
             # recurse
             if not is_leaf:
-                recurse(self.tree.children_left[node_index], depth + 1, "left", node_object, node_index)
-                recurse(self.tree.children_right[node_index], depth + 1, "right", node_object, node_index)
+                recurse(
+                    self.tree.children_left[node_index],
+                    depth + 1,
+                    "left",
+                    node_object,
+                    node_index,
+                )
+                recurse(
+                    self.tree.children_right[node_index],
+                    depth + 1,
+                    "right",
+                    node_object,
+                    node_index,
+                )
 
         recurse(self.tree.children_left[0], 1, "left", root_node, 0)
         recurse(self.tree.children_right[0], 1, "right", root_node, 0)
@@ -185,9 +203,7 @@ class DecisionTreeDiagram(Group):
         # Compute parent mapping
         parent_mapping = helpers.compute_node_to_parent_mapping(self.tree)
         # Create the root node
-        animations.append(
-            Create(self.nodes_map[0])
-        )
+        animations.append(Create(self.nodes_map[0]))
         # Iterate through the nodes
         queue = [0]
         while len(queue) > 0:
@@ -211,21 +227,16 @@ class DecisionTreeDiagram(Group):
                     FadeIn(right_node),
                     Create(left_parent_edge),
                     Create(right_parent_edge),
-                    lag_ratio=0.0
+                    lag_ratio=0.0,
                 )
-                animations.append(
-                    split_animation
-                )
+                animations.append(split_animation)
             # Add the children to the queue
             if left_child != -1:
                 queue.append(left_child)
             if right_child != -1:
                 queue.append(right_child)
 
-        return AnimationGroup(
-            *animations,
-            lag_ratio=1.0
-        )
+        return AnimationGroup(*animations, lag_ratio=1.0)
 
     @override_animation(Create)
     def create_decision_tree(self, traversal_order="bfs"):
@@ -237,8 +248,8 @@ class DecisionTreeDiagram(Group):
         else:
             raise Exception(f"Uncrecognized traversal: {traversal_order}")
 
-class IrisDatasetPlot(VGroup):
 
+class IrisDatasetPlot(VGroup):
     def __init__(self, iris):
         points = iris.data[:, 0:2]
         labels = iris.feature_names
@@ -249,19 +260,13 @@ class IrisDatasetPlot(VGroup):
         self.axes_group = self._make_axes_group(points, labels)
         # Make legend
         self.legend_group = self._make_legend(
-            [BLUE, ORANGE, GREEN], 
-            iris.target_names, 
-            self.axes_group
+            [BLUE, ORANGE, GREEN], iris.target_names, self.axes_group
         )
         # Make title
-        #title_text = "Iris Dataset Plot"
-        #self.title = Text(title_text).match_y(self.axes_group).shift([0.5, self.axes_group.height / 2 + 0.5, 0])
+        # title_text = "Iris Dataset Plot"
+        # self.title = Text(title_text).match_y(self.axes_group).shift([0.5, self.axes_group.height / 2 + 0.5, 0])
         # Make all group
-        self.all_group = Group(
-            self.point_group,
-            self.axes_group,
-            self.legend_group
-        )
+        self.all_group = Group(self.point_group, self.axes_group, self.legend_group)
         # scale the groups
         self.point_group.scale(1.6)
         self.point_group.match_x(self.axes_group)
@@ -278,8 +283,8 @@ class IrisDatasetPlot(VGroup):
             Wait(0.5),
             Create(self.axes_group, run_time=2),
             # add title
-            #Create(self.title),
-            Create(self.legend_group)
+            # Create(self.title),
+            Create(self.legend_group),
         )
         return animation_group
 
@@ -300,7 +305,9 @@ class IrisDatasetPlot(VGroup):
         setosa = Text("Setosa", color=BLUE)
         verisicolor = Text("Verisicolor", color=ORANGE)
         virginica = Text("Virginica", color=GREEN)
-        labels = VGroup(setosa, verisicolor, virginica).arrange(direction=RIGHT, aligned_edge=LEFT, buff=2.0)
+        labels = VGroup(setosa, verisicolor, virginica).arrange(
+            direction=RIGHT, aligned_edge=LEFT, buff=2.0
+        )
         labels.scale(0.5)
         legend_group.add(labels)
         # surrounding rectangle
@@ -314,10 +321,14 @@ class IrisDatasetPlot(VGroup):
 
         return legend_group
 
-    def _make_axes_group(self, points, labels, font='Source Han Sans', font_scale=0.75):
+    def _make_axes_group(self, points, labels, font="Source Han Sans", font_scale=0.75):
         axes_group = VGroup()
         # make the axes
-        x_range = [np.amin(points, axis=0)[0] - 0.2, np.amax(points, axis=0)[0] - 0.2, 0.5]
+        x_range = [
+            np.amin(points, axis=0)[0] - 0.2,
+            np.amax(points, axis=0)[0] - 0.2,
+            0.5,
+        ]
         y_range = [np.amin(points, axis=0)[1] - 0.2, np.amax(points, axis=0)[1], 0.5]
         axes = Axes(
             x_range=x_range,
@@ -330,23 +341,27 @@ class IrisDatasetPlot(VGroup):
         axes_group.add(axes)
         # make axis labels
         # x_label
-        x_label = Text(labels[0], font=font) \
-                        .match_y(axes.get_axes()[0]) \
-                        .shift([0.5, -0.75, 0]) \
-                        .scale(font_scale)
+        x_label = (
+            Text(labels[0], font=font)
+            .match_y(axes.get_axes()[0])
+            .shift([0.5, -0.75, 0])
+            .scale(font_scale)
+        )
         axes_group.add(x_label)
         # y_label
-        y_label = Text(labels[1], font=font) \
-                        .match_x(axes.get_axes()[1]) \
-                        .shift([-0.75, 0, 0]) \
-                        .rotate(np.pi / 2) \
-                        .scale(font_scale)
+        y_label = (
+            Text(labels[1], font=font)
+            .match_x(axes.get_axes()[1])
+            .shift([-0.75, 0, 0])
+            .rotate(np.pi / 2)
+            .scale(font_scale)
+        )
         axes_group.add(y_label)
 
         return axes_group
 
-class DecisionTreeSurface(VGroup):
 
+class DecisionTreeSurface(VGroup):
     def __init__(self, tree_clf, data, axes, class_colors=[BLUE, ORANGE, GREEN]):
         # take the tree and construct the surface from it
         self.tree_clf = tree_clf
@@ -363,11 +378,7 @@ class DecisionTreeSurface(VGroup):
         bottom = np.amin(self.data[:, 1]) - 0.2
         maxrange = [left, right, bottom, top]
         rectangles = compute_decision_areas(
-            self.tree_clf,
-            maxrange, 
-            x=0, 
-            y=1, 
-            n_features=2
+            self.tree_clf, maxrange, x=0, y=1, n_features=2
         )
         # turn the rectangle objects into manim rectangles
         def convert_rectangle_to_polygon(rect):
@@ -381,9 +392,16 @@ class DecisionTreeSurface(VGroup):
             bottom_right_coord = self.axes.coords_to_point(*bottom_right)
             top_right_coord = self.axes.coords_to_point(*top_right)
             top_left_coord = self.axes.coords_to_point(*top_left)
-            points = [bottom_left_coord, bottom_right_coord, top_right_coord, top_left_coord]
+            points = [
+                bottom_left_coord,
+                bottom_right_coord,
+                top_right_coord,
+                top_left_coord,
+            ]
             # construct a polygon object from those manim coordinates
-            rectangle = Polygon(*points, color=color, fill_opacity=0.3, stroke_opacity=0.0)
+            rectangle = Polygon(
+                *points, color=color, fill_opacity=0.3, stroke_opacity=0.0
+            )
             return rectangle
 
         manim_rectangles = []
@@ -392,7 +410,9 @@ class DecisionTreeSurface(VGroup):
             rectangle = convert_rectangle_to_polygon(rect)
             manim_rectangles.append(rectangle)
 
-        manim_rectangles = merge_overlapping_polygons(manim_rectangles, colors=[BLUE, GREEN, ORANGE])
+        manim_rectangles = merge_overlapping_polygons(
+            manim_rectangles, colors=[BLUE, GREEN, ORANGE]
+        )
 
         return manim_rectangles
 
@@ -415,6 +435,7 @@ class DecisionTreeSurface(VGroup):
         animation_group = AnimationGroup(*animations)
 
         return animation_group
+
 
 class DecisionTreeContainer(OneToOneSync):
     """Connects the DecisionTreeDiagram to the DecisionTreeEmbedding"""

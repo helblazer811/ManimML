@@ -68,19 +68,20 @@ class FeedForwardToFeedForward(ConnectiveLayer):
         return animation_group
 
     def make_forward_pass_animation(
-        self, 
-        layer_args={}, 
-        run_time=1, 
-        feed_forward_dropout=0.0, 
-        **kwargs
+        self, layer_args={}, run_time=1, feed_forward_dropout=0.0, **kwargs
     ):
         """Animation for passing information from one FeedForwardLayer to the next"""
         path_animations = []
         dots = []
         for edge_index, edge in enumerate(self.edges):
-            if not edge_index in layer_args["edge_indices_to_dropout"]:
+            if (
+                not "edge_indices_to_dropout" in layer_args
+                or not edge_index in layer_args["edge_indices_to_dropout"]
+            ):
                 dot = Dot(
-                    color=self.animation_dot_color, fill_opacity=1.0, radius=self.dot_radius
+                    color=self.animation_dot_color,
+                    fill_opacity=1.0,
+                    radius=self.dot_radius,
                 )
                 # Add to dots group
                 dots.append(dot)

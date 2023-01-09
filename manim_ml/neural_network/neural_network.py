@@ -22,6 +22,7 @@ from manim_ml.neural_network.neural_network_transformations import (
     RemoveLayer,
 )
 
+
 class NeuralNetwork(Group):
     """Neural Network Visualization Container Class"""
 
@@ -34,8 +35,8 @@ class NeuralNetwork(Group):
         edge_width=2.5,
         dot_radius=0.03,
         title=" ",
-        three_d_phi=-70 * DEGREES,
-        three_d_theta=-80 * DEGREES,
+        layout="linear",
+        layout_direction="left_to_right",
     ):
         super(Group, self).__init__()
         self.input_layers = ListGroup(*input_layers)
@@ -46,13 +47,12 @@ class NeuralNetwork(Group):
         self.dot_radius = dot_radius
         self.title_text = title
         self.created = False
-        # Make the layer fixed in frame if its not 3D
-        ThreeDLayer.three_d_theta = three_d_theta
-        ThreeDLayer.three_d_phi = three_d_phi
+        self.layout = layout
+        self.layout_direction = layout_direction
         # TODO take layer_node_count [0, (1, 2), 0]
         # and make it have explicit distinct subspaces
         # Place the layers
-        self._place_layers()
+        self._place_layers(layout=layout, layout_direction=layout_direction)
         self.connective_layers, self.all_layers = self._construct_connective_layers()
         # Make overhead title
         self.title = Text(self.title_text, font_size=DEFAULT_FONT_SIZE / 2)
@@ -67,7 +67,7 @@ class NeuralNetwork(Group):
         # Print neural network
         print(repr(self))
 
-    def _place_layers(self):
+    def _place_layers(self, layout="linear", layout_direction="top_to_bottom"):
         """Creates the neural network"""
         # TODO implement more sophisticated custom layouts
         # Default: Linear layout
@@ -79,26 +79,65 @@ class NeuralNetwork(Group):
             if isinstance(current_layer, EmbeddingLayer) or isinstance(
                 previous_layer, EmbeddingLayer
             ):
-                shift_vector = np.array(
-                    [
-                        (
-                            previous_layer.get_width() / 2
-                            + current_layer.get_width() / 2
-                            - 0.2
-                        ),
-                        0,
-                        0,
-                    ]
-                )
+                if layout_direction == "left_to_right":
+                    shift_vector = np.array(
+                        [
+                            (
+                                previous_layer.get_width() / 2
+                                + current_layer.get_width() / 2
+                                - 0.2
+                            ),
+                            0,
+                            0,
+                        ]
+                    )
+                elif layout_direction == "top_to_bottom":
+                    shift_vector = np.array(
+                        [
+                            0,
+                            -(
+                                previous_layer.get_width() / 2
+                                + current_layer.get_width() / 2
+                                - 0.2
+                            ),
+                            0,
+                        ]
+                    )
+                else:
+                    raise Exception(
+                        f"Unrecognized layout direction: {layout_direction}"
+                    )
             else:
-                shift_vector = np.array(
-                    [
-                        (previous_layer.get_width() / 2 + current_layer.get_width() / 2)
-                        + self.layer_spacing,
-                        0,
-                        0,
-                    ]
-                )
+                if layout_direction == "left_to_right":
+                    shift_vector = np.array(
+                        [
+                            (
+                                previous_layer.get_width() / 2
+                                + current_layer.get_width() / 2
+                            )
+                            + self.layer_spacing,
+                            0,
+                            0,
+                        ]
+                    )
+                elif layout_direction == "top_to_bottom":
+                    shift_vector = np.array(
+                        [
+                            0,
+                            -(
+                                (
+                                    previous_layer.get_width() / 2
+                                    + current_layer.get_width() / 2
+                                )
+                                + self.layer_spacing
+                            ),
+                            0,
+                        ]
+                    )
+                else:
+                    raise Exception(
+                        f"Unrecognized layout direction: {layout_direction}"
+                    )
             current_layer.shift(shift_vector)
 
     def _construct_connective_layers(self):
@@ -163,7 +202,7 @@ class NeuralNetwork(Group):
             if isinstance(layer, ConnectiveLayer):
                 """
                 NOTE: By default a connective layer will get the combined
-                layer_args of the layers it is connecting and itself. 
+                layer_args of the layers it is connecting and itself.
                 """
                 before_layer_args = {}
                 current_layer_args = {}
@@ -176,9 +215,9 @@ class NeuralNetwork(Group):
                     after_layer_args = layer_args[layer.output_layer]
                 # Merge the two dicts
                 current_layer_args = {
-                    **before_layer_args, 
-                    **current_layer_args, 
-                    **after_layer_args
+                    **before_layer_args,
+                    **current_layer_args,
+                    **after_layer_args,
                 }
             else:
                 current_layer_args = {}
@@ -229,14 +268,18 @@ class NeuralNetwork(Group):
         """Overriden scale"""
         for layer in self.all_layers:
             layer.scale(scale_factor, **kwargs)
-        # super().scale(scale_factor)
+        # Place layers with scaled spacing
+        self.layer_spacing *= scale_factor
+        self._place_layers(layout=self.layout, layout_direction=self.layout_direction)
 
     def filter_layers(self, function):
         """Filters layers of the network given function"""
         layers_to_return = []
         for layer in self.all_layers:
             func_out = function(layer)
-            assert isinstance(func_out, bool), "Filter layers function returned a non-boolean type."
+            assert isinstance(
+                func_out, bool
+            ), "Filter layers function returned a non-boolean type."
             if func_out:
                 layers_to_return.append(layer)
 
@@ -256,6 +299,7 @@ class NeuralNetwork(Group):
 
         string_repr = "NeuralNetwork([\n" + inner_string + "])"
         return string_repr
+
 
 class FeedForwardNeuralNetwork(NeuralNetwork):
     """NeuralNetwork with just feed forward layers"""

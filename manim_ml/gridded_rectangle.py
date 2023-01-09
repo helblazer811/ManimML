@@ -24,6 +24,7 @@ class GriddedRectangle(VGroup):
     ):
         super().__init__()
         # Fields
+        self.color = color
         self.mark_paths_closed = mark_paths_closed
         self.close_new_points = close_new_points
         self.grid_xstep = grid_xstep
@@ -33,8 +34,6 @@ class GriddedRectangle(VGroup):
         self.grid_stroke_opacity = grid_stroke_opacity if show_grid_lines else 0.0
         self.stroke_width = stroke_width
         self.rotation_angles = [0, 0, 0]
-        self.rectangle_width = width
-        self.rectangle_height = height
         self.show_grid_lines = show_grid_lines
         # Make rectangle
         self.rectangle = Rectangle(
@@ -129,3 +128,9 @@ class GriddedRectangle(VGroup):
         normal_vector = np.cross((vertex_1 - vertex_2), (vertex_1 - vertex_3))
 
         return normal_vector
+
+    def set_color(self, color):
+        """Sets the color of the gridded rectangle"""
+        self.color = color
+        self.rectangle.set_color(color)
+        self.rectangle.set_stroke_color(color)

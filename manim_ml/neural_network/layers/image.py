@@ -56,6 +56,10 @@ class ImageLayer(NeuralNetworkLayer):
         """Override get right"""
         return self.image_mobject.get_right()
 
+    def scale(self, scale_factor, **kwargs):
+        """Scales the image mobject"""
+        self.image_mobject.scale(scale_factor)
+
     @property
     def width(self):
         return self.image_mobject.width

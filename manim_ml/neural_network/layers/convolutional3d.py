@@ -51,13 +51,6 @@ class Convolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             about_point=self.get_center(),
             axis=ThreeDLayer.rotation_axis,
         )
-        """
-        self.rotate(
-            ThreeDLayer.three_d_y_rotation, 
-            about_point=self.get_center(), 
-            axis=[0, 1, 0]
-        )
-        """
 
     def construct_feature_maps(self):
         """Creates the neural network layer"""
