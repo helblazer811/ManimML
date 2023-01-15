@@ -6,7 +6,6 @@ from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.image import ImageLayer
 from manim_ml.neural_network.neural_network import NeuralNetwork
 
-
 class SingleConvolutionalLayerScene(ThreeDScene):
     def construct(self):
         # Make nn
@@ -22,7 +21,6 @@ class SingleConvolutionalLayerScene(ThreeDScene):
         )
         # self.play(nn.make_forward_pass_animation(run_time=5))
 
-
 class Simple3DConvScene(ThreeDScene):
     def construct(self):
         """
@@ -36,10 +34,10 @@ class Simple3DConvScene(ThreeDScene):
         # Make nn
         layers = [
             Convolutional2DLayer(
-                1, 5, 5, 5, 5, feature_map_height=3, filter_width=3, filter_height=3
+                1, feature_map_size=3, filter_size=3
             ),
             Convolutional2DLayer(
-                1, 3, 3, 1, 1, feature_map_width=3, filter_width=3, filter_height=3
+                1, feature_map_size=3, filter_size=3
             ),
         ]
         nn = NeuralNetwork(layers)
@@ -64,9 +62,9 @@ class CombinedScene(ThreeDScene):
         nn = NeuralNetwork(
             [
                 ImageLayer(numpy_image, height=1.5),
-                Convolutional2DLayer(1, 7, 7, 3, 3, filter_spacing=0.32),
-                Convolutional2DLayer(3, 5, 5, 3, 3, filter_spacing=0.32),
-                Convolutional2DLayer(5, 3, 3, 1, 1, filter_spacing=0.18),
+                Convolutional2DLayer(1, 7, 3, filter_spacing=0.32),
+                Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),
+                Convolutional2DLayer(5, 3, 1, filter_spacing=0.18),
                 FeedForwardLayer(3),
                 FeedForwardLayer(3),
             ],

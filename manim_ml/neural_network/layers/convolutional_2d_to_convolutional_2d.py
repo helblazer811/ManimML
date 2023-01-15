@@ -40,8 +40,8 @@ class Filters(VGroup):
     def make_input_feature_map_rectangles(self):
         rectangles = []
 
-        rectangle_width = self.input_layer.filter_width * self.input_layer.cell_width
-        rectangle_height = self.input_layer.filter_height * self.input_layer.cell_width
+        rectangle_width = self.input_layer.filter_size[0] * self.input_layer.cell_width
+        rectangle_height = self.input_layer.filter_size[1] * self.input_layer.cell_width
         filter_color = self.input_layer.filter_color
 
         for index, feature_map in enumerate(self.input_layer.feature_maps):
@@ -271,10 +271,8 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
         )
         self.color = color
         self.filter_color = self.input_layer.filter_color
-        self.filter_width = self.input_layer.filter_width
-        self.filter_height = self.input_layer.filter_height
-        self.feature_map_width = self.input_layer.feature_map_width
-        self.feature_map_height = self.input_layer.feature_map_height
+        self.filter_size = self.input_layer.filter_size
+        self.feature_map_size = self.input_layer.feature_map_size
         self.num_input_feature_maps = self.input_layer.num_feature_maps
         self.num_output_feature_maps = self.output_layer.num_feature_maps
         self.cell_width = self.input_layer.cell_width
@@ -321,8 +319,8 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
         right_shift, down_shift = self.get_rotated_shift_vectors()
         left_shift = -1 * right_shift
         # Make the animation
-        num_y_moves = int((self.feature_map_height - self.filter_height) / self.stride)
-        num_x_moves = int((self.feature_map_width - self.filter_width) / self.stride)
+        num_y_moves = int((self.feature_map_size[1] - self.filter_size[1]) / self.stride)
+        num_x_moves = int((self.feature_map_size[0] - self.filter_size[0]) / self.stride)
         for y_move in range(num_y_moves):
             # Go right num_x_moves
             for x_move in range(num_x_moves):
@@ -387,10 +385,10 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
             left_shift = -1 * right_shift
             # Make the animation
             num_y_moves = int(
-                (self.feature_map_height - self.filter_height) / self.stride
+                (self.feature_map_size[1] - self.filter_size[1]) / self.stride
             )
             num_x_moves = int(
-                (self.feature_map_width - self.filter_width) / self.stride
+                (self.feature_map_size[0] - self.filter_size[0]) / self.stride
             )
             for y_move in range(num_y_moves):
                 # Go right num_x_moves

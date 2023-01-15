@@ -52,8 +52,8 @@ class CombinedScene(ThreeDScene):
         nn = NeuralNetwork(
             [
                 ImageLayer(numpy_image, height=1.5),
-                Convolutional2DLayer(1, 5, 5, 1, 1, filter_spacing=0.32),
-                Convolutional2DLayer(4, 5, 5, 1, 1, filter_spacing=0.32),
+                Convolutional2DLayer(1, 5, 1, filter_spacing=0.32),
+                Convolutional2DLayer(4, 5, 1, filter_spacing=0.32),
                 Convolutional2DLayer(2, 5, 5, filter_spacing=0.32),
             ],
             layer_spacing=0.4,

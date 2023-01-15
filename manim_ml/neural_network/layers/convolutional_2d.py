@@ -1,3 +1,4 @@
+from typing import Union
 import numpy as np
 from manim import *
 
@@ -13,10 +14,8 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     def __init__(
         self,
         num_feature_maps,
-        feature_map_width,
-        feature_map_height,
-        filter_width=None,
-        filter_height=None,
+        feature_map_size=None,
+        filter_size=None,
         cell_width=0.2,
         filter_spacing=0.1,
         color=BLUE,
@@ -29,11 +28,15 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     ):
         super().__init__(**kwargs)
         self.num_feature_maps = num_feature_maps
-        self.feature_map_height = feature_map_height
         self.filter_color = filter_color
-        self.feature_map_width = feature_map_width
-        self.filter_width = filter_width
-        self.filter_height = filter_height
+        if isinstance(feature_map_size, int):
+            self.feature_map_size = (feature_map_size, feature_map_size) 
+        else:
+            self.feature_map_size = feature_map_size
+        if isinstance(filter_size, int):
+            self.filter_size = (filter_size, filter_size) 
+        else:
+            self.filter_size = filter_size
         self.cell_width = cell_width
         self.filter_spacing = filter_spacing
         self.color = color
@@ -66,8 +69,8 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         for filter_index in range(self.num_feature_maps):
             rectangle = GriddedRectangle(
                 color=self.color,
-                height=self.feature_map_height * self.cell_width,
-                width=self.feature_map_width * self.cell_width,
+                height=self.feature_map_size[1] * self.cell_width,
+                width=self.feature_map_size[0] * self.cell_width,
                 fill_color=self.color,
                 fill_opacity=0.2,
                 stroke_color=self.color,

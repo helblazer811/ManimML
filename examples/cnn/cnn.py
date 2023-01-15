@@ -21,9 +21,9 @@ def make_code_snippet():
         # Make nn
         nn = NeuralNetwork([
             ImageLayer(numpy_image, height=1.5),
-            Convolutional2DLayer(1, 7, 7, 3, 3),
-            Convolutional2DLayer(3, 5, 5, 3, 3),
-            Convolutional2DLayer(5, 3, 3, 1, 1),
+            Convolutional2DLayer(1, 7, 3),
+            Convolutional2DLayer(3, 5, 3),
+            Convolutional2DLayer(5, 3, 1),
             FeedForwardLayer(3),
             FeedForwardLayer(3),
         ])
@@ -54,9 +54,9 @@ class CombinedScene(ThreeDScene):
         nn = NeuralNetwork(
             [
                 ImageLayer(numpy_image, height=1.5),
-                Convolutional2DLayer(1, 7, 7, 3, 3, filter_spacing=0.32),
-                Convolutional2DLayer(3, 5, 5, 3, 3, filter_spacing=0.32),
-                Convolutional2DLayer(5, 3, 3, 1, 1, filter_spacing=0.18),
+                Convolutional2DLayer(1, 7, 3, filter_spacing=0.32),
+                Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),
+                Convolutional2DLayer(5, 3, 1, filter_spacing=0.18),
                 FeedForwardLayer(3),
                 FeedForwardLayer(3),
             ],
