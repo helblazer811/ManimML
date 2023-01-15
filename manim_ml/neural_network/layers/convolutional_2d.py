@@ -1,11 +1,11 @@
+import numpy as np
 from manim import *
+
 from manim_ml.neural_network.layers.parent_layers import (
     ThreeDLayer,
     VGroupNeuralNetworkLayer,
 )
 from manim_ml.gridded_rectangle import GriddedRectangle
-import numpy as np
-
 
 class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     """Handles rendering a convolutional layer for a nn"""
@@ -42,7 +42,12 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         self.stroke_width = stroke_width
         self.show_grid_lines = show_grid_lines
 
-    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+    def construct_layer(
+        self, 
+        input_layer: 'NeuralNetworkLayer', 
+        output_layer: 'NeuralNetworkLayer', 
+        **kwargs
+    ):
         # Make the feature maps
         self.feature_maps = self.construct_feature_maps()
         self.add(self.feature_maps)
@@ -75,7 +80,7 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             )
             # Move the feature map
             rectangle.move_to([0, 0, filter_index * self.filter_spacing])
-            rectangle.set_z_index(4)
+            # rectangle.set_z_index(4)
             feature_maps.append(rectangle)
 
         return VGroup(*feature_maps)
@@ -85,7 +90,6 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     ):
         """Convolution forward pass animation"""
         # Note: most of this animation is done in the Convolution3DToConvolution3D layer
-        print(f"Corner pulses: {corner_pulses}")
         if corner_pulses:
             raise NotImplementedError()
             passing_flashes = []

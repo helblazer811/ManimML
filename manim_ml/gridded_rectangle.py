@@ -35,6 +35,8 @@ class GriddedRectangle(VGroup):
         self.stroke_width = stroke_width
         self.rotation_angles = [0, 0, 0]
         self.show_grid_lines = show_grid_lines
+        self.untransformed_width = width
+        self.untransformed_height = height
         # Make rectangle
         self.rectangle = Rectangle(
             width=width,

@@ -22,7 +22,6 @@ from manim_ml.neural_network.neural_network_transformations import (
     RemoveLayer,
 )
 
-
 class NeuralNetwork(Group):
     """Neural Network Visualization Container Class"""
 
@@ -82,8 +81,10 @@ class NeuralNetwork(Group):
         prev_layer = None
         next_layer = None
         # Go through all the input layers and run their construct method
+        print("Constructing layers")
         for layer_index in range(len(self.input_layers)):
             current_layer = self.input_layers[layer_index]
+            print(f"Current layer: {current_layer}")
             if layer_index < len(self.input_layers) - 1:
                 next_layer = self.input_layers[layer_index + 1]
             if layer_index > 0:
@@ -104,60 +105,52 @@ class NeuralNetwork(Group):
                 previous_layer, EmbeddingLayer
             ):
                 if layout_direction == "left_to_right":
-                    shift_vector = np.array(
-                        [
-                            (
-                                previous_layer.get_width() / 2
-                                + current_layer.get_width() / 2
-                                - 0.2
-                            ),
-                            0,
-                            0,
-                        ]
-                    )
+                    shift_vector = np.array([
+                        (
+                            previous_layer.get_width() / 2
+                            + current_layer.get_width() / 2
+                            - 0.2
+                        ),
+                        0,
+                        0,
+                    ])
                 elif layout_direction == "top_to_bottom":
-                    shift_vector = np.array(
-                        [
-                            0,
-                            -(
-                                previous_layer.get_width() / 2
-                                + current_layer.get_width() / 2
-                                - 0.2
-                            ),
-                            0,
-                        ]
-                    )
+                    shift_vector = np.array([
+                        0,
+                        -(
+                            previous_layer.get_width() / 2
+                            + current_layer.get_width() / 2
+                            - 0.2
+                        ),
+                        0,
+                    ])
                 else:
                     raise Exception(
                         f"Unrecognized layout direction: {layout_direction}"
                     )
             else:
                 if layout_direction == "left_to_right":
-                    shift_vector = np.array(
-                        [
+                    shift_vector = np.array([
+                        (
+                            previous_layer.get_width() / 2
+                            + current_layer.get_width() / 2
+                        )
+                        + self.layer_spacing,
+                        0,
+                        0,
+                    ])
+                elif layout_direction == "top_to_bottom":
+                    shift_vector = np.array([
+                        0,
+                        -(
                             (
                                 previous_layer.get_width() / 2
                                 + current_layer.get_width() / 2
                             )
-                            + self.layer_spacing,
-                            0,
-                            0,
-                        ]
-                    )
-                elif layout_direction == "top_to_bottom":
-                    shift_vector = np.array(
-                        [
-                            0,
-                            -(
-                                (
-                                    previous_layer.get_width() / 2
-                                    + current_layer.get_width() / 2
-                                )
-                                + self.layer_spacing
-                            ),
-                            0,
-                        ]
-                    )
+                            + self.layer_spacing
+                        ),
+                        0,
+                    ])
                 else:
                     raise Exception(
                         f"Unrecognized layout direction: {layout_direction}"
@@ -183,6 +176,8 @@ class NeuralNetwork(Group):
             # Find connective layer with correct layer pair
             connective_layer = get_connective_layer(current_layer, next_layer)
             connective_layers.add(connective_layer)
+            # Construct the connective layer
+            connective_layer.construct_layer(current_layer, next_layer)
             # Add the layer to the list of layers
             all_layers.add(connective_layer)
         # Add final layer
@@ -313,7 +308,7 @@ class NeuralNetwork(Group):
         """Print string representation of layers"""
         inner_string = ""
         for layer in self.all_layers:
-            inner_string += f"{repr(layer)} ("
+            inner_string += f"{repr(layer)}("
             for key in metadata:
                 value = getattr(layer, key)
                 if not value is "":

@@ -31,24 +31,24 @@ class ImageToConvolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         # Transform the image from the input layer to the
         num_image_channels = self.input_layer.num_channels
         if num_image_channels == 1 or num_image_channels == 3:  # TODO fix this later
-            return self.grayscale_image_animation()
+            return self.grayscale_image_forward_pass_animation()
         elif num_image_channels == 3:
-            return self.rbg_image_animation()
+            return self.rbg_image_forward_pass_animation()
         else:
             raise Exception(
                 f"Unrecognized number of image channels: {num_image_channels}"
             )
 
-    def rbg_image_animation(self):
-        """Handles animation for 3 channel image"""
+    def rbg_image_forward_pass_animation(self):
+        """Handles forward pass animation for 3 channel image"""
         image_mobject = self.input_layer.image_mobject
         # TODO get each color channel and turn it into an image
         # TODO create image mobjects for each channel and transform
         # it to the feature maps of the output_layer
         raise NotImplementedError()
 
-    def grayscale_image_animation(self):
-        """Handles animation for 1 channel image"""
+    def grayscale_image_forward_pass_animation(self):
+        """Handles forward pass animation for 1 channel image"""
         animations = []
         image_mobject = self.input_layer.image_mobject
         target_feature_map = self.output_layer.feature_maps[0]
@@ -81,9 +81,15 @@ class ImageToConvolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         set_opacity = ApplyMethod(image_mobject.set_opacity, 0.2, run_time=0.5)
         # Scale the max of width or height to the
         # width of the feature_map
-        max_width_height = max(image_mobject.width, image_mobject.height)
-        scale_factor = target_feature_map.width / max_width_height
-        scale_image = ApplyMethod(image_mobject.scale, scale_factor, run_time=0.5)
+        def scale_image_func(image_mobject):
+            max_width_height = max(image_mobject.width, image_mobject.height)
+            scale_factor = target_feature_map.untransformed_width / max_width_height
+            image_mobject.scale(scale_factor)
+
+            return image_mobject
+
+        scale_image = ApplyFunction(scale_image_func, image_mobject)
+        # scale_image = ApplyMethod(image_mobject.scale, scale_factor, run_time=0.5)
         # Move the image
         move_image = ApplyMethod(image_mobject.move_to, target_feature_map)
         # Compose the animations
