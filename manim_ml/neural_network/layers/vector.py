@@ -11,6 +11,8 @@ class VectorLayer(VGroupNeuralNetworkLayer):
         super().__init__(**kwargs)
         self.num_values = num_values
         self.value_func = value_func
+
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
         # Make the vector
         self.vector_label = self.make_vector()
         self.add(self.vector_label)

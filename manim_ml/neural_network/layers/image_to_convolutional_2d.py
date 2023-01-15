@@ -23,6 +23,9 @@ class ImageToConvolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         self.input_layer = input_layer
         self.output_layer = output_layer
 
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+        return super().construct_layer(input_layer, output_layer, **kwargs)
+
     def make_forward_pass_animation(self, run_time=5, layer_args={}, **kwargs):
         """Maps image to convolutional layer"""
         # Transform the image from the input layer to the

@@ -286,6 +286,9 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
         self.show_grid_lines = show_grid_lines
         self.highlight_color = highlight_color
 
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+        return super().construct_layer(input_layer, output_layer, **kwargs)
+
     def get_rotated_shift_vectors(self):
         """
         Rotates the shift vectors

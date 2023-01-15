@@ -30,6 +30,9 @@ class FeedForwardToEmbedding(ConnectiveLayer):
         self.animation_dot_color = animation_dot_color
         self.dot_radius = dot_radius
 
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+        return super().construct_layer(input_layer, output_layer, **kwargs)
+
     def make_forward_pass_animation(self, layer_args={}, run_time=1.5, **kwargs):
         """Makes dots converge on a specific location"""
         # Find point to converge on by sampling from gaussian distribution

@@ -5,7 +5,6 @@ from manim import *
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
 
-
 class FeedForwardToFeedForward(ConnectiveLayer):
     """Layer for connecting FeedForward layer to FeedForwardLayer"""
 
@@ -37,6 +36,7 @@ class FeedForwardToFeedForward(ConnectiveLayer):
         self.animation_dot_color = animation_dot_color
         self.edge_width = edge_width
 
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
         self.edges = self.construct_edges()
         self.add(self.edges)
 

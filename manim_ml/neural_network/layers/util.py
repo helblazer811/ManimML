@@ -4,7 +4,6 @@ from manim import *
 from manim_ml.neural_network.layers.parent_layers import BlankConnective, ThreeDLayer
 from ..layers import connective_layers_list
 
-
 def get_connective_layer(input_layer, output_layer):
     """
     Deduces the relevant connective layer
@@ -24,7 +23,6 @@ def get_connective_layer(input_layer, output_layer):
         warnings.warn(
             f"Unrecognized input/output class pair: {input_class} and {output_class}"
         )
-
     # Make the instance now
     connective_layer = connective_layer_class(input_layer, output_layer)
 

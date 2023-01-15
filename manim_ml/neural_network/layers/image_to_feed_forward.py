@@ -31,6 +31,9 @@ class ImageToFeedForward(ConnectiveLayer):
         self.feed_forward_layer = output_layer
         self.image_layer = input_layer
 
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+        return super().construct_layer(input_layer, output_layer, **kwargs)
+
     def make_forward_pass_animation(self, layer_args={}, **kwargs):
         """Makes dots diverge from the given location and move to the feed forward nodes decoder"""
         animations = []

@@ -25,6 +25,8 @@ class TripletLayer(NeuralNetworkLayer):
 
         self.stroke_width = stroke_width
         self.font_size = font_size
+
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
         # Make the assets
         self.assets = self.make_assets()
         self.add(self.assets)

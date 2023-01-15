@@ -26,13 +26,11 @@ class MaxPooling2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         self.kernel_size = kernel_size
         self.stride = stride
         self.cell_highlight_color = cell_highlight_color
+
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
         # Make the output feature maps
         feature_maps = self._make_output_feature_maps()
         self.add(feature_maps)
-    
-    def construct_layer(self, input_layer, output_layer):
-        """Constructs the layer in the context of adjacent layers"""
-        pass
     
     def _make_output_feature_maps(self):
         """Makes a set of output feature maps"""

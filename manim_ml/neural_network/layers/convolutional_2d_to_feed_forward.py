@@ -26,6 +26,9 @@ class Convolutional2DToFeedForward(ConnectiveLayer, ThreeDLayer):
         )
         self.passing_flash_color = passing_flash_color
 
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+        return super().construct_layer(input_layer, output_layer, **kwargs)
+
     def make_forward_pass_animation(self, layer_args={}, run_time=1.5, **kwargs):
         """Forward pass animation from conv2d to conv2d"""
         animations = []

@@ -22,6 +22,9 @@ class PairedQueryLayer(NeuralNetworkLayer):
         self.add(self.assets)
         self.add(self.title)
 
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+        return super().construct_layer(input_layer, output_layer, **kwargs)
+
     @classmethod
     def from_paths(cls, positive_path, negative_path, grayscale=True, **kwargs):
         """Creates a query using the paths"""
