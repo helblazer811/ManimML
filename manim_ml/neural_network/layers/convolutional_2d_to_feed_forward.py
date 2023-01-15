@@ -1,18 +1,18 @@
 from manim import *
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeDLayer
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
-from manim_ml.neural_network.layers.convolutional3d import Convolutional3DLayer
+from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
 
 
-class Convolutional3DToFeedForward(ConnectiveLayer, ThreeDLayer):
+class Convolutional2DToFeedForward(ConnectiveLayer, ThreeDLayer):
     """Feed Forward to Embedding Layer"""
 
-    input_class = Convolutional3DLayer
+    input_class = Convolutional2DLayer
     output_class = FeedForwardLayer
 
     def __init__(
         self,
-        input_layer: Convolutional3DLayer,
+        input_layer: Convolutional2DLayer,
         output_layer: FeedForwardLayer,
         passing_flash_color=ORANGE,
         **kwargs
@@ -20,8 +20,8 @@ class Convolutional3DToFeedForward(ConnectiveLayer, ThreeDLayer):
         super().__init__(
             input_layer,
             output_layer,
-            input_class=Convolutional3DLayer,
-            output_class=Convolutional3DLayer,
+            input_class=Convolutional2DLayer,
+            output_class=Convolutional2DLayer,
             **kwargs
         )
         self.passing_flash_color = passing_flash_color

@@ -1,13 +1,11 @@
-from manim_ml.neural_network.layers.convolutional_3d_to_feed_forward import (
-    Convolutional3DToFeedForward,
+from manim_ml.neural_network.layers.convolutional_2d_to_feed_forward import (
+    Convolutional2DToFeedForward,
 )
-from manim_ml.neural_network.layers.image_to_convolutional3d import (
-    ImageToConvolutional3DLayer,
+from manim_ml.neural_network.layers.image_to_convolutional_2d import (
+    ImageToConvolutional2DLayer,
 )
-from .convolutional3d_to_convolutional3d import Convolutional3DToConvolutional3D
-from .convolutional2d_to_convolutional2d import Convolutional2DToConvolutional2D
-from .convolutional3d import Convolutional3DLayer
-from .convolutional2d import Convolutional2DLayer
+from .convolutional_2d_to_convolutional_2d import Convolutional2DToConvolutional2D
+from .convolutional_2d import Convolutional2DLayer
 from .feed_forward_to_vector import FeedForwardToVector
 from .paired_query_to_feed_forward import PairedQueryToFeedForward
 from .embedding_to_feed_forward import EmbeddingToFeedForward
@@ -23,6 +21,7 @@ from .triplet import TripletLayer
 from .triplet_to_feed_forward import TripletToFeedForward
 from .paired_query import PairedQueryLayer
 from .paired_query_to_feed_forward import PairedQueryToFeedForward
+from .max_pooling_2d import MaxPooling2DLayer
 
 connective_layers_list = (
     EmbeddingToFeedForward,
@@ -34,8 +33,8 @@ connective_layers_list = (
     TripletToFeedForward,
     PairedQueryToFeedForward,
     FeedForwardToVector,
-    Convolutional3DToConvolutional3D,
     Convolutional2DToConvolutional2D,
-    ImageToConvolutional3DLayer,
-    Convolutional3DToFeedForward,
+    Convolutional2DToConvolutional2D,
+    ImageToConvolutional2DLayer,
+    Convolutional2DToFeedForward,
 )

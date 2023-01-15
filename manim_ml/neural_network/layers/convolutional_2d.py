@@ -7,7 +7,7 @@ from manim_ml.gridded_rectangle import GriddedRectangle
 import numpy as np
 
 
-class Convolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
+class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     """Handles rendering a convolutional layer for a nn"""
 
     def __init__(
@@ -41,6 +41,8 @@ class Convolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         self.stride = stride
         self.stroke_width = stroke_width
         self.show_grid_lines = show_grid_lines
+
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
         # Make the feature maps
         self.feature_maps = self.construct_feature_maps()
         self.add(self.feature_maps)

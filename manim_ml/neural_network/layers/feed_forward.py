@@ -35,9 +35,7 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
 
         self.node_group = VGroup()
 
-        self._construct_neural_network_layer()
-
-    def _construct_neural_network_layer(self):
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
         """Creates the neural network layer"""
         # Add Nodes
         for node_number in range(self.num_nodes):

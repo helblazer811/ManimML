@@ -1,10 +1,9 @@
 from manim import *
-from manim_ml.neural_network.layers.convolutional3d import Convolutional3DLayer
+from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeDLayer
 from manim_ml.gridded_rectangle import GriddedRectangle
 
 from manim.utils.space_ops import rotation_matrix
-
 
 class Filters(VGroup):
     """Group for showing a collection of filters connecting two layers"""
@@ -244,16 +243,16 @@ class Filters(VGroup):
         return passing_flash
 
 
-class Convolutional3DToConvolutional3D(ConnectiveLayer, ThreeDLayer):
+class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
     """Feed Forward to Embedding Layer"""
 
-    input_class = Convolutional3DLayer
-    output_class = Convolutional3DLayer
+    input_class = Convolutional2DLayer
+    output_class = Convolutional2DLayer
 
     def __init__(
         self,
-        input_layer: Convolutional3DLayer,
-        output_layer: Convolutional3DLayer,
+        input_layer: Convolutional2DLayer,
+        output_layer: Convolutional2DLayer,
         color=ORANGE,
         filter_opacity=0.3,
         line_color=ORANGE,
@@ -266,8 +265,8 @@ class Convolutional3DToConvolutional3D(ConnectiveLayer, ThreeDLayer):
         super().__init__(
             input_layer,
             output_layer,
-            input_class=Convolutional3DLayer,
-            output_class=Convolutional3DLayer,
+            input_class=Convolutional2DLayer,
+            output_class=Convolutional2DLayer,
             **kwargs,
         )
         self.color = color

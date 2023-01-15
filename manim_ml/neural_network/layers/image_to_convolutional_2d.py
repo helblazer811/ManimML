@@ -1,7 +1,7 @@
 import numpy as np
 
 from manim import *
-from manim_ml.neural_network.layers.convolutional3d import Convolutional3DLayer
+from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
 from manim_ml.neural_network.layers.image import ImageLayer
 from manim_ml.neural_network.layers.parent_layers import (
     ThreeDLayer,
@@ -10,14 +10,14 @@ from manim_ml.neural_network.layers.parent_layers import (
 from manim_ml.gridded_rectangle import GriddedRectangle
 
 
-class ImageToConvolutional3DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
+class ImageToConvolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     """Handles rendering a convolutional layer for a nn"""
 
     input_class = ImageLayer
-    output_class = Convolutional3DLayer
+    output_class = Convolutional2DLayer
 
     def __init__(
-        self, input_layer: ImageLayer, output_layer: Convolutional3DLayer, **kwargs
+        self, input_layer: ImageLayer, output_layer: Convolutional2DLayer, **kwargs
     ):
         super().__init__(input_layer, output_layer, **kwargs)
         self.input_layer = input_layer

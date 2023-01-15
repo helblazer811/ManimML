@@ -1,7 +1,7 @@
 from manim import *
 from PIL import Image
 
-from manim_ml.neural_network.layers.convolutional3d import Convolutional3DLayer
+from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.image import ImageLayer
 from manim_ml.neural_network.layers.parent_layers import ThreeDLayer
@@ -25,8 +25,8 @@ class CombinedScene(ThreeDScene):
         nn = NeuralNetwork(
             [
                 ImageLayer(numpy_image, height=1.5),
-                Convolutional3DLayer(1, 7, 7, 3, 3, filter_spacing=0.32),
-                Convolutional3DLayer(3, 5, 5, 1, 1, filter_spacing=0.18),
+                Convolutional2DLayer(1, 7, 7, 3, 3, filter_spacing=0.32),
+                Convolutional2DLayer(3, 5, 5, 1, 1, filter_spacing=0.18),
             ],
             layer_spacing=0.25,
             layout_direction="top_to_bottom",

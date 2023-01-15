@@ -1,7 +1,6 @@
 from manim import *
 from abc import ABC, abstractmethod
 
-
 class NeuralNetworkLayer(ABC, Group):
     """Abstract Neural Network Layer class"""
 
@@ -13,6 +12,20 @@ class NeuralNetworkLayer(ABC, Group):
         # self.add(self.title)
 
     @abstractmethod
+    def construct_layer(self, input_layer: 'NeuralNetworkLayer', 
+            output_layer: 'NeuralNetworkLayer', **kwargs):
+        """Constructs the layer at network construction time
+
+        Parameters
+        ----------
+        input_layer : NeuralNetworkLayer
+            preceding layer
+        output_layer : NeuralNetworkLayer
+            following layer
+        """
+        pass
+
+    @abstractmethod
     def make_forward_pass_animation(self, layer_args={}, **kwargs):
         pass
 
@@ -22,7 +35,6 @@ class NeuralNetworkLayer(ABC, Group):
 
     def __repr__(self):
         return f"{type(self).__name__}"
-
 
 class VGroupNeuralNetworkLayer(NeuralNetworkLayer):
     def __init__(self, *args, **kwargs):
@@ -37,7 +49,6 @@ class VGroupNeuralNetworkLayer(NeuralNetworkLayer):
     def _create_override(self):
         return super()._create_override()
 
-
 class ThreeDLayer(ABC):
     """Abstract class for 3D layers"""
 
@@ -46,7 +57,6 @@ class ThreeDLayer(ABC):
     three_d_y_rotation = 0 * DEGREES  # -10 * DEGREES
     rotation_angle = 60 * DEGREES
     rotation_axis = [0.0, 0.9, 0.0]
-
 
 class ConnectiveLayer(VGroupNeuralNetworkLayer):
     """Forward pass animation for a given pair of layers"""
@@ -75,7 +85,6 @@ class ConnectiveLayer(VGroupNeuralNetworkLayer):
             + f"output_layer={self.output_layer.__class__.__name__},"
             + ")"
         )
-
 
 class BlankConnective(ConnectiveLayer):
     """Connective layer to be used when the given pair of layers is undefined"""

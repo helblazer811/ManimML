@@ -1,9 +1,9 @@
 from manim import *
+import numpy as np
 from manim_ml.image import GrayscaleImageMobject
 from manim_ml.neural_network.layers.parent_layers import NeuralNetworkLayer
 
 from PIL import Image
-
 
 class ImageLayer(NeuralNetworkLayer):
     """Single Image Layer for Neural Network"""
@@ -12,6 +12,17 @@ class ImageLayer(NeuralNetworkLayer):
         super().__init__(**kwargs)
         self.numpy_image = numpy_image
         self.show_image_on_create = show_image_on_create
+
+    def construct_layer(self, input_layer, output_layer):
+        """Construct layer method
+
+        Parameters
+        ----------
+        input_layer : 
+            Input layer
+        output_layer : 
+            Output layer
+        """
         if len(np.shape(self.numpy_image)) == 2:
             # Assumed Grayscale
             self.num_channels = 1

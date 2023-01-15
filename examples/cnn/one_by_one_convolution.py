@@ -21,11 +21,9 @@ def make_code_snippet():
         # Make nn
         nn = NeuralNetwork([
             ImageLayer(numpy_image, height=1.5),
-            Convolutional2DLayer(1, 7, 7, 3, 3),
-            Convolutional2DLayer(3, 5, 5, 3, 3),
-            Convolutional2DLayer(5, 3, 3, 1, 1),
-            FeedForwardLayer(3),
-            FeedForwardLayer(3),
+            Convolutional2DLayer(1, 5, 5, 1, 1),
+            Convolutional2DLayer(4, 5, 5, 1, 1),
+            Convolutional2DLayer(2, 5, 5),
         ])
         # Play animation
         self.play(nn.make_forward_pass_animation()) 
@@ -54,13 +52,11 @@ class CombinedScene(ThreeDScene):
         nn = NeuralNetwork(
             [
                 ImageLayer(numpy_image, height=1.5),
-                Convolutional2DLayer(1, 7, 7, 3, 3, filter_spacing=0.32),
-                Convolutional2DLayer(3, 5, 5, 3, 3, filter_spacing=0.32),
-                Convolutional2DLayer(5, 3, 3, 1, 1, filter_spacing=0.18),
-                FeedForwardLayer(3),
-                FeedForwardLayer(3),
+                Convolutional2DLayer(1, 5, 5, 1, 1, filter_spacing=0.32),
+                Convolutional2DLayer(4, 5, 5, 1, 1, filter_spacing=0.32),
+                Convolutional2DLayer(2, 5, 5, filter_spacing=0.32),
             ],
-            layer_spacing=0.25,
+            layer_spacing=0.4,
         )
         # Center the nn
         nn.move_to(ORIGIN)
@@ -74,7 +70,8 @@ class CombinedScene(ThreeDScene):
         group.move_to(ORIGIN)
         # Play animation
         forward_pass = nn.make_forward_pass_animation(
-            corner_pulses=False, all_filters_at_once=False
+            corner_pulses=False,
+            all_filters_at_once=False,
         )
         self.wait(1)
         self.play(forward_pass)
