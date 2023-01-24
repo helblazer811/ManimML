@@ -21,8 +21,6 @@ class FeedForwardToVector(ConnectiveLayer):
         super().__init__(
             input_layer,
             output_layer,
-            input_class=FeedForwardLayer,
-            output_class=VectorLayer,
             **kwargs
         )
         self.animation_dot_color = animation_dot_color

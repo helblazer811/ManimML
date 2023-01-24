@@ -1,4 +1,6 @@
 from typing import Union
+from manim_ml.neural_network.activation_functions import get_activation_function_by_name
+from manim_ml.neural_network.activation_functions.activation_function import ActivationFunction
 import numpy as np
 from manim import *
 
@@ -24,6 +26,7 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         filter_color=ORANGE,
         stride=1,
         stroke_width=2.0,
+        activation_function=None,
         **kwargs,
     ):
         super().__init__(**kwargs)
@@ -44,6 +47,7 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         self.stride = stride
         self.stroke_width = stroke_width
         self.show_grid_lines = show_grid_lines
+        self.activation_function = activation_function
 
     def construct_layer(
         self, 
@@ -61,6 +65,19 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             about_point=self.get_center(),
             axis=ThreeDLayer.rotation_axis,
         )
+        # Add the activation function
+        if not self.activation_function is None:
+            # Check if it is a string
+            if isinstance(self.activation_function, str):
+                activation_function = get_activation_function_by_name(
+                    self.activation_function
+                )
+            else:
+                assert isinstance(self.activation_function, ActivationFunction)
+                activation_function = self.activation_function
+            # Plot the function above the rest of the layer
+            self.activation_function = activation_function
+            self.add(self.activation_function)
 
     def construct_feature_maps(self):
         """Creates the neural network layer"""
@@ -88,6 +105,19 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
 
         return VGroup(*feature_maps)
 
+    def highlight_and_unhighlight_feature_maps(self):
+        """Highlights then unhighlights feature maps"""
+        return Succession(
+            ApplyMethod(
+                self.feature_maps.set_color,
+                self.pulse_color
+            ),
+            ApplyMethod(
+                self.feature_maps.set_color,
+                self.color
+            )
+        )
+
     def make_forward_pass_animation(
         self, run_time=5, corner_pulses=False, layer_args={}, **kwargs
     ):
@@ -112,13 +142,29 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
                 #    filter_flashes
             )
         else:
-            animation_group = AnimationGroup()
+            if not self.activation_function is None:
+                animation_group = AnimationGroup(
+                    self.activation_function.make_evaluate_animation(),
+                    self.highlight_and_unhighlight_feature_maps(),
+                    lag_ratio=0.0
+                )
+            else:
+                animation_group = AnimationGroup()
 
         return animation_group
 
     def scale(self, scale_factor, **kwargs):
         self.cell_width *= scale_factor
         super().scale(scale_factor, **kwargs)
+
+    def get_center(self):
+        """Overrides function for getting center
+
+        The reason for this is so that the center calculation 
+        does not include the activation function.  
+        """
+        print("Getting center")
+        return self.feature_maps.get_center()
 
     @override_animation(Create)
     def _create_override(self, **kwargs):

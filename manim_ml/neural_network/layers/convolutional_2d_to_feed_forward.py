@@ -20,8 +20,6 @@ class Convolutional2DToFeedForward(ConnectiveLayer, ThreeDLayer):
         super().__init__(
             input_layer,
             output_layer,
-            input_class=Convolutional2DLayer,
-            output_class=Convolutional2DLayer,
             **kwargs
         )
         self.passing_flash_color = passing_flash_color

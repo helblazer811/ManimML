@@ -3,7 +3,6 @@ from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
 from manim_ml.neural_network.layers.embedding import EmbeddingLayer
 
-
 class EmbeddingToFeedForward(ConnectiveLayer):
     """Feed Forward to Embedding Layer"""
 
@@ -21,8 +20,6 @@ class EmbeddingToFeedForward(ConnectiveLayer):
         super().__init__(
             input_layer,
             output_layer,
-            input_class=EmbeddingLayer,
-            output_class=FeedForwardLayer,
             **kwargs
         )
         self.feed_forward_layer = output_layer

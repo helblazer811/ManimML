@@ -21,8 +21,6 @@ class FeedForwardToEmbedding(ConnectiveLayer):
         super().__init__(
             input_layer,
             output_layer,
-            input_class=FeedForwardLayer,
-            output_class=EmbeddingLayer,
             **kwargs
         )
         self.feed_forward_layer = input_layer

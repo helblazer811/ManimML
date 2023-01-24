@@ -2,7 +2,6 @@ from manim import *
 import numpy as np
 import math
 
-
 class GaussianDistribution(VGroup):
     """Object for drawing a Gaussian distribution"""
 
@@ -89,7 +88,7 @@ class GaussianDistribution(VGroup):
                 height=ellipse_height,
                 color=color,
                 fill_opacity=opacity,
-                stroke_width=0.0,
+                stroke_width=2.0,
             )
             ellipse.move_to(mean)
             ellipse.rotate(rotation)

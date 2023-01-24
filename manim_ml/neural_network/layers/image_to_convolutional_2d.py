@@ -9,7 +9,6 @@ from manim_ml.neural_network.layers.parent_layers import (
 )
 from manim_ml.gridded_rectangle import GriddedRectangle
 
-
 class ImageToConvolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     """Handles rendering a convolutional layer for a nn"""
 
@@ -17,7 +16,10 @@ class ImageToConvolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     output_class = Convolutional2DLayer
 
     def __init__(
-        self, input_layer: ImageLayer, output_layer: Convolutional2DLayer, **kwargs
+        self, 
+        input_layer: ImageLayer, 
+        output_layer: Convolutional2DLayer, 
+        **kwargs
     ):
         super().__init__(input_layer, output_layer, **kwargs)
         self.input_layer = input_layer

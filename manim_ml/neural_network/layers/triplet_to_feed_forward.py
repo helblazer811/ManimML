@@ -21,8 +21,6 @@ class TripletToFeedForward(ConnectiveLayer):
         super().__init__(
             input_layer,
             output_layer,
-            input_class=TripletLayer,
-            output_class=FeedForwardLayer,
             **kwargs
         )
         self.animation_dot_color = animation_dot_color

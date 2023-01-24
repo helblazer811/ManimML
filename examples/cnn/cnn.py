@@ -56,7 +56,7 @@ class CombinedScene(ThreeDScene):
                 ImageLayer(numpy_image, height=1.5),
                 Convolutional2DLayer(1, 7, 3, filter_spacing=0.32),
                 Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),
-                Convolutional2DLayer(5, 3, 1, filter_spacing=0.18),
+                Convolutional2DLayer(5, 3, 3, filter_spacing=0.18),
                 FeedForwardLayer(3),
                 FeedForwardLayer(3),
             ],
@@ -66,12 +66,13 @@ class CombinedScene(ThreeDScene):
         nn.move_to(ORIGIN)
         self.add(nn)
         # Make code snippet
-        code = make_code_snippet()
-        code.next_to(nn, DOWN)
-        self.add(code)
+        # code = make_code_snippet()
+        # code.next_to(nn, DOWN)
+        # self.add(code)
         # Group it all
-        group = Group(nn, code)
-        group.move_to(ORIGIN)
+        # group = Group(nn, code)
+        # group.move_to(ORIGIN)
+        nn.move_to(ORIGIN)
         # Play animation
         forward_pass = nn.make_forward_pass_animation(
             corner_pulses=False, all_filters_at_once=False

@@ -34,10 +34,14 @@ class Simple3DConvScene(ThreeDScene):
         # Make nn
         layers = [
             Convolutional2DLayer(
-                1, feature_map_size=3, filter_size=3
+                num_feature_maps=1,
+                feature_map_size=3,
+                filter_size=3
             ),
             Convolutional2DLayer(
-                1, feature_map_size=3, filter_size=3
+                num_feature_maps=1,
+                feature_map_size=3,
+                filter_size=3
             ),
         ]
         nn = NeuralNetwork(layers)
@@ -59,12 +63,11 @@ class CombinedScene(ThreeDScene):
         image = Image.open("../assets/mnist/digit.jpeg")
         numpy_image = np.asarray(image)
         # Make nn
-        nn = NeuralNetwork(
-            [
+        nn = NeuralNetwork([
                 ImageLayer(numpy_image, height=1.5),
-                Convolutional2DLayer(1, 7, 3, filter_spacing=0.32),
+                Convolutional2DLayer(1, 7, filter_spacing=0.32),
                 Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),
-                Convolutional2DLayer(5, 3, 1, filter_spacing=0.18),
+                Convolutional2DLayer(5, 3, 3, filter_spacing=0.18),
                 FeedForwardLayer(3),
                 FeedForwardLayer(3),
             ],

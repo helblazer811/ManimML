@@ -26,8 +26,6 @@ class FeedForwardToFeedForward(ConnectiveLayer):
         super().__init__(
             input_layer,
             output_layer,
-            input_class=FeedForwardLayer,
-            output_class=FeedForwardLayer,
             **kwargs
         )
         self.passing_flash = passing_flash

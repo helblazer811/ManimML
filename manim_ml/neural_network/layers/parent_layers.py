@@ -31,7 +31,7 @@ class NeuralNetworkLayer(ABC, Group):
 
     @override_animation(Create)
     def _create_override(self):
-        return AnimationGroup()
+        return Succession()
 
     def __repr__(self):
         return f"{type(self).__name__}"
