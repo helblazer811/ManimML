@@ -18,18 +18,19 @@ class PairedQueryToFeedForward(ConnectiveLayer):
         dot_radius=0.02,
         **kwargs
     ):
-        super().__init__(
-            input_layer,
-            output_layer,
-            **kwargs
-        )
+        super().__init__(input_layer, output_layer, **kwargs)
         self.animation_dot_color = animation_dot_color
         self.dot_radius = dot_radius
 
         self.paired_query_layer = input_layer
         self.feed_forward_layer = output_layer
 
-    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+    def construct_layer(
+        self,
+        input_layer: "NeuralNetworkLayer",
+        output_layer: "NeuralNetworkLayer",
+        **kwargs
+    ):
         return super().construct_layer(input_layer, output_layer, **kwargs)
 
     def make_forward_pass_animation(self, layer_args={}, **kwargs):

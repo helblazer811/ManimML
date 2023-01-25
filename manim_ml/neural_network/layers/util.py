@@ -4,9 +4,10 @@ from manim import *
 from manim_ml.neural_network.layers.parent_layers import BlankConnective, ThreeDLayer
 from manim_ml.neural_network.layers import connective_layers_list
 
+
 def get_connective_layer(input_layer, output_layer):
     """
-        Deduces the relevant connective layer
+    Deduces the relevant connective layer
     """
     connective_layer_class = None
     for candidate_class in connective_layers_list:

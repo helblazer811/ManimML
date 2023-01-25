@@ -25,9 +25,9 @@ class EmbeddingLayer(VGroupNeuralNetworkLayer):
         self.paired_query_mode = paired_query_mode
 
     def construct_layer(
-        self, 
-        input_layer: 'NeuralNetworkLayer', 
-        output_layer: 'NeuralNetworkLayer', 
+        self,
+        input_layer: "NeuralNetworkLayer",
+        output_layer: "NeuralNetworkLayer",
         **kwargs
     ):
         self.axes = Axes(
@@ -43,14 +43,13 @@ class EmbeddingLayer(VGroupNeuralNetworkLayer):
         self.axes.move_to(self.get_center())
         # Make point cloud
         self.point_cloud = self.construct_gaussian_point_cloud(
-            self.mean, 
-            self.covariance
+            self.mean, self.covariance
         )
         self.add(self.point_cloud)
         # Make latent distribution
         self.latent_distribution = GaussianDistribution(
             self.axes, mean=self.mean, cov=self.covariance
-        ) # Use defaults
+        )  # Use defaults
 
     def add_gaussian_distribution(self, gaussian_distribution):
         """Adds given GaussianDistribution to the list"""

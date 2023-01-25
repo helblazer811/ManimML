@@ -26,6 +26,7 @@ def compute_node_depths(tree):
 
     return node_depths
 
+
 def compute_level_order_traversal(tree):
     """Computes level order traversal of a sklearn tree"""
 
@@ -56,6 +57,7 @@ def compute_level_order_traversal(tree):
 
     return sorted_inds
 
+
 def compute_bfs_traversal(tree):
     """Traverses the tree in BFS order and returns the nodes in order"""
     traversal_order = []
@@ -73,9 +75,11 @@ def compute_bfs_traversal(tree):
 
     return traversal_order
 
+
 def compute_best_first_traversal(tree):
     """Traverses the tree according to the best split first order"""
     pass
+
 
 def compute_node_to_parent_mapping(tree):
     """Returns a hashmap mapping node indices to their parent indices"""

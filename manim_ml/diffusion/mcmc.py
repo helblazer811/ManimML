@@ -9,6 +9,7 @@ from tqdm import tqdm
 
 from manim_ml.probability import GaussianDistribution
 
+
 def gaussian_proposal(x, sigma=0.2):
     """
     Gaussian proposal distribution.
@@ -39,7 +40,8 @@ def gaussian_proposal(x, sigma=0.2):
 
     return (x_star, qxx)
 
-class MultidimensionalGaussianPosterior():
+
+class MultidimensionalGaussianPosterior:
     """
     N-Dimensional Gaussian distribution with
 
@@ -49,8 +51,7 @@ class MultidimensionalGaussianPosterior():
     Prior on mean is U(-500, 500)
     """
 
-    def __init__(self, ndim=2, seed=12345, scale=3,
-            mu=None, var=None):
+    def __init__(self, ndim=2, seed=12345, scale=3, mu=None, var=None):
         """_summary_
 
         Parameters
@@ -71,10 +72,7 @@ class MultidimensionalGaussianPosterior():
             self.var = var
 
         if mu is None:
-            self.mu = scipy.stats.norm(
-                loc=0, 
-                scale=self.scale
-            ).rvs(ndim)
+            self.mu = scipy.stats.norm(loc=0, scale=self.scale).rvs(ndim)
         else:
             self.mu = mu
 
@@ -84,20 +82,18 @@ class MultidimensionalGaussianPosterior():
         """
 
         if np.all(x < 500) and np.all(x > -500):
-            return scipy.stats.multivariate_normal(
-                mean=self.mu, 
-                cov=self.var
-            ).logpdf(x)
+            return scipy.stats.multivariate_normal(mean=self.mu, cov=self.var).logpdf(x)
         else:
             return -1e6
 
+
 def metropolis_hastings_sampler(
-    log_prob_fn=MultidimensionalGaussianPosterior(), 
-    prop_fn=gaussian_proposal, 
-    initial_location : np.ndarray = np.array([0, 0]), 
+    log_prob_fn=MultidimensionalGaussianPosterior(),
+    prop_fn=gaussian_proposal,
+    initial_location: np.ndarray = np.array([0, 0]),
     iterations=25,
     warm_up=0,
-    ndim=2
+    ndim=2,
 ):
     """Samples using a Metropolis-Hastings sampler.
 
@@ -158,17 +154,18 @@ def metropolis_hastings_sampler(
 
     return chain, np.array([]), proposals
 
+
 class MCMCAxes(Group):
     """Container object for visualizing MCMC on a 2D axis"""
 
     def __init__(
-        self, 
-        dot_color=BLUE, 
+        self,
+        dot_color=BLUE,
         dot_radius=0.05,
         accept_line_color=GREEN,
         reject_line_color=RED,
         line_color=WHITE,
-        line_stroke_width=1
+        line_stroke_width=1,
     ):
         super().__init__()
         self.dot_color = dot_color
@@ -176,7 +173,7 @@ class MCMCAxes(Group):
         self.accept_line_color = accept_line_color
         self.reject_line_color = reject_line_color
         self.line_color = line_color
-        self.line_stroke_width=line_stroke_width
+        self.line_stroke_width = line_stroke_width
         # Make the axes
         self.axes = Axes(
             x_range=[-3, 3],
@@ -185,22 +182,16 @@ class MCMCAxes(Group):
             y_length=12,
             x_axis_config={"stroke_opacity": 0.0},
             y_axis_config={"stroke_opacity": 0.0},
-            tips=False
+            tips=False,
         )
         self.add(self.axes)
-    
+
     @override_animation(Create)
     def _create_override(self, **kwargs):
         """Overrides Create animation"""
-        return AnimationGroup(
-            Create(self.axes)
-        )
+        return AnimationGroup(Create(self.axes))
 
-    def visualize_gaussian_proposal_about_point(
-        self,
-        mean,
-        cov=None
-    ) -> AnimationGroup:
+    def visualize_gaussian_proposal_about_point(self, mean, cov=None) -> AnimationGroup:
         """Creates a Gaussian distribution about a certain point
 
         Parameters
@@ -216,21 +207,14 @@ class MCMCAxes(Group):
             animation of creating the proposal Gaussian distribution
         """
         gaussian = GaussianDistribution(
-            axes=self.axes,
-            mean=mean,
-            cov=cov,
-            dist_theme="gaussian"
+            axes=self.axes, mean=mean, cov=cov, dist_theme="gaussian"
         )
 
         create_guassian = Create(gaussian)
         return create_guassian
-        
+
     def make_transition_animation(
-        self, 
-        start_point, 
-        end_point,
-        candidate_point,
-        run_time=0.1
+        self, start_point, end_point, candidate_point, run_time=0.1
     ) -> AnimationGroup:
         """Makes an transition animation for a single point on a Markov Chain
 
@@ -255,38 +239,27 @@ class MCMCAxes(Group):
         if point_is_rejected:
             return AnimationGroup()
         else:
-            create_end_point = Create(
-                end_point
-            )
+            create_end_point = Create(end_point)
             create_line = Create(
                 Line(
                     start_point,
                     end_point,
                     color=self.line_color,
-                    stroke_width=self.line_stroke_width
+                    stroke_width=self.line_stroke_width,
                 )
             )
             return AnimationGroup(
-                create_end_point,
-                create_line,
-                lag_ratio=1.0,
-                run_time=run_time
+                create_end_point, create_line, lag_ratio=1.0, run_time=run_time
             )
 
     def show_ground_truth_gaussian(self, distribution):
-        """
-        """
+        """ """
         mean = distribution.mu
         var = np.eye(2) * distribution.var
         distribution_drawing = GaussianDistribution(
-            self.axes, 
-            mean, 
-            var,
-            dist_theme="gaussian"
+            self.axes, mean, var, dist_theme="gaussian"
         ).set_opacity(0.2)
-        return AnimationGroup(
-            Create(distribution_drawing)
-        )
+        return AnimationGroup(Create(distribution_drawing))
 
     def visualize_metropolis_hastings_chain_sampling(
         self,
@@ -295,7 +268,7 @@ class MCMCAxes(Group):
         sampling_kwargs={},
     ):
         """
-        Makes an animation for visualizing a 2D markov chain using 
+        Makes an animation for visualizing a 2D markov chain using
         metropolis hastings samplings
 
         Parameters
@@ -318,20 +291,18 @@ class MCMCAxes(Group):
         """
         # Compute the chain samples using a Metropolis Hastings Sampler
         mcmc_samples, warm_up_samples, candidate_samples = metropolis_hastings_sampler(
-            log_prob_fn=log_prob_fn,
-            prop_fn=prop_fn,
-            **sampling_kwargs
+            log_prob_fn=log_prob_fn, prop_fn=prop_fn, **sampling_kwargs
         )
         print(f"MCMC samples: {mcmc_samples}")
         print(f"Candidate samples: {candidate_samples}")
-        # Make the animation for visualizing the chain 
+        # Make the animation for visualizing the chain
         animations = []
         # Place the initial point
         current_point = mcmc_samples[0]
         current_point = Dot(
             self.axes.coords_to_point(current_point[0], current_point[1]),
             color=self.dot_color,
-            radius=self.dot_radius
+            radius=self.dot_radius,
         )
         create_initial_point = Create(current_point)
         animations.append(create_initial_point)
@@ -346,12 +317,12 @@ class MCMCAxes(Group):
             next_point = Dot(
                 self.axes.coords_to_point(next_sample[0], next_sample[1]),
                 color=self.dot_color,
-                radius=self.dot_radius
+                radius=self.dot_radius,
             )
             candidate_point = Dot(
                 self.axes.coords_to_point(candidate_sample[0], candidate_sample[1]),
                 color=self.dot_color,
-                radius=self.dot_radius
+                radius=self.dot_radius,
             )
             # Make a transition animation
             transition_animation = self.make_transition_animation(
@@ -361,9 +332,6 @@ class MCMCAxes(Group):
             # Setup for next iteration
             current_point = next_point
         # Make the final animation group
-        animation_group = AnimationGroup(
-            *animations,
-            lag_ratio=1.0
-        )
+        animation_group = AnimationGroup(*animations, lag_ratio=1.0)
 
         return animation_group

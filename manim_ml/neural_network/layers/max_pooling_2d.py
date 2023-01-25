@@ -1,27 +1,31 @@
 from manim import *
 from manim_ml.gridded_rectangle import GriddedRectangle
 
-from manim_ml.neural_network.layers.parent_layers import ThreeDLayer, VGroupNeuralNetworkLayer
+from manim_ml.neural_network.layers.parent_layers import (
+    ThreeDLayer,
+    VGroupNeuralNetworkLayer,
+)
+
 
 class MaxPooling2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     """Max pooling layer for Convolutional2DLayer
 
     Note: This is for a Convolutional2DLayer even though
     it is called MaxPooling2DLayer because the 2D corresponds
-    to the 2 spatial dimensions of the convolution. 
+    to the 2 spatial dimensions of the convolution.
     """
 
     def __init__(
-            self, 
-            kernel_size=2, 
-            stride=1, 
-            cell_highlight_color=ORANGE,
-            cell_width=0.2,
-            filter_spacing=0.1,
-            color=BLUE,
-            show_grid_lines=False,
-            stroke_width=2.0,
-            **kwargs
+        self,
+        kernel_size=2,
+        stride=1,
+        cell_highlight_color=ORANGE,
+        cell_width=0.2,
+        filter_spacing=0.1,
+        color=BLUE,
+        show_grid_lines=False,
+        stroke_width=2.0,
+        **kwargs
     ):
         """Layer object for animating 2D Convolution Max Pooling
 
@@ -42,11 +46,15 @@ class MaxPooling2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         self.show_grid_lines = show_grid_lines
         self.stroke_width = stroke_width
 
-    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+    def construct_layer(
+        self,
+        input_layer: "NeuralNetworkLayer",
+        output_layer: "NeuralNetworkLayer",
+        **kwargs
+    ):
         # Make the output feature maps
         self.feature_maps = self._make_output_feature_maps(
-            input_layer.num_feature_maps,
-            input_layer.feature_map_size
+            input_layer.num_feature_maps, input_layer.feature_map_size
         )
         self.add(self.feature_maps)
         self.rotate(
@@ -58,17 +66,13 @@ class MaxPooling2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             input_layer.feature_map_size[0] / self.kernel_size,
             input_layer.feature_map_size[1] / self.kernel_size,
         )
-    
-    def _make_output_feature_maps(
-        self, 
-        num_input_feature_maps, 
-        input_feature_map_size
-    ):
+
+    def _make_output_feature_maps(self, num_input_feature_maps, input_feature_map_size):
         """Makes a set of output feature maps"""
-        # Compute the size of the feature maps 
+        # Compute the size of the feature maps
         output_feature_map_size = (
             input_feature_map_size[0] / self.kernel_size,
-            input_feature_map_size[1] / self.kernel_size
+            input_feature_map_size[1] / self.kernel_size,
         )
         # Draw rectangles that are filled in with opacity
         feature_maps = []
@@ -92,12 +96,10 @@ class MaxPooling2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             # rectangle.set_z_index(4)
             feature_maps.append(rectangle)
 
-        return VGroup(
-            *feature_maps
-        )
+        return VGroup(*feature_maps)
 
     def make_forward_pass_animation(self, layer_args={}, **kwargs):
-        """Makes forward pass of Max Pooling Layer. 
+        """Makes forward pass of Max Pooling Layer.
 
         Parameters
         ----------

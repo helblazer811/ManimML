@@ -17,16 +17,13 @@ ROOT_DIR = Path(__file__).parents[2]
 
 def make_code_snippet():
     code_str = """
-        # Make nn
+        # Make the neural network
         nn = NeuralNetwork([
-            ImageLayer(numpy_image, height=1.5),
-            Convolutional2DLayer(1, 7, 3),
-            Convolutional2DLayer(3, 5, 3),
-            Convolutional2DLayer(5, 3, 1),
-            FeedForwardLayer(3),
-            FeedForwardLayer(3),
+            # ... Layers at start
+            Convolutional2DLayer(3, 5, 3, activation_function="ReLU"),
+            # ... Layers at end
         ])
-        # Play animation
+        # Play the animation
         self.play(nn.make_forward_pass_animation()) 
     """
 
@@ -37,10 +34,11 @@ def make_code_snippet():
         background_stroke_color=WHITE,
         insert_line_no=False,
         style="monokai",
-        # background="window",
+        font="Monospace",
+        background="window",
         language="py",
     )
-    code.scale(0.50)
+    code.scale(0.45)
 
     return code
 
@@ -52,28 +50,26 @@ class CombinedScene(ThreeDScene):
         nn = NeuralNetwork(
             [
                 ImageLayer(numpy_image, height=1.5),
-                Convolutional2DLayer(1, 7, 3, filter_spacing=0.32),
-                Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),
-                Convolutional2DLayer(5, 3, 3, filter_spacing=0.18),
+                Convolutional2DLayer(1, 7),
+                Convolutional2DLayer(3, 5, 3, activation_function="ReLU"),
+                Convolutional2DLayer(5, 3, 3, activation_function="ReLU"),
                 FeedForwardLayer(3),
-                FeedForwardLayer(3),
+                FeedForwardLayer(1),
             ],
             layer_spacing=0.25,
         )
+        # nn.scale(0.7)
         # Center the nn
         nn.move_to(ORIGIN)
         self.add(nn)
         # Make code snippet
-        # code = make_code_snippet()
-        # code.next_to(nn, DOWN)
-        # self.add(code)
-        # Group it all
-        # group = Group(nn, code)
-        # group.move_to(ORIGIN)
+        code = make_code_snippet()
+        code.next_to(nn, DOWN)
+        self.add(code)
         nn.move_to(ORIGIN)
+        # Move everything up
+        Group(nn, code).move_to(ORIGIN)
         # Play animation
-        forward_pass = nn.make_forward_pass_animation(
-            corner_pulses=False, all_filters_at_once=False
-        )
+        forward_pass = nn.make_forward_pass_animation()
         self.wait(1)
         self.play(forward_pass)

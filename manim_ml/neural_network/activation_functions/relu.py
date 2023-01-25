@@ -1,6 +1,9 @@
 from manim import *
 
-from manim_ml.neural_network.activation_functions.activation_function import ActivationFunction
+from manim_ml.neural_network.activation_functions.activation_function import (
+    ActivationFunction,
+)
+
 
 class ReLUFunction(ActivationFunction):
     """Rectified Linear Unit Activation Function"""

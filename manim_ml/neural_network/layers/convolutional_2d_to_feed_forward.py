@@ -17,14 +17,15 @@ class Convolutional2DToFeedForward(ConnectiveLayer, ThreeDLayer):
         passing_flash_color=ORANGE,
         **kwargs
     ):
-        super().__init__(
-            input_layer,
-            output_layer,
-            **kwargs
-        )
+        super().__init__(input_layer, output_layer, **kwargs)
         self.passing_flash_color = passing_flash_color
 
-    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+    def construct_layer(
+        self,
+        input_layer: "NeuralNetworkLayer",
+        output_layer: "NeuralNetworkLayer",
+        **kwargs
+    ):
         return super().construct_layer(input_layer, output_layer, **kwargs)
 
     def make_forward_pass_animation(self, layer_args={}, run_time=1.5, **kwargs):

@@ -1,11 +1,15 @@
 from manim_ml.neural_network.layers.convolutional_2d_to_feed_forward import (
     Convolutional2DToFeedForward,
 )
-from manim_ml.neural_network.layers.convolutional_2d_to_max_pooling_2d import Convolutional2DToMaxPooling2D
+from manim_ml.neural_network.layers.convolutional_2d_to_max_pooling_2d import (
+    Convolutional2DToMaxPooling2D,
+)
 from manim_ml.neural_network.layers.image_to_convolutional_2d import (
     ImageToConvolutional2DLayer,
 )
-from manim_ml.neural_network.layers.max_pooling_2d_to_convolutional_2d import MaxPooling2DToConvolutional2D
+from manim_ml.neural_network.layers.max_pooling_2d_to_convolutional_2d import (
+    MaxPooling2DToConvolutional2D,
+)
 from .convolutional_2d_to_convolutional_2d import Convolutional2DToConvolutional2D
 from .convolutional_2d import Convolutional2DLayer
 from .feed_forward_to_vector import FeedForwardToVector

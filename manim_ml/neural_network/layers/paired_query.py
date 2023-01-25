@@ -22,7 +22,12 @@ class PairedQueryLayer(NeuralNetworkLayer):
         self.add(self.assets)
         self.add(self.title)
 
-    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+    def construct_layer(
+        self,
+        input_layer: "NeuralNetworkLayer",
+        output_layer: "NeuralNetworkLayer",
+        **kwargs
+    ):
         return super().construct_layer(input_layer, output_layer, **kwargs)
 
     @classmethod

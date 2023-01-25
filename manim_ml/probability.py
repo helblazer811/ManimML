@@ -2,6 +2,7 @@ from manim import *
 import numpy as np
 import math
 
+
 class GaussianDistribution(VGroup):
     """Object for drawing a Gaussian distribution"""
 

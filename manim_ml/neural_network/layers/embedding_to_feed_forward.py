@@ -3,6 +3,7 @@ from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
 from manim_ml.neural_network.layers.embedding import EmbeddingLayer
 
+
 class EmbeddingToFeedForward(ConnectiveLayer):
     """Feed Forward to Embedding Layer"""
 
@@ -17,17 +18,18 @@ class EmbeddingToFeedForward(ConnectiveLayer):
         dot_radius=0.03,
         **kwargs
     ):
-        super().__init__(
-            input_layer,
-            output_layer,
-            **kwargs
-        )
+        super().__init__(input_layer, output_layer, **kwargs)
         self.feed_forward_layer = output_layer
         self.embedding_layer = input_layer
         self.animation_dot_color = animation_dot_color
         self.dot_radius = dot_radius
 
-    def construct_layer(self, input_layer: 'NeuralNetworkLayer', output_layer: 'NeuralNetworkLayer', **kwargs):
+    def construct_layer(
+        self,
+        input_layer: "NeuralNetworkLayer",
+        output_layer: "NeuralNetworkLayer",
+        **kwargs
+    ):
         return super().construct_layer(input_layer, output_layer, **kwargs)
 
     def make_forward_pass_animation(self, layer_args={}, run_time=1.5, **kwargs):

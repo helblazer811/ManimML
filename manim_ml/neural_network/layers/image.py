@@ -5,6 +5,7 @@ from manim_ml.neural_network.layers.parent_layers import NeuralNetworkLayer
 
 from PIL import Image
 
+
 class ImageLayer(NeuralNetworkLayer):
     """Single Image Layer for Neural Network"""
 
@@ -19,23 +20,22 @@ class ImageLayer(NeuralNetworkLayer):
 
         Parameters
         ----------
-        input_layer : 
+        input_layer :
             Input layer
-        output_layer : 
+        output_layer :
             Output layer
         """
         if len(np.shape(self.numpy_image)) == 2:
             # Assumed Grayscale
             self.num_channels = 1
             self.image_mobject = GrayscaleImageMobject(
-                self.numpy_image, 
-                height=self.image_height
+                self.numpy_image, height=self.image_height
             )
         elif len(np.shape(self.numpy_image)) == 3:
             # Assumed RGB
             self.num_channels = 3
             self.image_mobject = ImageMobject(self.numpy_image).scale_to_fit_height(
-                height
+                self.image_height
             )
         self.add(self.image_mobject)
 
@@ -62,10 +62,6 @@ class ImageLayer(NeuralNetworkLayer):
 
     def make_forward_pass_animation(self, layer_args={}, **kwargs):
         return AnimationGroup()
-
-    # def move_to(self, location):
-    #     """Override of move to"""
-    #     self.image_mobject.move_to(location)
 
     def get_right(self):
         """Override get right"""

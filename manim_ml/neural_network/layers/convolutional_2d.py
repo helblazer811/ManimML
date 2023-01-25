@@ -1,6 +1,8 @@
 from typing import Union
 from manim_ml.neural_network.activation_functions import get_activation_function_by_name
-from manim_ml.neural_network.activation_functions.activation_function import ActivationFunction
+from manim_ml.neural_network.activation_functions.activation_function import (
+    ActivationFunction,
+)
 import numpy as np
 from manim import *
 
@@ -9,6 +11,7 @@ from manim_ml.neural_network.layers.parent_layers import (
     VGroupNeuralNetworkLayer,
 )
 from manim_ml.gridded_rectangle import GriddedRectangle
+
 
 class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     """Handles rendering a convolutional layer for a nn"""
@@ -33,11 +36,11 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         self.num_feature_maps = num_feature_maps
         self.filter_color = filter_color
         if isinstance(feature_map_size, int):
-            self.feature_map_size = (feature_map_size, feature_map_size) 
+            self.feature_map_size = (feature_map_size, feature_map_size)
         else:
             self.feature_map_size = feature_map_size
         if isinstance(filter_size, int):
-            self.filter_size = (filter_size, filter_size) 
+            self.filter_size = (filter_size, filter_size)
         else:
             self.filter_size = filter_size
         self.cell_width = cell_width
@@ -50,10 +53,10 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         self.activation_function = activation_function
 
     def construct_layer(
-        self, 
-        input_layer: 'NeuralNetworkLayer', 
-        output_layer: 'NeuralNetworkLayer', 
-        **kwargs
+        self,
+        input_layer: "NeuralNetworkLayer",
+        output_layer: "NeuralNetworkLayer",
+        **kwargs,
     ):
         # Make the feature maps
         self.feature_maps = self.construct_feature_maps()
@@ -71,7 +74,7 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             if isinstance(self.activation_function, str):
                 activation_function = get_activation_function_by_name(
                     self.activation_function
-                )
+                )()
             else:
                 assert isinstance(self.activation_function, ActivationFunction)
                 activation_function = self.activation_function
@@ -108,14 +111,8 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     def highlight_and_unhighlight_feature_maps(self):
         """Highlights then unhighlights feature maps"""
         return Succession(
-            ApplyMethod(
-                self.feature_maps.set_color,
-                self.pulse_color
-            ),
-            ApplyMethod(
-                self.feature_maps.set_color,
-                self.color
-            )
+            ApplyMethod(self.feature_maps.set_color, self.pulse_color),
+            ApplyMethod(self.feature_maps.set_color, self.color),
         )
 
     def make_forward_pass_animation(
@@ -146,7 +143,7 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
                 animation_group = AnimationGroup(
                     self.activation_function.make_evaluate_animation(),
                     self.highlight_and_unhighlight_feature_maps(),
-                    lag_ratio=0.0
+                    lag_ratio=0.0,
                 )
             else:
                 animation_group = AnimationGroup()
@@ -160,11 +157,18 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     def get_center(self):
         """Overrides function for getting center
 
-        The reason for this is so that the center calculation 
-        does not include the activation function.  
+        The reason for this is so that the center calculation
+        does not include the activation function.
         """
-        print("Getting center")
         return self.feature_maps.get_center()
+
+    def get_width(self):
+        """Overrides get width function"""
+        return self.feature_maps.length_over_dim(0)
+
+    def get_height(self):
+        """Overrides get height function"""
+        return self.feature_maps.length_over_dim(1)
 
     @override_animation(Create)
     def _create_override(self, **kwargs):
