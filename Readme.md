@@ -6,7 +6,6 @@
 [![GitHub license](https://img.shields.io/github/license/helblazer811/ManimMachineLearning)](https://github.com/helblazer811/ManimMachineLearning/blob/main/LICENSE.md)
 [![GitHub tag](https://img.shields.io/github/v/release/helblazer811/ManimMachineLearning)](https://img.shields.io/github/v/release/helblazer811/ManimMachineLearning)
 ![Pypi Downloads](https://img.shields.io/pypi/dm/manim-ml)
-[![Follow Twitter](https://img.shields.io/twitter/follow/alec_helbling?style=social)](https://twitter.com/alec_helbling)
 
 ManimML is a project focused on providing animations and visualizations of common machine learning concepts with the [Manim Community Library](https://www.manim.community/). We want this project to be a compilation of primitive visualizations that can be easily combined to create videos about complex machine learning concepts. Additionally, we want to provide a set of abstractions which allow users to focus on explanations instead of software engineering.
 
@@ -28,6 +27,12 @@ Then you can run the following to generate the example videos from python script
 ## Examples
 
 Checkout the ```examples``` directory for some example videos with source code. 
+
+### Convolutional Neural Network
+
+This is a visualization of a Convolutional Neural Network.
+
+<img src="examples/media/CNNScene.gif">
 
 ### Neural Networks
 
@@ -59,12 +64,6 @@ class VariationalAutoencoderScene(Scene):
         self.play(Create(neural_network))
         self.play(neural_network.make_forward_pass_animation(run_time=15))
 ```
-
-### Convolutional Neural Network
-
-This is a visualization of a Convolutional Neural Network.
-
-<img src="examples/media/CNNScene.gif">
 
 ### Generative Adversarial Network
 
