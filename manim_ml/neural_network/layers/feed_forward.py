@@ -128,8 +128,15 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
                 Wait(1.0),
                 ApplyMethod(self.node_group.set_color, self.node_color, run_time=0.25),
             )
-
-        return succession
+            if not self.activation_function is None:
+                animation_group = AnimationGroup(
+                    succession,
+                    self.activation_function.make_evaluate_animation(),
+                    lag_ratio=0.0,
+                )
+                return animation_group
+            else:
+                return succession
 
     @override_animation(Create)
     def _create_override(self, **kwargs):
