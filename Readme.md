@@ -22,7 +22,7 @@ Then install the package form source or
 
 Then you can run the following to generate the example videos from python scripts. 
 
-`manim -pqh src/vae.py VAEScene`
+`manim -pqh examples/cnn/cnn.py`
 
 ## Examples
 
@@ -32,48 +32,36 @@ Checkout the ```examples``` directory for some example videos with source code.
 
 This is a visualization of a Convolutional Neural Network.
 
-<img src="examples/media/CNNScene.gif">
-
-### Neural Networks
-
-This is a visualization of a Variational Autoencoder made using ManimML. It has a Pytorch style list of layers that can be composed in arbitrary order. The following video is made with the code from below.  
-
-<img src="examples/media/VAEScene.gif">
+<img src="assets/BasicCNNGIF.gif">
 
 ```python
-class VariationalAutoencoderScene(Scene):
+from manim import * 
+from PIL import Image
+
+from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
+from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
+from manim_ml.neural_network.layers.image import ImageLayer
+from manim_ml.neural_network.neural_network import NeuralNetwork
+
+class ConvolutinoalNetworkScene(Scene):
 
     def construct(self):
-        embedding_layer = EmbeddingLayer(dist_theme="ellipse").scale(2)
-        
-        image = Image.open('images/image.jpeg')
+        image = Image.open(ROOT_DIR / "assets/mnist/digit.jpeg")
         numpy_image = np.asarray(image)
         # Make nn
-        neural_network = NeuralNetwork([
-            ImageLayer(numpy_image, height=1.4),
-            FeedForwardLayer(5),
-            FeedForwardLayer(3),
-            embedding_layer,
-            FeedForwardLayer(3),
-            FeedForwardLayer(5),
-            ImageLayer(numpy_image, height=1.4),
-        ], layer_spacing=0.1)
-
-        neural_network.scale(1.3)
-
-        self.play(Create(neural_network))
-        self.play(neural_network.make_forward_pass_animation(run_time=15))
+        nn = NeuralNetwork([
+                ImageLayer(numpy_image, height=1.5),
+                Convolutional2DLayer(1, 7, 3, filter_spacing=0.32),
+                Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),
+                Convolutional2DLayer(5, 3, 3, filter_spacing=0.18),
+                FeedForwardLayer(3),
+                FeedForwardLayer(3),
+            ],
+            layer_spacing=0.25,
+        )
+        # Center the nn
+        nn.move_to(ORIGIN)
+        self.add(nn)
+        self.play(neural_network.make_forward_pass_animation())
 ```
-
-### Generative Adversarial Network
-
-This is a visualization of a Generative Adversarial Network made using ManimML. 
-
-<img src="examples/media/GANScene.gif">
-
-### VAE Disentanglement 
-
-This is a visualization of disentanglement with a Variational Autoencoder
-
-<img src="examples/media/DisentanglementScene.gif">
 
