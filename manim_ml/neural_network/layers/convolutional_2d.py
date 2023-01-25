@@ -68,6 +68,11 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             about_point=self.get_center(),
             axis=ThreeDLayer.rotation_axis,
         )
+
+        self.construct_activation_function()
+
+    def construct_activation_function(self):
+        """Construct the activation function"""
         # Add the activation function
         if not self.activation_function is None:
             # Check if it is a string

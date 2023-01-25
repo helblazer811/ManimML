@@ -22,7 +22,7 @@ class CombinedScene(ThreeDScene):
                 ImageLayer(numpy_image, height=1.5),
                 Convolutional2DLayer(1, 7, filter_spacing=0.32),
                 Convolutional2DLayer(3, 5, 3, filter_spacing=0.32, activation_function="ReLU"),
-                FeedForwardLayer(3),
+                FeedForwardLayer(3, activation_function="Sigmoid"),
             ],
             layer_spacing=0.25,
         )

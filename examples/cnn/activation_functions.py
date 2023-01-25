@@ -63,12 +63,12 @@ class CombinedScene(ThreeDScene):
         nn.move_to(ORIGIN)
         self.add(nn)
         # Make code snippet
-        code = make_code_snippet()
-        code.next_to(nn, DOWN)
-        self.add(code)
-        nn.move_to(ORIGIN)
+        # code = make_code_snippet()
+        # code.next_to(nn, DOWN)
+        # self.add(code)
+        # nn.move_to(ORIGIN)
         # Move everything up
-        Group(nn, code).move_to(ORIGIN)
+        # Group(nn, code).move_to(ORIGIN)
         # Play animation
         forward_pass = nn.make_forward_pass_animation()
         self.wait(1)

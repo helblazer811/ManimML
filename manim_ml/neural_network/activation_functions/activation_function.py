@@ -4,7 +4,6 @@ import random
 
 import manim_ml.neural_network.activation_functions.relu as relu
 
-
 class ActivationFunction(ABC, VGroup):
     """Abstract parent class for defining activation functions"""
 

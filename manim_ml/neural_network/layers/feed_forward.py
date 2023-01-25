@@ -1,6 +1,8 @@
 from manim import *
-from manim_ml.neural_network.layers.parent_layers import VGroupNeuralNetworkLayer
 
+from manim_ml.neural_network.activation_functions import get_activation_function_by_name
+from manim_ml.neural_network.activation_functions.activation_function import ActivationFunction
+from manim_ml.neural_network.layers.parent_layers import VGroupNeuralNetworkLayer
 
 class FeedForwardLayer(VGroupNeuralNetworkLayer):
     """Handles rendering a layer for a neural network"""
@@ -18,6 +20,7 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         node_stroke_width=2.0,
         rectangle_stroke_width=2.0,
         animation_dot_color=RED,
+        activation_function=None,
         **kwargs
     ):
         super(VGroupNeuralNetworkLayer, self).__init__(**kwargs)
@@ -32,6 +35,7 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         self.node_spacing = node_spacing
         self.rectangle_fill_color = rectangle_fill_color
         self.animation_dot_color = animation_dot_color
+        self.activation_function = activation_function
 
         self.node_group = VGroup()
 
@@ -67,6 +71,24 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         self.surrounding_rectangle.set_z_index(1)
         # Add the objects to the class
         self.add(self.surrounding_rectangle, self.node_group)
+
+        self.construct_activation_function()
+
+    def construct_activation_function(self):
+        """Construct the activation function"""
+        # Add the activation function
+        if not self.activation_function is None:
+            # Check if it is a string
+            if isinstance(self.activation_function, str):
+                activation_function = get_activation_function_by_name(
+                    self.activation_function
+                )()
+            else:
+                assert isinstance(self.activation_function, ActivationFunction)
+                activation_function = self.activation_function
+            # Plot the function above the rest of the layer
+            self.activation_function = activation_function
+            self.add(self.activation_function)
 
     def make_dropout_forward_pass_animation(self, layer_args, **kwargs):
         """Makes a forward pass animation with dropout"""
