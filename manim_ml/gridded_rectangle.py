@@ -45,6 +45,7 @@ class GriddedRectangle(VGroup):
             stroke_width=stroke_width,
             fill_color=color,
             fill_opacity=fill_opacity,
+            shade_in_3d=True
         )
         self.add(self.rectangle)
         # Make grid lines
@@ -94,6 +95,7 @@ class GriddedRectangle(VGroup):
                         stroke_color=self.grid_stroke_color,
                         stroke_width=self.grid_stroke_width,
                         stroke_opacity=self.grid_stroke_opacity,
+                        shade_in_3d=True
                     )
                     for i in range(1, count)
                 )
