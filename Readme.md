@@ -30,27 +30,27 @@ Checkout the ```examples``` directory for some example videos with source code.
 
 ### Convolutional Neural Network
 
-This is a visualization of a Convolutional Neural Network.
+This is a visualization of a Convolutional Neural Network. The code needed to generate this visualization is shown below. 
 
-<img src="assets/BasicCNNGIF.gif">
+https://user-images.githubusercontent.com/14181830/214898495-ff40c679-3f79-4954-b6fc-13992a5024cb.mp4
 
 ```python
-from manim import * 
-from PIL import Image
+from manim import *
 
 from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
-from manim_ml.neural_network.layers.image import ImageLayer
 from manim_ml.neural_network.neural_network import NeuralNetwork
 
-class ConvolutinoalNetworkScene(Scene):
+# Make the specific scene
+config.pixel_height = 700
+config.pixel_width = 1900
+config.frame_height = 7.0
+config.frame_width = 7.0
 
+class CombinedScene(ThreeDScene):
     def construct(self):
-        image = Image.open(ROOT_DIR / "assets/mnist/digit.jpeg")
-        numpy_image = np.asarray(image)
         # Make nn
         nn = NeuralNetwork([
-                ImageLayer(numpy_image, height=1.5),
                 Convolutional2DLayer(1, 7, 3, filter_spacing=0.32),
                 Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),
                 Convolutional2DLayer(5, 3, 3, filter_spacing=0.18),
@@ -62,6 +62,18 @@ class ConvolutinoalNetworkScene(Scene):
         # Center the nn
         nn.move_to(ORIGIN)
         self.add(nn)
-        self.play(neural_network.make_forward_pass_animation())
+        # Play animation
+        forward_pass = nn.make_forward_pass_animation()
+        self.play(forward_pass)
 ```
 
+You can generate the above video by copying the above code into a file called `example.py` and running the following in your command line (assuming everything is installed properly):
+
+```
+    manim -pql example.py
+```
+The above generates a low resolution rendering, you can improve the resolution (at the cost of slowing down rendering speed) by running: 
+
+```
+    manim -pqh example.py
+```
