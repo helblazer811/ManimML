@@ -1,8 +1,6 @@
 from manim import *
 
-from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
-from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
-from manim_ml.neural_network.neural_network import NeuralNetwork
+from manim_ml.neural_network import Convolutional2DLayer, FeedForwardLayer, NeuralNetwork
 
 # Make the specific scene
 config.pixel_height = 700
