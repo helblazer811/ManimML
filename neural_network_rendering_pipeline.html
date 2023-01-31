@@ -2,10 +2,12 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/><title>Index - ManimML documentation</title>
-<link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+        <title>Design Doc: Neural Network Rendering Pipeline - ManimML documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -132,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -177,69 +179,39 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          
-<section class="genindex-section">
-  <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#M"><strong>M</strong></a> | <a href="#O"><strong>O</strong></a></div>
+          <section id="design-doc-neural-network-rendering-pipeline">
+<h1>Design Doc: Neural Network Rendering Pipeline<a class="headerlink" href="#design-doc-neural-network-rendering-pipeline" title="Permalink to this headline">#</a></h1>
+<section id="neural-network-layer-scope-and-mobject-ownership">
+<h2>Neural Network Layer Scope and Mobject Ownership<a class="headerlink" href="#neural-network-layer-scope-and-mobject-ownership" title="Permalink to this headline">#</a></h2>
+<p>An important consideration when designing this pipeline
+was to figure out a consistent design philosophy answering the
+following questions:</p>
+<ol class="arabic simple">
+<li><p>What content is owned by an individual layer?</p></li>
+<li><p>Does a layer describe an operation, a piece of data, or both?</p></li>
+</ol>
 </section>
-<section id="M" class="genindex-section">
-  <h2>M</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li>
-    manim_ml
-
-        <ul>
-          <li><a href="manim_ml.html#module-manim_ml">module</a>
-</li>
-        </ul></li>
-        <li>
-    manim_ml.manifold
-
-        <ul>
-          <li><a href="manim_ml.html#module-manim_ml.manifold">module</a>
-</li>
-        </ul></li>
-        <li>
-    manim_ml.one_to_one_sync
-
-        <ul>
-          <li><a href="manim_ml.html#module-manim_ml.one_to_one_sync">module</a>
-</li>
-        </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li>
-    module
-
-        <ul>
-          <li><a href="manim_ml.html#module-manim_ml">manim_ml</a>
-</li>
-          <li><a href="manim_ml.html#module-manim_ml.manifold">manim_ml.manifold</a>
-</li>
-          <li><a href="manim_ml.html#module-manim_ml.one_to_one_sync">manim_ml.one_to_one_sync</a>
-</li>
-        </ul></li>
-    </ul></td>
-  </tr></table>
+<section id="constructing-more-elaborate-animations">
+<h2>Constructing More Elaborate Animations<a class="headerlink" href="#constructing-more-elaborate-animations" title="Permalink to this headline">#</a></h2>
+<p>Sometimes we want to construct custom animations that span more
+than a single central layer and its two surrounding layers.</p>
+<p>One possible solution to this is to allow for the passing
+of neural networks into larger neural networks and treating them as layers.
+This way a person can make a class that extends NeuralNetwork, which then
+can implement its own forward pass animation, and then that neural network
+can then be passed into a larger neural network and treated as its own
+individual layer.</p>
+<p>This may be a good workaround in certain situations, but this does not
+solve the problem of allowing for multiple animations that each require
+the context of multiple layers.</p>
 </section>
-
-<section id="O" class="genindex-section">
-  <h2>O</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="manim_ml.html#manim_ml.one_to_one_sync.OneToOneSync">OneToOneSync (class in manim_ml.one_to_one_sync)</a>
-</li>
-    </ul></td>
-  </tr></table>
 </section>
-
 
         </article>
       </div>
@@ -268,8 +240,28 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Design Doc: Neural Network Rendering Pipeline</a><ul>
+<li><a class="reference internal" href="#neural-network-layer-scope-and-mobject-ownership">Neural Network Layer Scope and Mobject Ownership</a></li>
+<li><a class="reference internal" href="#constructing-more-elaborate-animations">Constructing More Elaborate Animations</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

@@ -2,10 +2,12 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/><title>Index - ManimML documentation</title>
-<link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+        <title>Visualizing Neural Networks with ManimML - ManimML documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -132,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -177,69 +179,40 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          
-<section class="genindex-section">
-  <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#M"><strong>M</strong></a> | <a href="#O"><strong>O</strong></a></div>
+          <section id="visualizing-neural-networks-with-manimml">
+<h1>Visualizing Neural Networks with ManimML<a class="headerlink" href="#visualizing-neural-networks-with-manimml" title="Permalink to this headline">#</a></h1>
+<p>This is a tutorial on how to make neural network architecture visualizations
+and animate common algorithms like the forward pass of a neural network.
+Neural networks are a ubiquitous class of machine learning techniques.
+One of the primary usecases for ManimML is for generating animations of neural network architectures.
+We have attempted to construct a simple API for defining neural network architectures
+that should feel native to anyone who has used popular deep learning libraries like Pytorch, Tensorflow, and Keras.
+User’s can define a sequence of layers and we prove a system for automatically generating various
+animations of concepts like a forward pass. We also allow the user to change the style of rendered
+architectures and algorithm animations.</p>
+<p>For this tutorial we assume that you have already followed the <a class="reference internal" href="getting_started.html"><span class="doc">Getting Started</span></a> tutorial.
+This tutorial goes over several simple topics:</p>
+<ol class="arabic simple">
+<li><p>Generating a simple feed forward neural network diagram</p></li>
+<li><p>Animating the forward pass of a feed forward neural network</p></li>
+<li><p>Generating a diagram of a convolutional neural network</p></li>
+<li><p>Modifying the default style of a neural network</p></li>
+</ol>
+<p>The topics of other tutorials will include:</p>
+<ol class="arabic simple">
+<li><p>Creating custom neural network layers</p></li>
+<li><p>Creating custom animations of neural networks</p></li>
+</ol>
+<section id="visualizing-a-feed-forward-neural-network">
+<h2>Visualizing a Feed Forward Neural Network<a class="headerlink" href="#visualizing-a-feed-forward-neural-network" title="Permalink to this headline">#</a></h2>
 </section>
-<section id="M" class="genindex-section">
-  <h2>M</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li>
-    manim_ml
-
-        <ul>
-          <li><a href="manim_ml.html#module-manim_ml">module</a>
-</li>
-        </ul></li>
-        <li>
-    manim_ml.manifold
-
-        <ul>
-          <li><a href="manim_ml.html#module-manim_ml.manifold">module</a>
-</li>
-        </ul></li>
-        <li>
-    manim_ml.one_to_one_sync
-
-        <ul>
-          <li><a href="manim_ml.html#module-manim_ml.one_to_one_sync">module</a>
-</li>
-        </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li>
-    module
-
-        <ul>
-          <li><a href="manim_ml.html#module-manim_ml">manim_ml</a>
-</li>
-          <li><a href="manim_ml.html#module-manim_ml.manifold">manim_ml.manifold</a>
-</li>
-          <li><a href="manim_ml.html#module-manim_ml.one_to_one_sync">manim_ml.one_to_one_sync</a>
-</li>
-        </ul></li>
-    </ul></td>
-  </tr></table>
 </section>
-
-<section id="O" class="genindex-section">
-  <h2>O</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="manim_ml.html#manim_ml.one_to_one_sync.OneToOneSync">OneToOneSync (class in manim_ml.one_to_one_sync)</a>
-</li>
-    </ul></td>
-  </tr></table>
-</section>
-
 
         </article>
       </div>
@@ -268,8 +241,27 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Visualizing Neural Networks with ManimML</a><ul>
+<li><a class="reference internal" href="#visualizing-a-feed-forward-neural-network">Visualizing a Feed Forward Neural Network</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
