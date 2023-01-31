@@ -3,10 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ManimML's documentation!
-===================================
-
-Testing difference.
+Welcome to ManimML's documentation! (Testing differences)
+=========================================================
 
 .. toctree::
    :maxdepth: 2
