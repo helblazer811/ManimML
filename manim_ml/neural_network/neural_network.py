@@ -10,6 +10,7 @@ Example:
     NeuralNetwork(layer_node_count)
 """
 import textwrap
+import numpy as np
 from manim import *
 
 from manim_ml.neural_network.layers.embedding import EmbeddingLayer
@@ -95,67 +96,22 @@ class NeuralNetwork(Group):
             previous_layer = self.input_layers[layer_index - 1]
             current_layer = self.input_layers[layer_index]
             current_layer.move_to(previous_layer.get_center())
-            # TODO Temp fix
-            if isinstance(current_layer, EmbeddingLayer) or isinstance(
-                previous_layer, EmbeddingLayer
-            ):
-                if layout_direction == "left_to_right":
-                    shift_vector = np.array(
-                        [
-                            (
-                                previous_layer.get_width() / 2
-                                + current_layer.get_width() / 2
-                                - 0.2
-                            ),
-                            0,
-                            0,
-                        ]
-                    )
-                elif layout_direction == "top_to_bottom":
-                    shift_vector = np.array(
-                        [
-                            0,
-                            -(
-                                previous_layer.get_width() / 2
-                                + current_layer.get_width() / 2
-                                - 0.2
-                            ),
-                            0,
-                        ]
-                    )
-                else:
-                    raise Exception(
-                        f"Unrecognized layout direction: {layout_direction}"
-                    )
+            if layout_direction == "left_to_right":
+                x_shift = previous_layer.get_width() / 2 \
+                        + current_layer.get_width() / 2 \
+                        + self.layer_spacing
+                shift_vector = np.array([x_shift, 0, 0])
+            elif layout_direction == "top_to_bottom":
+                y_shift = -((
+                    previous_layer.get_width() / 2 \
+                    + current_layer.get_width() / 2
+                ) + self.layer_spacing)
+                        
+                shift_vector = np.array([0, y_shift, 0])
             else:
-                if layout_direction == "left_to_right":
-                    shift_vector = np.array(
-                        [
-                            previous_layer.get_width() / 2
-                            + current_layer.get_width() / 2
-                            + self.layer_spacing,
-                            0,
-                            0,
-                        ]
-                    )
-                elif layout_direction == "top_to_bottom":
-                    shift_vector = np.array(
-                        [
-                            0,
-                            -(
-                                (
-                                    previous_layer.get_width() / 2
-                                    + current_layer.get_width() / 2
-                                )
-                                + self.layer_spacing
-                            ),
-                            0,
-                        ]
-                    )
-                else:
-                    raise Exception(
-                        f"Unrecognized layout direction: {layout_direction}"
-                    )
+                raise Exception(
+                    f"Unrecognized layout direction: {layout_direction}"
+                )
             current_layer.shift(shift_vector)
 
         # After all layers have been placed place their activation functions
