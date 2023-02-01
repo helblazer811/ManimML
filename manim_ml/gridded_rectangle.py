@@ -14,12 +14,13 @@ class GriddedRectangle(VGroup):
         close_new_points=True,
         grid_xstep=None,
         grid_ystep=None,
-        grid_stroke_width=0.0,  # DEFAULT_STROKE_WIDTH/2,
+        grid_stroke_width=0.0, # DEFAULT_STROKE_WIDTH/2,
         grid_stroke_color=ORANGE,
         grid_stroke_opacity=1.0,
         stroke_width=2.0,
         fill_opacity=0.2,
         show_grid_lines=False,
+        dotted_lines=False,
         **kwargs
     ):
         super().__init__()
@@ -37,16 +38,43 @@ class GriddedRectangle(VGroup):
         self.show_grid_lines = show_grid_lines
         self.untransformed_width = width
         self.untransformed_height = height
+        self.dotted_lines = dotted_lines
         # Make rectangle
-        self.rectangle = Rectangle(
-            width=width,
-            height=height,
-            color=color,
-            stroke_width=stroke_width,
-            fill_color=color,
-            fill_opacity=fill_opacity,
-            shade_in_3d=True
-        )
+        if self.dotted_lines:
+            no_border_rectangle = Rectangle(
+                width=width,
+                height=height,
+                color=color,
+                fill_color=color,
+                stroke_opacity=0.0,
+                fill_opacity=fill_opacity,
+                shade_in_3d=True
+            )
+            self.rectangle = no_border_rectangle
+            border_rectangle = Rectangle(
+                width=width,
+                height=height,
+                color=color,
+                fill_color=color,
+                fill_opacity=fill_opacity,
+                shade_in_3d=True,
+                stroke_width=stroke_width
+            )
+            self.dotted_lines = DashedVMobject(
+                border_rectangle,
+                num_dashes=int((width + height) / 2) * 20,
+            )
+            self.add(self.dotted_lines)
+        else:
+            self.rectangle = Rectangle(
+                width=width,
+                height=height,
+                color=color,
+                stroke_width=stroke_width,
+                fill_color=color,
+                fill_opacity=fill_opacity,
+                shade_in_3d=True
+            )
         self.add(self.rectangle)
         # Make grid lines
         grid_lines = self.make_grid_lines()

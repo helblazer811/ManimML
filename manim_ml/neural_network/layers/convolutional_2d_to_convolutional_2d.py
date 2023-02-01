@@ -7,7 +7,6 @@ from manim_ml.gridded_rectangle import GriddedRectangle
 
 from manim.utils.space_ops import rotation_matrix
 
-
 def get_rotated_shift_vectors(input_layer, normalized=False):
     """Rotates the shift vectors"""
     # Make base shift vectors
@@ -24,7 +23,6 @@ def get_rotated_shift_vectors(input_layer, normalized=False):
         down_shift = down_shift / np.linalg.norm(down_shift)
 
     return right_shift, down_shift
-
 
 class Filters(VGroup):
     """Group for showing a collection of filters connecting two layers"""
@@ -109,6 +107,8 @@ class Filters(VGroup):
         rectangle_width = self.output_layer.cell_width
         rectangle_height = self.output_layer.cell_width
         filter_color = self.output_layer.filter_color
+        right_shift, down_shift = get_rotated_shift_vectors(self.input_layer)
+        left_shift = -1 * right_shift
 
         for index, feature_map in enumerate(self.output_layer.feature_maps):
             # Make sure current feature map is the right filter
@@ -141,6 +141,13 @@ class Filters(VGroup):
                 submobject_to_align=rectangle.get_corners_dict()["top_left"],
                 buff=0.0
                 # aligned_edge=feature_map.get_corners_dict()["top_left"].get_center()
+            )
+            # Shift based on the amount of output layer padding
+            rectangle.shift(
+                self.output_layer.padding[0] * right_shift, 
+            )
+            rectangle.shift(
+                self.output_layer.padding[1] * down_shift,
             )
             rectangles.append(rectangle)
 
@@ -280,7 +287,7 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
         color=ORANGE,
         filter_opacity=0.3,
         line_color=ORANGE,
-        pulse_color=ORANGE,
+        active_color=ORANGE,
         cell_width=0.2,
         show_grid_lines=True,
         highlight_color=ORANGE,
@@ -299,10 +306,11 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
         self.num_output_feature_maps = self.output_layer.num_feature_maps
         self.cell_width = self.output_layer.cell_width
         self.stride = self.output_layer.stride
+        self.padding = self.input_layer.padding
         self.filter_opacity = filter_opacity
         self.cell_width = cell_width
         self.line_color = line_color
-        self.pulse_color = pulse_color
+        self.active_color = active_color
         self.show_grid_lines = show_grid_lines
         self.highlight_color = highlight_color
 
@@ -333,9 +341,11 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
         # Make the animation
         num_y_moves = int(
             (self.feature_map_size[1] - self.filter_size[1]) / self.stride
+            + self.padding[1] * 2
         )
         num_x_moves = int(
             (self.feature_map_size[0] - self.filter_size[0]) / self.stride
+            + self.padding[0] * 2
         )
         for y_move in range(num_y_moves):
             # Go right num_x_moves
@@ -401,9 +411,11 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
             # Make the animation
             num_y_moves = int(
                 (self.feature_map_size[1] - self.filter_size[1]) / self.stride
+                + self.padding[1] * 2
             )
             num_x_moves = int(
                 (self.feature_map_size[0] - self.filter_size[0]) / self.stride
+                + self.padding[0] * 2
             )
             for y_move in range(num_y_moves):
                 # Go right num_x_moves
@@ -434,7 +446,10 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
             # Do last row move right
             for x_move in range(num_x_moves):
                 # Shift right
-                shift_animation = ApplyMethod(filters.shift, self.stride * right_shift)
+                shift_animation = ApplyMethod(
+                    filters.shift, 
+                    self.stride * right_shift
+                )
                 # shift_animation = self.animate.shift(right_shift)
                 animations.append(shift_animation)
             # Remove the filters
@@ -445,14 +460,18 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
                 # Change the output feature map colors
                 change_color_animations = []
                 change_color_animations.append(
-                    ApplyMethod(feature_map.set_color, original_feature_map_color)
+                    ApplyMethod(
+                        feature_map.set_color, 
+                        original_feature_map_color
+                    )
                 )
                 # Change the input feature map colors
                 input_feature_maps = self.input_layer.feature_maps
                 for input_feature_map in input_feature_maps:
                     change_color_animations.append(
                         ApplyMethod(
-                            input_feature_map.set_color, original_feature_map_color
+                            input_feature_map.set_color, 
+                            original_feature_map_color
                         )
                     )
                 # Combine the animations

@@ -15,3 +15,14 @@ def test_FeedForwardScene(scene):
     ])
 
     scene.add(nn)
+
+class FeedForwardScene(Scene):
+
+    def construct(self):
+        nn = NeuralNetwork([
+            FeedForwardLayer(3),
+            FeedForwardLayer(5),
+            FeedForwardLayer(3)
+        ])
+
+        self.add(nn)

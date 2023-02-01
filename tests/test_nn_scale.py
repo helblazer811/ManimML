@@ -31,14 +31,7 @@ class CombinedScene(ThreeDScene):
         nn.move_to(ORIGIN)
         nn.scale(1.3)
         self.add(nn)
-        """
-        self.play(
-            FadeIn(nn)
-        )
-        """
         # Play animation
-        forward_pass = nn.make_forward_pass_animation(
-            corner_pulses=False, all_filters_at_once=False, highlight_filters=True
-        )
+        forward_pass = nn.make_forward_pass_animation()
         self.wait(1)
         self.play(forward_pass)

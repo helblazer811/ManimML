@@ -33,11 +33,7 @@ class CombinedScene(ThreeDScene):
         self.add(nn)
         self.wait(5)
         # Play animation
-        forward_pass = nn.make_forward_pass_animation(
-            corner_pulses=False, all_filters_at_once=False
-        )
-        print(forward_pass)
-        print(forward_pass.animations)
+        forward_pass = nn.make_forward_pass_animation()
         self.wait(1)
         self.play(forward_pass)
 
@@ -57,8 +53,6 @@ class SmallNetwork(ThreeDScene):
         nn.move_to(ORIGIN)
         self.add(nn)
         # Play animation
-        forward_pass = nn.make_forward_pass_animation(
-            corner_pulses=False, all_filters_at_once=False
-        )
+        forward_pass = nn.make_forward_pass_animation()
         self.wait(1)
         self.play(forward_pass)

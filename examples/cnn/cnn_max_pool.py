@@ -65,8 +65,6 @@ class CombinedScene(ThreeDScene):
         self.add(code)
         self.wait(5)
         # Play animation
-        forward_pass = nn.make_forward_pass_animation(
-            corner_pulses=False, all_filters_at_once=False
-        )
+        forward_pass = nn.make_forward_pass_animation()
         self.wait(1)
         self.play(forward_pass)

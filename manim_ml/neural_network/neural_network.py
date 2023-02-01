@@ -10,11 +10,10 @@ Example:
     NeuralNetwork(layer_node_count)
 """
 import textwrap
+from manim_ml.neural_network.layers.embedding import EmbeddingLayer
 import numpy as np
 from manim import *
 
-from manim_ml.neural_network.layers.embedding import EmbeddingLayer
-from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeDLayer
 from manim_ml.neural_network.layers.util import get_connective_layer
 from manim_ml.list_group import ListGroup
@@ -22,7 +21,6 @@ from manim_ml.neural_network.neural_network_transformations import (
     InsertLayer,
     RemoveLayer,
 )
-
 
 class NeuralNetwork(Group):
     """Neural Network Visualization Container Class"""
@@ -59,7 +57,10 @@ class NeuralNetwork(Group):
         # Make the connective layers
         self.connective_layers, self.all_layers = self._construct_connective_layers()
         # Make overhead title
-        self.title = Text(self.title_text, font_size=DEFAULT_FONT_SIZE / 2)
+        self.title = Text(
+            self.title_text, 
+            font_size=DEFAULT_FONT_SIZE / 2
+        )
         self.title.next_to(self, UP, 1.0)
         self.add(self.title)
         # Place layers at correct z index
@@ -96,6 +97,7 @@ class NeuralNetwork(Group):
             previous_layer = self.input_layers[layer_index - 1]
             current_layer = self.input_layers[layer_index]
             current_layer.move_to(previous_layer.get_center())
+
             if layout_direction == "left_to_right":
                 x_shift = previous_layer.get_width() / 2 \
                         + current_layer.get_width() / 2 \
@@ -106,7 +108,6 @@ class NeuralNetwork(Group):
                     previous_layer.get_width() / 2 \
                     + current_layer.get_width() / 2
                 ) + self.layer_spacing)
-                        
                 shift_vector = np.array([0, y_shift, 0])
             else:
                 raise Exception(
@@ -119,15 +120,13 @@ class NeuralNetwork(Group):
             # Place activation function
             if hasattr(current_layer, "activation_function"):
                 if not current_layer.activation_function is None:
-                    up_movement = np.array(
-                        [
-                            0,
-                            current_layer.get_height() / 2
-                            + current_layer.activation_function.get_height() / 2
-                            + 0.5 * self.layer_spacing,
-                            0,
-                        ]
-                    )
+                    up_movement = np.array([
+                        0,
+                        current_layer.get_height() / 2
+                        + current_layer.activation_function.get_height() / 2
+                        + 0.5 * self.layer_spacing,
+                        0,
+                    ])
                     current_layer.activation_function.move_to(
                         current_layer,
                     )
