@@ -26,3 +26,5 @@ class FeedForwardScene(Scene):
         ])
 
         self.add(nn)
+
+        self.play(nn.make_forward_pass_animation())

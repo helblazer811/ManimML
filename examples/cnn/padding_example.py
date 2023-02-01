@@ -60,7 +60,7 @@ class CombinedScene(ThreeDScene):
                 ),
                 Convolutional2DLayer(
                     num_feature_maps=3, 
-                    feature_map_size=6, 
+                    feature_map_size=6,
                     filter_size=3,
                     padding=0,
                     padding_dashed=False

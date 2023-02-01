@@ -11,6 +11,7 @@ Example:
 """
 import textwrap
 from manim_ml.neural_network.layers.embedding import EmbeddingLayer
+from manim_ml.utils.mobjects.connections import NetworkConnection
 import numpy as np
 from manim import *
 
@@ -38,7 +39,8 @@ class NeuralNetwork(Group):
         layout_direction="left_to_right",
     ):
         super(Group, self).__init__()
-        self.input_layers = ListGroup(*input_layers)
+        self.input_layers_dict = self.make_input_layers_dict(input_layers)
+        self.input_layers = ListGroup(*self.input_layers_dict.values())
         self.edge_width = edge_width
         self.edge_color = edge_color
         self.layer_spacing = layer_spacing
@@ -69,8 +71,45 @@ class NeuralNetwork(Group):
         # Center the whole diagram by default
         self.all_layers.move_to(ORIGIN)
         self.add(self.all_layers)
+        # Make container for connections
+        self.connections = []
         # Print neural network
         print(repr(self))
+
+    def make_input_layers_dict(self, input_layers):
+        """Make dictionary of input layers"""
+        if isinstance(input_layers, dict):
+            # If input layers is dictionary then return it
+            return input_layers
+        elif isinstance(input_layers, list):
+            # If input layers is a list then make a dictionary with default
+            return_dict = {}
+            for layer_index, input_layer in enumerate(input_layers):
+                return_dict[f"layer{layer_index}"] = input_layer
+
+            return return_dict
+        else:
+            raise Exception(f"Uncrecognized input layers type: {type(input_layers)}")
+
+    def add_connection(
+        self, 
+        start_layer_name, 
+        end_layer_name, 
+        connection_style="default",
+        connection_position="bottom"
+    ):
+        """Add connection from start layer to end layer"""
+        assert connection_style in ["default"]
+        if connection_style == "default":
+            # Make arrow connection from start layer to end layer
+            # Add the connection
+            connection = NetworkConnection(
+                self.input_layers_dict[start_layer_name],
+                self.input_layers_dict[end_layer_name],
+                arc_direction="down" # TODO generalize this more
+            )
+            self.connections.append(connection)
+            self.add(connection)
 
     def _construct_input_layers(self):
         """Constructs each of the input layers in context
@@ -220,7 +259,27 @@ class NeuralNetwork(Group):
                     current_layer_args = layer_args[layer]
             # Perform the forward pass of the current layer
             layer_forward_pass = layer.make_forward_pass_animation(
-                layer_args=current_layer_args, run_time=per_layer_runtime, **kwargs
+                layer_args=current_layer_args, 
+                run_time=per_layer_runtime, 
+                **kwargs
+            )
+            # Animate a forward pass for incoming connections
+            connection_input_pass = AnimationGroup()
+            for connection in self.connections:
+                if isinstance(layer, ConnectiveLayer):
+                    output_layer = layer.output_layer
+                    if connection.end_mobject == output_layer:
+                        connection_input_pass = ShowPassingFlash(
+                            connection,
+                            run_time=layer_forward_pass.run_time,
+                            time_width=0.2
+                        )
+                        break
+
+            layer_forward_pass = AnimationGroup(
+                layer_forward_pass,
+                connection_input_pass,
+                lag_ratio=0.0
             )
             all_animations.append(layer_forward_pass)
         # Make the animation group
