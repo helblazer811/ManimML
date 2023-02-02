@@ -8,11 +8,7 @@ class NeuralNetworkScene(Scene):
 
     def construct(self):
         # Make the Layer object
-        layers = [
-            FeedForwardLayer(3), 
-            FeedForwardLayer(5), 
-            FeedForwardLayer(3)
-        ]
+        layers = [FeedForwardLayer(3), FeedForwardLayer(5), FeedForwardLayer(3)]
         nn = NeuralNetwork(layers)
         nn.scale(2)
         nn.move_to(ORIGIN)

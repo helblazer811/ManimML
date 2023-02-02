@@ -1,6 +1,6 @@
 import random
 from manim import *
-from manim_ml.gridded_rectangle import GriddedRectangle
+from manim_ml.utils.mobjects.gridded_rectangle import GriddedRectangle
 from manim_ml.neural_network.layers.convolutional_2d_to_convolutional_2d import (
     get_rotated_shift_vectors,
 )
@@ -9,6 +9,7 @@ from manim_ml.neural_network.layers.max_pooling_2d import MaxPooling2DLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeDLayer
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
+
 
 class Uncreate(Create):
     def __init__(
@@ -27,6 +28,7 @@ class Uncreate(Create):
             **kwargs,
         )
 
+
 class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
     """Feed Forward to Embedding Layer"""
 
@@ -38,7 +40,7 @@ class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
         input_layer: Convolutional2DLayer,
         output_layer: MaxPooling2DLayer,
         active_color=ORANGE,
-        **kwargs
+        **kwargs,
     ):
         super().__init__(input_layer, output_layer, **kwargs)
         self.active_color = active_color
@@ -47,7 +49,7 @@ class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
         self,
         input_layer: "NeuralNetworkLayer",
         output_layer: "NeuralNetworkLayer",
-        **kwargs
+        **kwargs,
     ):
         return super().construct_layer(input_layer, output_layer, **kwargs)
 
@@ -94,7 +96,7 @@ class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
                         width=cell_width,
                         fill_opacity=0.7,
                         stroke_width=0.0,
-                        z_index=10
+                        z_index=10,
                     )
                     # Move to the correct location
                     kernel_shift_vector = [
@@ -119,10 +121,7 @@ class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
                     highlighted_cells.append(cell_rectangle)
             # Rotate the gridded rectangles so they match the angle
             # of the conv maps
-            gridded_rectangle_group = VGroup(
-                gridded_rectangle, 
-                *highlighted_cells
-            )
+            gridded_rectangle_group = VGroup(gridded_rectangle, *highlighted_cells)
             gridded_rectangle_group.rotate(
                 ThreeDLayer.rotation_angle,
                 about_point=gridded_rectangle.get_center(),
@@ -137,26 +136,20 @@ class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
             create_rectangle = Create(
                 gridded_rectangle,
             )
-            create_gridded_rectangle_animations.append(
-                create_rectangle
-            )
+            create_gridded_rectangle_animations.append(create_rectangle)
             # 4. Create and fade out highlighted cells
             create_group = AnimationGroup(
                 *[Create(highlighted_cell) for highlighted_cell in highlighted_cells],
-                lag_ratio=1.0
+                lag_ratio=1.0,
             )
             uncreate_group = AnimationGroup(
                 *[Uncreate(highlighted_cell) for highlighted_cell in highlighted_cells],
-                lag_ratio=0.0
+                lag_ratio=0.0,
             )
             create_and_remove_cell_animation = Succession(
-                create_group,
-                Wait(1.0),
-                uncreate_group
+                create_group, Wait(1.0), uncreate_group
             )
-            create_and_remove_cell_animations.append(
-                create_and_remove_cell_animation
-            )
+            create_and_remove_cell_animations.append(create_and_remove_cell_animation)
             # 5. Move and resize the gridded rectangle to the output
             #   feature maps.
             output_gridded_rectangle = GriddedRectangle(
@@ -178,9 +171,10 @@ class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
                 self.output_layer.feature_maps[feature_map_index].copy()
             )
             transform_rectangle = ReplacementTransform(
-                gridded_rectangle, output_gridded_rectangle,
+                gridded_rectangle,
+                output_gridded_rectangle,
                 introducer=True,
-                remover=True
+                remover=True,
             )
             transform_gridded_rectangle_animations.append(
                 transform_rectangle,

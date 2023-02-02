@@ -1,30 +1,27 @@
 import numpy as np
 from manim import *
 
+
 class NetworkConnection(VGroup):
     """
-        This class allows for creating connections
-        between locations in a network
+    This class allows for creating connections
+    between locations in a network
     """
-    direction_vector_map = {
-        "up": UP,
-        "down": DOWN,
-        "left": LEFT,
-        "right": RIGHT
-    }
+
+    direction_vector_map = {"up": UP, "down": DOWN, "left": LEFT, "right": RIGHT}
 
     def __init__(
-        self, 
-        start_mobject, 
-        end_mobject, 
+        self,
+        start_mobject,
+        end_mobject,
         arc_direction="straight",
         buffer=0.05,
         arc_distance=0.3,
         stroke_width=2.0,
         color=WHITE,
-        active_color=ORANGE
+        active_color=ORANGE,
     ):
-        """Creates an arrow with right angles in it connecting 
+        """Creates an arrow with right angles in it connecting
         two mobjects.
 
         Parameters
@@ -72,34 +69,28 @@ class NetworkConnection(VGroup):
             # Make an arrow
             arrow_line = Line(
                 left_mobject.get_right() + np.array([self.buffer, 0.0, 0.0]),
-                right_mobject.get_left() + np.array([-1 * self.buffer, 0.0, 0.0])
+                right_mobject.get_left() + np.array([-1 * self.buffer, 0.0, 0.0]),
             )
-            arrow = Arrow(
-                arrow_line,
-                color=self.color,
-                stroke_width=self.stroke_width
-            )
+            arrow = Arrow(arrow_line, color=self.color, stroke_width=self.stroke_width)
             self.straight_arrow = arrow
             self.add(arrow)
         else:
             # Figure out the direction of the arc
-            direction_vector = NetworkConnection.direction_vector_map[self.arc_direction]
+            direction_vector = NetworkConnection.direction_vector_map[
+                self.arc_direction
+            ]
             # Make the start arc piece
-            start_line_start = left_mobject.get_critical_point(
-                direction_vector
-            )
+            start_line_start = left_mobject.get_critical_point(direction_vector)
             start_line_start += direction_vector * self.buffer
             start_line_end = start_line_start + direction_vector * self.arc_distance
             self.start_line = Line(
                 start_line_start,
                 start_line_end,
                 color=self.color,
-                stroke_width=self.stroke_width
+                stroke_width=self.stroke_width,
             )
             # Make the end arc piece with an arrow
-            end_line_end = right_mobject.get_critical_point(
-                direction_vector
-            )
+            end_line_end = right_mobject.get_critical_point(direction_vector)
             end_line_end += direction_vector * self.buffer
             end_line_start = end_line_end + direction_vector * self.arc_distance
             self.end_arrow = Arrow(
@@ -108,14 +99,14 @@ class NetworkConnection(VGroup):
                 color=WHITE,
                 fill_color=WHITE,
                 stroke_opacity=1.0,
-                buff=0.0
+                buff=0.0,
             )
             # Make the middle arc piece
             self.middle_line = Line(
                 start_line_end,
                 end_line_start,
                 color=self.color,
-                stroke_width=self.stroke_width
+                stroke_width=self.stroke_width,
             )
             # Add the mobjects
             self.add(
@@ -130,23 +121,23 @@ class NetworkConnection(VGroup):
         if self.arc_direction == "straight":
             return ShowPassingFlash(
                 self.straight_arrow.copy().set_color(self.active_color),
-                time_width=time_width
+                time_width=time_width,
             )
         else:
             # Animate the start line
             start_line_animation = ShowPassingFlash(
                 self.start_line.copy().set_color(self.active_color),
-                time_width=time_width
+                time_width=time_width,
             )
             # Animate the middle line
             middle_line_animation = ShowPassingFlash(
                 self.middle_line.copy().set_color(self.active_color),
-                time_width=time_width
+                time_width=time_width,
             )
             # Animate the end line
             end_line_animation = ShowPassingFlash(
                 self.end_arrow.copy().set_color(self.active_color),
-                time_width=time_width
+                time_width=time_width,
             )
 
             return AnimationGroup(
@@ -154,5 +145,5 @@ class NetworkConnection(VGroup):
                 middle_line_animation,
                 end_line_animation,
                 lag_ratio=1.0,
-                run_time=run_time
+                run_time=run_time,
             )

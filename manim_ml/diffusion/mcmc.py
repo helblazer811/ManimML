@@ -7,7 +7,7 @@ import scipy
 import scipy.stats
 from tqdm import tqdm
 
-from manim_ml.probability import GaussianDistribution
+from manim_ml.utils.mobjects.probability import GaussianDistribution
 
 
 def gaussian_proposal(x, sigma=0.2):

@@ -2,7 +2,12 @@ from manim import *
 from PIL import Image
 import numpy as np
 
-from manim_ml.neural_network import Convolutional2DLayer, FeedForwardLayer, NeuralNetwork, ImageLayer
+from manim_ml.neural_network import (
+    Convolutional2DLayer,
+    FeedForwardLayer,
+    NeuralNetwork,
+    ImageLayer,
+)
 
 # Make the specific scene
 config.pixel_height = 700
@@ -10,13 +15,15 @@ config.pixel_width = 1900
 config.frame_height = 7.0
 config.frame_width = 7.0
 
+
 class CombinedScene(ThreeDScene):
     def construct(self):
         # Make nn
         image = Image.open("../../assets/mnist/digit.jpeg")
         numpy_image = np.asarray(image)
         # Make nn
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 ImageLayer(numpy_image, height=1.5),
                 Convolutional2DLayer(1, 7, filter_spacing=0.32),
                 Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),

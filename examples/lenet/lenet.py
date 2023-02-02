@@ -18,12 +18,14 @@ config.frame_width = 20.0
 
 ROOT_DIR = Path(__file__).parents[2]
 
+
 class CombinedScene(ThreeDScene):
     def construct(self):
         image = Image.open(ROOT_DIR / "assets/mnist/digit.jpeg")
         numpy_image = np.asarray(image)
         # Make nn
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 ImageLayer(numpy_image, height=4.5),
                 Convolutional2DLayer(1, 28),
                 Convolutional2DLayer(6, 28, 5),

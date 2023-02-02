@@ -15,6 +15,7 @@ config.frame_height = 7.0
 config.frame_width = 7.0
 ROOT_DIR = Path(__file__).parents[2]
 
+
 def make_code_snippet():
     code_str = """
         # Make the neural network
@@ -41,6 +42,7 @@ def make_code_snippet():
     code.scale(0.45)
 
     return code
+
 
 class CombinedScene(ThreeDScene):
     def construct(self):

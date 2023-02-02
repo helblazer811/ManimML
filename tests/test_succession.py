@@ -1,7 +1,7 @@
 from manim import *
 
-class TestSuccession(Scene):
 
+class TestSuccession(Scene):
     def construct(self):
         white_dot = Dot(color=WHITE)
         white_dot.shift(UP)

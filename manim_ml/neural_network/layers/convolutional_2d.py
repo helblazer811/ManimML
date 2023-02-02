@@ -10,7 +10,8 @@ from manim_ml.neural_network.layers.parent_layers import (
     ThreeDLayer,
     VGroupNeuralNetworkLayer,
 )
-from manim_ml.gridded_rectangle import GriddedRectangle
+from manim_ml.utils.mobjects.gridded_rectangle import GriddedRectangle
+
 
 class FeatureMap(VGroup):
     """Class for making a feature map"""
@@ -25,7 +26,7 @@ class FeatureMap(VGroup):
         padding=(0, 0),
         stroke_width=2.0,
         show_grid_lines=False,
-        padding_dashed=False
+        padding_dashed=False,
     ):
         super().__init__()
         self.color = color
@@ -40,8 +41,12 @@ class FeatureMap(VGroup):
         # Check if we have non-zero padding
         if padding[0] > 0 or padding[1] > 0:
             # Make the exterior rectangle dashed
-            width_with_padding = (self.feature_map_size[0] + self.padding[0] * 2) * self.cell_width
-            height_with_padding = (self.feature_map_size[1] + self.padding[1] * 2) * self.cell_width
+            width_with_padding = (
+                self.feature_map_size[0] + self.padding[0] * 2
+            ) * self.cell_width
+            height_with_padding = (
+                self.feature_map_size[1] + self.padding[1] * 2
+            ) * self.cell_width
             self.untransformed_width = width_with_padding
             self.untransformed_height = height_with_padding
 
@@ -58,7 +63,7 @@ class FeatureMap(VGroup):
                 grid_stroke_width=self.stroke_width / 2,
                 grid_stroke_color=self.color,
                 show_grid_lines=self.show_grid_lines,
-                dotted_lines=self.padding_dashed
+                dotted_lines=self.padding_dashed,
             )
             self.add(self.exterior_rectangle)
             # Add an interior rectangle with no fill color
@@ -67,13 +72,13 @@ class FeatureMap(VGroup):
                 fill_opacity=0.0,
                 width=self.feature_map_size[0] * self.cell_width,
                 height=self.feature_map_size[1] * self.cell_width,
-                stroke_width=self.stroke_width
+                stroke_width=self.stroke_width,
             )
             self.add(self.interior_rectangle)
         else:
             # Just make an exterior rectangle with no dashes.
-            self.untransformed_height = self.feature_map_size[1] * self.cell_width,
-            self.untransformed_width = self.feature_map_size[0] * self.cell_width,
+            self.untransformed_height = (self.feature_map_size[1] * self.cell_width,)
+            self.untransformed_width = (self.feature_map_size[0] * self.cell_width,)
             # Make the exterior rectangle
             self.exterior_rectangle = GriddedRectangle(
                 color=self.color,
@@ -95,6 +100,7 @@ class FeatureMap(VGroup):
         """Returns a dictionary of the corners"""
         # Sort points through clockwise rotation of a vector in the xy plane
         return self.exterior_rectangle.get_corners_dict()
+
 
 class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     """Handles rendering a convolutional layer for a nn"""
@@ -215,7 +221,7 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
                 fill_color=self.color,
                 fill_opacity=self.fill_opacity,
                 padding=self.padding,
-                padding_dashed=self.padding_dashed
+                padding_dashed=self.padding_dashed,
             )
             # Move the feature map
             feature_map.move_to([0, 0, filter_index * self.filter_spacing])
@@ -231,9 +237,7 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             ApplyMethod(self.feature_maps.set_color, self.color),
         )
 
-    def make_forward_pass_animation(
-        self, run_time=5, layer_args={}, **kwargs
-    ):
+    def make_forward_pass_animation(self, run_time=5, layer_args={}, **kwargs):
         """Convolution forward pass animation"""
         # Note: most of this animation is done in the Convolution3DToConvolution3D layer
         if not self.activation_function is None:

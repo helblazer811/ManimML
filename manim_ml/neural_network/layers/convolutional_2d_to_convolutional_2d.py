@@ -3,9 +3,10 @@ import numpy as np
 from manim import *
 from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeDLayer
-from manim_ml.gridded_rectangle import GriddedRectangle
+from manim_ml.utils.mobjects.gridded_rectangle import GriddedRectangle
 
 from manim.utils.space_ops import rotation_matrix
+
 
 def get_rotated_shift_vectors(input_layer, normalized=False):
     """Rotates the shift vectors"""
@@ -23,6 +24,7 @@ def get_rotated_shift_vectors(input_layer, normalized=False):
         down_shift = down_shift / np.linalg.norm(down_shift)
 
     return right_shift, down_shift
+
 
 class Filters(VGroup):
     """Group for showing a collection of filters connecting two layers"""
@@ -144,7 +146,7 @@ class Filters(VGroup):
             )
             # Shift based on the amount of output layer padding
             rectangle.shift(
-                self.output_layer.padding[0] * right_shift, 
+                self.output_layer.padding[0] * right_shift,
             )
             rectangle.shift(
                 self.output_layer.padding[1] * down_shift,
@@ -446,10 +448,7 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
             # Do last row move right
             for x_move in range(num_x_moves):
                 # Shift right
-                shift_animation = ApplyMethod(
-                    filters.shift, 
-                    self.stride * right_shift
-                )
+                shift_animation = ApplyMethod(filters.shift, self.stride * right_shift)
                 # shift_animation = self.animate.shift(right_shift)
                 animations.append(shift_animation)
             # Remove the filters
@@ -460,18 +459,14 @@ class Convolutional2DToConvolutional2D(ConnectiveLayer, ThreeDLayer):
                 # Change the output feature map colors
                 change_color_animations = []
                 change_color_animations.append(
-                    ApplyMethod(
-                        feature_map.set_color, 
-                        original_feature_map_color
-                    )
+                    ApplyMethod(feature_map.set_color, original_feature_map_color)
                 )
                 # Change the input feature map colors
                 input_feature_maps = self.input_layer.feature_maps
                 for input_feature_map in input_feature_maps:
                     change_color_animations.append(
                         ApplyMethod(
-                            input_feature_map.set_color, 
-                            original_feature_map_color
+                            input_feature_map.set_color, original_feature_map_color
                         )
                     )
                 # Combine the animations

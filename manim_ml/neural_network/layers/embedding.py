@@ -1,5 +1,5 @@
 from manim import *
-from manim_ml.probability import GaussianDistribution
+from manim_ml.utils.mobjects.probability import GaussianDistribution
 from manim_ml.neural_network.layers.parent_layers import VGroupNeuralNetworkLayer
 
 

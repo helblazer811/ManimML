@@ -14,23 +14,24 @@ config.pixel_width = 1900
 config.frame_height = 6.0
 config.frame_width = 6.0
 
-class CombinedScene(ThreeDScene):
 
+class CombinedScene(ThreeDScene):
     def construct(self):
         # Make nn
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 Convolutional2DLayer(
-                    num_feature_maps=1, 
-                    feature_map_size=7, 
+                    num_feature_maps=1,
+                    feature_map_size=7,
                     padding=1,
-                    padding_dashed=True
+                    padding_dashed=True,
                 ),
                 Convolutional2DLayer(
-                    num_feature_maps=3, 
-                    feature_map_size=7, 
+                    num_feature_maps=3,
+                    feature_map_size=7,
                     filter_size=3,
                     padding=0,
-                    padding_dashed=False
+                    padding_dashed=False,
                 ),
                 FeedForwardLayer(3),
             ],
@@ -44,23 +45,22 @@ class CombinedScene(ThreeDScene):
         self.wait(1)
         self.play(forward_pass, run_time=30)
 
+
 @frames_comparison
 def test_ConvPadding(scene):
     # Make nn
-    nn = NeuralNetwork([
+    nn = NeuralNetwork(
+        [
             Convolutional2DLayer(
-                num_feature_maps=1, 
-                feature_map_size=7, 
-                padding=1,
-                padding_dashed=True
+                num_feature_maps=1, feature_map_size=7, padding=1, padding_dashed=True
             ),
             Convolutional2DLayer(
-                num_feature_maps=3, 
-                feature_map_size=7, 
+                num_feature_maps=3,
+                feature_map_size=7,
                 filter_size=3,
                 padding=1,
                 filter_spacing=0.35,
-                padding_dashed=False
+                padding_dashed=False,
             ),
             FeedForwardLayer(3),
         ],

@@ -7,7 +7,7 @@ from manim_ml.neural_network.layers.parent_layers import (
     ThreeDLayer,
     VGroupNeuralNetworkLayer,
 )
-from manim_ml.gridded_rectangle import GriddedRectangle
+from manim_ml.utils.mobjects.gridded_rectangle import GriddedRectangle
 
 
 class ImageToConvolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):

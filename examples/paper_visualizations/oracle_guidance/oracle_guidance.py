@@ -13,7 +13,7 @@ from manim_ml.neural_network.layers import FeedForwardLayer, EmbeddingLayer
 from manim_ml.neural_network.layers.util import get_connective_layer
 import os
 
-from manim_ml.probability import GaussianDistribution
+from manim_ml.utils.mobjects.probability import GaussianDistribution
 
 # Make the specific scene
 config.pixel_height = 1200

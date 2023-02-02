@@ -9,11 +9,12 @@ config.pixel_width = 1900
 config.frame_height = 5.0
 config.frame_width = 5.0
 
+
 class DropoutNeuralNetworkScene(Scene):
-    
     def construct(self):
         # Make nn
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 FeedForwardLayer(3, rectangle_color=BLUE),
                 FeedForwardLayer(5, rectangle_color=BLUE),
                 FeedForwardLayer(3, rectangle_color=BLUE),

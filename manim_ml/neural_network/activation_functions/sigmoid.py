@@ -5,6 +5,7 @@ from manim_ml.neural_network.activation_functions.activation_function import (
     ActivationFunction,
 )
 
+
 class SigmoidFunction(ActivationFunction):
     """Sigmoid Activation Function"""
 

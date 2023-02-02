@@ -9,6 +9,7 @@ config.pixel_width = 1900
 config.frame_height = 6.0
 config.frame_width = 6.0
 
+
 def make_code_snippet():
     code_str = """
         # Make the neural network
@@ -37,13 +38,14 @@ def make_code_snippet():
 
     return code
 
-class ConvScene(ThreeDScene):
 
+class ConvScene(ThreeDScene):
     def construct(self):
         image = Image.open("../../assets/mnist/digit.jpeg")
         numpy_image = np.asarray(image)
 
-        nn = NeuralNetwork({
+        nn = NeuralNetwork(
+            {
                 "layer1": Convolutional2DLayer(1, 5, padding=1),
                 "layer2": Convolutional2DLayer(1, 5, 3, padding=1),
                 "layer3": Convolutional2DLayer(1, 5, 3, padding=1),
@@ -60,7 +62,4 @@ class ConvScene(ThreeDScene):
         self.add(code)
         Group(code, nn).move_to(ORIGIN)
 
-        self.play(
-            nn.make_forward_pass_animation(),
-            run_time=8
-        )
+        self.play(nn.make_forward_pass_animation(), run_time=8)

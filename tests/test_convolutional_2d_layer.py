@@ -6,6 +6,7 @@ from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.image import ImageLayer
 from manim_ml.neural_network.neural_network import NeuralNetwork
 
+
 class SingleConvolutionalLayerScene(ThreeDScene):
     def construct(self):
         # Make nn
@@ -21,6 +22,7 @@ class SingleConvolutionalLayerScene(ThreeDScene):
         )
         # self.play(nn.make_forward_pass_animation(run_time=5))
 
+
 class Simple3DConvScene(ThreeDScene):
     def construct(self):
         """
@@ -33,16 +35,8 @@ class Simple3DConvScene(ThreeDScene):
         """
         # Make nn
         layers = [
-            Convolutional2DLayer(
-                num_feature_maps=1,
-                feature_map_size=3,
-                filter_size=3
-            ),
-            Convolutional2DLayer(
-                num_feature_maps=1,
-                feature_map_size=3,
-                filter_size=3
-            ),
+            Convolutional2DLayer(num_feature_maps=1, feature_map_size=3, filter_size=3),
+            Convolutional2DLayer(num_feature_maps=1, feature_map_size=3, filter_size=3),
         ]
         nn = NeuralNetwork(layers)
         # Center the nn
@@ -52,18 +46,21 @@ class Simple3DConvScene(ThreeDScene):
         # self.set_camera_orientation(phi=280*DEGREES, theta=-10*DEGREES, gamma=90*DEGREES)
         self.play(nn.make_forward_pass_animation(run_time=30))
 
+
 # Make the specific scene
 config.pixel_height = 1200
 config.pixel_width = 1900
 config.frame_height = 6.0
 config.frame_width = 6.0
 
+
 class CombinedScene(ThreeDScene):
     def construct(self):
         image = Image.open("../assets/mnist/digit.jpeg")
         numpy_image = np.asarray(image)
         # Make nn
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 ImageLayer(numpy_image, height=1.5),
                 Convolutional2DLayer(1, 7, filter_spacing=0.32),
                 Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),

@@ -1,6 +1,6 @@
 from manim import *
 from manim_ml.neural_network.layers import NeuralNetworkLayer
-from manim_ml.image import GrayscaleImageMobject, LabeledColorImage
+from manim_ml.utils.mobjects.image import GrayscaleImageMobject, LabeledColorImage
 import numpy as np
 
 

@@ -14,7 +14,7 @@ class GriddedRectangle(VGroup):
         close_new_points=True,
         grid_xstep=None,
         grid_ystep=None,
-        grid_stroke_width=0.0, # DEFAULT_STROKE_WIDTH/2,
+        grid_stroke_width=0.0,  # DEFAULT_STROKE_WIDTH/2,
         grid_stroke_color=ORANGE,
         grid_stroke_opacity=1.0,
         stroke_width=2.0,
@@ -48,7 +48,7 @@ class GriddedRectangle(VGroup):
                 fill_color=color,
                 stroke_opacity=0.0,
                 fill_opacity=fill_opacity,
-                shade_in_3d=True
+                shade_in_3d=True,
             )
             self.rectangle = no_border_rectangle
             border_rectangle = Rectangle(
@@ -58,7 +58,7 @@ class GriddedRectangle(VGroup):
                 fill_color=color,
                 fill_opacity=fill_opacity,
                 shade_in_3d=True,
-                stroke_width=stroke_width
+                stroke_width=stroke_width,
             )
             self.dotted_lines = DashedVMobject(
                 border_rectangle,
@@ -73,7 +73,7 @@ class GriddedRectangle(VGroup):
                 stroke_width=stroke_width,
                 fill_color=color,
                 fill_opacity=fill_opacity,
-                shade_in_3d=True
+                shade_in_3d=True,
             )
         self.add(self.rectangle)
         # Make grid lines
@@ -123,7 +123,7 @@ class GriddedRectangle(VGroup):
                         stroke_color=self.grid_stroke_color,
                         stroke_width=self.grid_stroke_width,
                         stroke_opacity=self.grid_stroke_opacity,
-                        shade_in_3d=True
+                        shade_in_3d=True,
                     )
                     for i in range(1, count)
                 )

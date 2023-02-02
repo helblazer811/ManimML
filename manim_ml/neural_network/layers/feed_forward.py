@@ -1,8 +1,11 @@
 from manim import *
 
 from manim_ml.neural_network.activation_functions import get_activation_function_by_name
-from manim_ml.neural_network.activation_functions.activation_function import ActivationFunction
+from manim_ml.neural_network.activation_functions.activation_function import (
+    ActivationFunction,
+)
 from manim_ml.neural_network.layers.parent_layers import VGroupNeuralNetworkLayer
+
 
 class FeedForwardLayer(VGroupNeuralNetworkLayer):
     """Handles rendering a layer for a neural network"""

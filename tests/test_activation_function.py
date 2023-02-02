@@ -13,15 +13,19 @@ config.pixel_width = 1900
 config.frame_height = 6.0
 config.frame_width = 6.0
 
+
 class CombinedScene(ThreeDScene):
     def construct(self):
         image = Image.open("../assets/mnist/digit.jpeg")
         numpy_image = np.asarray(image)
         # Make nn
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 ImageLayer(numpy_image, height=1.5),
                 Convolutional2DLayer(1, 7, filter_spacing=0.32),
-                Convolutional2DLayer(3, 5, 3, filter_spacing=0.32, activation_function="ReLU"),
+                Convolutional2DLayer(
+                    3, 5, 3, filter_spacing=0.32, activation_function="ReLU"
+                ),
                 FeedForwardLayer(3, activation_function="Sigmoid"),
             ],
             layer_spacing=0.25,

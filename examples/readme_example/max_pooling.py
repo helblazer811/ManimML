@@ -12,11 +12,12 @@ config.pixel_width = 1900
 config.frame_height = 6.0
 config.frame_width = 6.0
 
-class MaxPoolingScene(ThreeDScene):
 
+class MaxPoolingScene(ThreeDScene):
     def construct(self):
         # Make nn
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 Convolutional2DLayer(1, 8),
                 Convolutional2DLayer(3, 6, 3),
                 MaxPooling2DLayer(kernel_size=2),

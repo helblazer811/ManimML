@@ -12,14 +12,11 @@ config.pixel_width = 1900
 config.frame_height = 6.0
 config.frame_width = 6.0
 
+
 class NeuralNetworkScene(ThreeDScene):
     """Test Scene for the Neural Network"""
 
-    def play_camera_follow_forward_pass(
-        self, 
-        neural_network,
-        buffer=0.1
-    ):
+    def play_camera_follow_forward_pass(self, neural_network, buffer=0.1):
         per_layer_animations = neural_network.make_forward_pass_animation(
             return_per_layer_animations=True
         )
@@ -32,7 +29,7 @@ class NeuralNetworkScene(ThreeDScene):
             current_layer = all_layers[layer_index]
             next_layer = all_layers[layer_index + 1]
             group = Group(prev_layer, current_layer, next_layer)
-            
+
             max_width = max(max_width, group.width)
             max_height = max(max_height, group.height)
 
@@ -46,7 +43,8 @@ class NeuralNetworkScene(ThreeDScene):
         # Make the Layer object
         image = Image.open("../assets/mnist/digit.jpeg")
         numpy_image = np.asarray(image)
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 ImageLayer(numpy_image, height=1.5),
                 Convolutional2DLayer(1, 7, filter_spacing=0.32),
                 Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),

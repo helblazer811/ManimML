@@ -1,7 +1,10 @@
 from manim import *
-from manim_ml.neural_network.layers.convolutional_2d_to_feed_forward import Convolutional2DToFeedForward
+from manim_ml.neural_network.layers.convolutional_2d_to_feed_forward import (
+    Convolutional2DToFeedForward,
+)
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.max_pooling_2d import MaxPooling2DLayer
+
 
 class MaxPooling2DToFeedForward(Convolutional2DToFeedForward):
     """Feed Forward to Embedding Layer"""

@@ -9,6 +9,7 @@ from sklearn import datasets
 import sklearn
 import matplotlib.pyplot as plt
 
+
 def learn_iris_decision_tree(iris):
     decision_tree = DecisionTreeClassifier(
         random_state=1, max_depth=3, max_leaf_nodes=6
@@ -17,10 +18,12 @@ def learn_iris_decision_tree(iris):
     # output the decisioin tree in some format
     return decision_tree
 
+
 def make_sklearn_tree(dataset, max_tree_depth=3):
     tree = learn_iris_decision_tree(dataset)
     feature_names = dataset.feature_names[0:2]
     return tree, tree.tree_
+
 
 class DecisionTreeScene(Scene):
     def construct(self):
@@ -43,6 +46,7 @@ class DecisionTreeScene(Scene):
         create_decision_tree = Create(decision_tree, traversal_order="bfs")
         self.play(create_decision_tree)
         # self.play(create_decision_tree)
+
 
 class SurfacePlot(Scene):
     def construct(self):

@@ -1,6 +1,10 @@
 from manim import *
 
-from manim_ml.neural_network import Convolutional2DLayer, FeedForwardLayer, NeuralNetwork
+from manim_ml.neural_network import (
+    Convolutional2DLayer,
+    FeedForwardLayer,
+    NeuralNetwork,
+)
 
 # Make the specific scene
 config.pixel_height = 700
@@ -8,10 +12,12 @@ config.pixel_width = 1900
 config.frame_height = 7.0
 config.frame_width = 7.0
 
+
 class CombinedScene(ThreeDScene):
     def construct(self):
         # Make nn
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 Convolutional2DLayer(1, 7, 3, filter_spacing=0.32),
                 Convolutional2DLayer(3, 5, 3, filter_spacing=0.32),
                 Convolutional2DLayer(5, 3, 3, filter_spacing=0.18),

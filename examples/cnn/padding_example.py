@@ -15,6 +15,7 @@ config.pixel_width = 1900
 config.frame_height = 6.0
 config.frame_width = 6.0
 
+
 def make_code_snippet():
     code_str = """
         # Make nn
@@ -43,27 +44,28 @@ def make_code_snippet():
 
     return code
 
-class CombinedScene(ThreeDScene):
 
+class CombinedScene(ThreeDScene):
     def construct(self):
         # Make nn
         image = Image.open(ROOT_DIR / "assets/mnist/digit.jpeg")
         numpy_image = np.asarray(image)
         # Make nn
-        nn = NeuralNetwork([
+        nn = NeuralNetwork(
+            [
                 ImageLayer(numpy_image, height=1.5),
                 Convolutional2DLayer(
-                    num_feature_maps=1, 
-                    feature_map_size=6, 
+                    num_feature_maps=1,
+                    feature_map_size=6,
                     padding=1,
-                    padding_dashed=True
+                    padding_dashed=True,
                 ),
                 Convolutional2DLayer(
-                    num_feature_maps=3, 
+                    num_feature_maps=3,
                     feature_map_size=6,
                     filter_size=3,
                     padding=0,
-                    padding_dashed=False
+                    padding_dashed=False,
                 ),
                 FeedForwardLayer(3),
                 FeedForwardLayer(1),

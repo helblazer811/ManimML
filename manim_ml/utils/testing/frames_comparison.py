@@ -27,6 +27,7 @@ _tests_root_dir_path = Path(__file__).absolute().parents[2]
 print(f"Tests root path: {_tests_root_dir_path}")
 PATH_CONTROL_DATA = _tests_root_dir_path / Path("control_data", "graphical_units_data")
 
+
 def frames_comparison(
     func=None,
     *,
