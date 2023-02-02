@@ -378,7 +378,7 @@ self.play(
 ```py
 self.play(
     make_neural_network_dropout_animation(
-        nn, dropout_rate=0.25, do_forward_pass=True, seed=4, last_layer_stable=True,  first_layer_stable=True
+        nn, dropout_rate=0.25, do_forward_pass=True, seed=4, first_layer_stable=True, last_layer_stable=True
     )
 )
 ```
