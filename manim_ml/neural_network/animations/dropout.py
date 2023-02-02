@@ -223,6 +223,8 @@ def make_neural_network_dropout_animation(
             dropout_prob = random.random()
             if last_layer_stable and idx==len(feed_forward_layers)-1:
                     continue
+            if first_layer_stable and idx==0:
+                continue
             if dropout_prob < dropout_rate:
                 nodes_to_drop_out.append(node_index)
         # Add the mapping to the dict
