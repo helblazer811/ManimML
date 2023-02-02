@@ -45,6 +45,7 @@ class MaxPooling2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         self.color = color
         self.show_grid_lines = show_grid_lines
         self.stroke_width = stroke_width
+        self.padding = (0, 0)
 
     def construct_layer(
         self,
