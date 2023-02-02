@@ -348,3 +348,39 @@ $ manim -pql example.py
 ```
 
 <img src="assets/readme/dropout.gif">
+
+#### Seed the Dropouts:
+
+```py
+self.play(
+    make_neural_network_dropout_animation(
+        nn, dropout_rate=0.25, do_forward_pass=True, seed=4
+    )
+)
+```
+
+<img src="assets/readme/dropout_seed_4.gif">
+
+#### Seed the Dropouts with First layer static:
+
+```py
+self.play(
+    make_neural_network_dropout_animation(
+        nn, dropout_rate=0.25, do_forward_pass=True, seed=4,  first_layer_stable=True
+    )
+)
+```
+
+<img src="assets/readme/dropout_seed_4_first.gif">
+
+#### Seed the Dropouts with First and Last layers static:
+
+```py
+self.play(
+    make_neural_network_dropout_animation(
+        nn, dropout_rate=0.25, do_forward_pass=True, seed=4, last_layer_stable=True,  first_layer_stable=True
+    )
+)
+```
+
+<img src="assets/readme/dropout_seed_4_first_last.gif">
