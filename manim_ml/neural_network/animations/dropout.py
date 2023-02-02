@@ -192,7 +192,7 @@ def make_forward_pass_with_dropout_animation(
 
 
 def make_neural_network_dropout_animation(
-    neural_network, dropout_rate=0.5, do_forward_pass=True, last_layer_stable=False
+    neural_network, dropout_rate=0.5, do_forward_pass=True, last_layer_stable=False, first_layer_stable=False, seed=None
 ):
     """
     Makes a dropout animation for a given neural network.
@@ -204,6 +204,8 @@ def make_neural_network_dropout_animation(
     3. Revert network to pre-dropout appearance
     """
     # Go through the network and get the FeedForwardLayer instances
+    if seed is not None:
+        random.seed(seed)
     feed_forward_layers = neural_network.filter_layers(
         lambda layer: isinstance(layer, FeedForwardLayer)
     )
@@ -219,12 +221,10 @@ def make_neural_network_dropout_animation(
         # Compute random probability that each node is dropped out
         for node_index in range(num_nodes):
             dropout_prob = random.random()
-            if last_layer_stable:
-                if dropout_prob < dropout_rate and idx!=len(feed_forward_layers)-1:
-                    nodes_to_drop_out.append(node_index)
-            else:
-                if dropout_prob < dropout_rate:
-                    nodes_to_drop_out.append(node_index)
+            if last_layer_stable and idx==len(feed_forward_layers)-1:
+                    continue
+            if dropout_prob < dropout_rate:
+                nodes_to_drop_out.append(node_index)
         # Add the mapping to the dict
         layers_to_nodes_to_drop_out[feed_forward_layer] = nodes_to_drop_out
     # Make the animation
