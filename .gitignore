@@ -11,3 +11,4 @@ examples/media/videos
 examples/media/text
 examples/media/images
 example.py
+media/*
