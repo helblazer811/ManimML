@@ -1,21 +1,27 @@
 from manim import *
 import numpy as np
+from PIL import Image
+
 from manim_ml.utils.mobjects.image import GrayscaleImageMobject
 from manim_ml.neural_network.layers.parent_layers import NeuralNetworkLayer
-
-from PIL import Image
 
 
 class ImageLayer(NeuralNetworkLayer):
     """Single Image Layer for Neural Network"""
 
-    def __init__(self, numpy_image, height=1.5, show_image_on_create=True, **kwargs):
+    def __init__(
+        self, 
+        numpy_image, 
+        height=1.5, 
+        show_image_on_create=True, 
+        **kwargs
+    ):
         super().__init__(**kwargs)
         self.image_height = height
         self.numpy_image = numpy_image
         self.show_image_on_create = show_image_on_create
 
-    def construct_layer(self, input_layer, output_layer):
+    def construct_layer(self, input_layer, output_layer, **kwargs):
         """Construct layer method
 
         Parameters
@@ -29,7 +35,8 @@ class ImageLayer(NeuralNetworkLayer):
             # Assumed Grayscale
             self.num_channels = 1
             self.image_mobject = GrayscaleImageMobject(
-                self.numpy_image, height=self.image_height
+                self.numpy_image, 
+                height=self.image_height
             )
         elif len(np.shape(self.numpy_image)) == 3:
             # Assumed RGB
@@ -38,6 +45,7 @@ class ImageLayer(NeuralNetworkLayer):
                 self.image_height
             )
         self.add(self.image_mobject)
+        super().construct_layer(input_layer, output_layer, **kwargs)
 
     @classmethod
     def from_path(cls, image_path, grayscale=True, **kwargs):

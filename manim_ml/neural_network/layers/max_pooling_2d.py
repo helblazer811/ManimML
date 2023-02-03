@@ -67,6 +67,8 @@ class MaxPooling2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
             input_layer.feature_map_size[0] / self.kernel_size,
             input_layer.feature_map_size[1] / self.kernel_size,
         )
+        super().construct_layer(input_layer, output_layer, **kwargs)
+
 
     def _make_output_feature_maps(self, num_input_feature_maps, input_feature_map_size):
         """Makes a set of output feature maps"""

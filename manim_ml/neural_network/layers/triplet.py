@@ -35,6 +35,7 @@ class TripletLayer(NeuralNetworkLayer):
         # Make the assets
         self.assets = self.make_assets()
         self.add(self.assets)
+        super().construct_layer(input_layer, output_layer, **kwargs)
 
     @classmethod
     def from_paths(

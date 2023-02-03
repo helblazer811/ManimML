@@ -174,6 +174,7 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         )
 
         self.construct_activation_function()
+        super().construct_layer(input_layer, output_layer, **kwargs)
 
     def construct_activation_function(self):
         """Construct the activation function"""

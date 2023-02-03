@@ -50,6 +50,7 @@ class EmbeddingLayer(VGroupNeuralNetworkLayer):
         self.latent_distribution = GaussianDistribution(
             self.axes, mean=self.mean, cov=self.covariance
         )  # Use defaults
+        super().construct_layer(input_layer, output_layer, **kwargs)
 
     def add_gaussian_distribution(self, gaussian_distribution):
         """Adds given GaussianDistribution to the list"""

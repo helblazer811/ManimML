@@ -1,7 +1,6 @@
 from manim import *
 from abc import ABC, abstractmethod
 
-
 class NeuralNetworkLayer(ABC, Group):
     """Abstract Neural Network Layer class"""
 
@@ -28,7 +27,8 @@ class NeuralNetworkLayer(ABC, Group):
         output_layer : NeuralNetworkLayer
             following layer
         """
-        pass
+        if "debug_mode" in kwargs and kwargs["debug_mode"]:
+            self.add(SurroundingRectangle(self))
 
     @abstractmethod
     def make_forward_pass_animation(self, layer_args={}, **kwargs):
@@ -40,7 +40,6 @@ class NeuralNetworkLayer(ABC, Group):
 
     def __repr__(self):
         return f"{type(self).__name__}"
-
 
 class VGroupNeuralNetworkLayer(NeuralNetworkLayer):
     def __init__(self, *args, **kwargs):
@@ -54,7 +53,6 @@ class VGroupNeuralNetworkLayer(NeuralNetworkLayer):
     @override_animation(Create)
     def _create_override(self):
         return super()._create_override()
-
 
 class ThreeDLayer(ABC):
     """Abstract class for 3D layers"""

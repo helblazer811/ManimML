@@ -39,6 +39,7 @@ class FeedForwardToFeedForward(ConnectiveLayer):
     ):
         self.edges = self.construct_edges()
         self.add(self.edges)
+        super().construct_layer(input_layer, output_layer, **kwargs)
 
     def construct_edges(self):
         # Go through each node in the two layers and make a connecting line

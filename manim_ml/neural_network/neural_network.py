@@ -38,6 +38,7 @@ class NeuralNetwork(Group):
         title=" ",
         layout="linear",
         layout_direction="left_to_right",
+        debug_mode=False
     ):
         super(Group, self).__init__()
         self.input_layers_dict = self.make_input_layers_dict(input_layers)
@@ -51,6 +52,7 @@ class NeuralNetwork(Group):
         self.created = False
         self.layout = layout
         self.layout_direction = layout_direction
+        self.debug_mode = debug_mode
         # TODO take layer_node_count [0, (1, 2), 0]
         # and make it have explicit distinct subspaces
         # Construct all of the layers
@@ -124,9 +126,17 @@ class NeuralNetwork(Group):
             if layer_index > 0:
                 prev_layer = self.input_layers[layer_index - 1]
             # Run the construct layer method for each
-            current_layer.construct_layer(prev_layer, next_layer)
+            current_layer.construct_layer(
+                prev_layer, 
+                next_layer,
+                debug_mode=self.debug_mode
+            )
 
-    def _place_layers(self, layout="linear", layout_direction="top_to_bottom"):
+    def _place_layers(
+        self, 
+        layout="linear", 
+        layout_direction="top_to_bottom"
+    ):
         """Creates the neural network"""
         # TODO implement more sophisticated custom layouts
         # Default: Linear layout
@@ -224,10 +234,16 @@ class NeuralNetwork(Group):
         return animation_group
 
     def make_forward_pass_animation(
-        self, run_time=None, passing_flash=True, layer_args={}, **kwargs
+        self, 
+        run_time=None, 
+        passing_flash=True, 
+        layer_args={}, 
+        per_layer_animations=False,
+        **kwargs
     ):
         """Generates an animation for feed forward propagation"""
         all_animations = []
+        per_layer_animations = {}
         per_layer_runtime = (
             run_time / len(self.all_layers) if not run_time is None else None
         )
@@ -275,13 +291,19 @@ class NeuralNetwork(Group):
                         break
 
             layer_forward_pass = AnimationGroup(
-                layer_forward_pass, connection_input_pass, lag_ratio=0.0
+                layer_forward_pass, 
+                connection_input_pass, 
+                lag_ratio=0.0
             )
             all_animations.append(layer_forward_pass)
+            # Add the animation to per layer animation
+            per_layer_animations[layer] = layer_forward_pass
         # Make the animation group
         animation_group = Succession(*all_animations, lag_ratio=1.0)
-
-        return animation_group
+        if per_layer_animations:
+            return per_layer_animations 
+        else:
+            return animation_group
 
     @override_animation(Create)
     def _create_override(self, **kwargs):

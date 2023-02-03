@@ -18,6 +18,7 @@ class VectorLayer(VGroupNeuralNetworkLayer):
         output_layer: "NeuralNetworkLayer",
         **kwargs,
     ):
+        super().construct_layer(input_layer, output_layer, **kwargs)
         # Make the vector
         self.vector_label = self.make_vector()
         self.add(self.vector_label)

@@ -51,4 +51,4 @@ class MaxPooling2DToConvolutional2D(Convolutional2DToConvolutional2D):
         output_layer : NeuralNetworkLayer
             output layer
         """
-        pass
+        super().construct_layer(input_layer, output_layer, **kwargs)

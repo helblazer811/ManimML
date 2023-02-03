@@ -9,8 +9,9 @@ from tqdm import tqdm
 
 from manim_ml.utils.mobjects.probability import GaussianDistribution
 
+######################## MCMC Algorithms #########################
 
-def gaussian_proposal(x, sigma=0.2):
+def gaussian_proposal(x, sigma=1.0):
     """
     Gaussian proposal distribution.
 
@@ -86,7 +87,6 @@ class MultidimensionalGaussianPosterior:
         else:
             return -1e6
 
-
 def metropolis_hastings_sampler(
     log_prob_fn=MultidimensionalGaussianPosterior(),
     prop_fn=gaussian_proposal,
@@ -154,6 +154,7 @@ def metropolis_hastings_sampler(
 
     return chain, np.array([]), proposals
 
+#################### MCMC Visualization Tools ######################
 
 class MCMCAxes(Group):
     """Container object for visualizing MCMC on a 2D axis"""
@@ -161,11 +162,15 @@ class MCMCAxes(Group):
     def __init__(
         self,
         dot_color=BLUE,
-        dot_radius=0.05,
+        dot_radius=0.02,
         accept_line_color=GREEN,
         reject_line_color=RED,
-        line_color=WHITE,
-        line_stroke_width=1,
+        line_color=BLUE,
+        line_stroke_width=3,
+        x_range=[-3, 3],
+        y_range=[-3, 3],
+        x_length=5,
+        y_length=5
     ):
         super().__init__()
         self.dot_color = dot_color
@@ -176,10 +181,10 @@ class MCMCAxes(Group):
         self.line_stroke_width = line_stroke_width
         # Make the axes
         self.axes = Axes(
-            x_range=[-3, 3],
-            y_range=[-3, 3],
-            x_length=12,
-            y_length=12,
+            x_range=x_range,
+            y_range=y_range,
+            x_length=x_length,
+            y_length=y_length,
             x_axis_config={"stroke_opacity": 0.0},
             y_axis_config={"stroke_opacity": 0.0},
             tips=False,
@@ -214,7 +219,12 @@ class MCMCAxes(Group):
         return create_guassian
 
     def make_transition_animation(
-        self, start_point, end_point, candidate_point, run_time=0.1
+        self, 
+        start_point, 
+        end_point, 
+        candidate_point, 
+        show_dots=True,
+        run_time=0.1
     ) -> AnimationGroup:
         """Makes an transition animation for a single point on a Markov Chain
 
@@ -224,6 +234,8 @@ class MCMCAxes(Group):
             Start point of the transition
         end_point : Dot
             End point of the transition
+        show_dots: boolean, optional
+            Whether or not to show the dots
 
         Returns
         -------
@@ -237,20 +249,32 @@ class MCMCAxes(Group):
         # point_is_rejected = not candidate_location == end_location
         point_is_rejected = False
         if point_is_rejected:
-            return AnimationGroup()
+            return AnimationGroup(), Dot().set_opacity(0.0)
         else:
             create_end_point = Create(end_point)
-            create_line = Create(
-                Line(
-                    start_point,
-                    end_point,
-                    color=self.line_color,
-                    stroke_width=self.line_stroke_width,
-                )
+            line = Line(
+                start_point,
+                end_point,
+                color=self.line_color,
+                stroke_width=self.line_stroke_width,
+                buff=-0.1
             )
-            return AnimationGroup(
-                create_end_point, create_line, lag_ratio=1.0, run_time=run_time
-            )
+
+            create_line = Create(line)
+
+            if show_dots:
+                return AnimationGroup(
+                    create_end_point, 
+                    create_line, 
+                    lag_ratio=1.0, 
+                    run_time=run_time
+                ), line
+            else:
+                return AnimationGroup(
+                    create_line, 
+                    lag_ratio=1.0, 
+                    run_time=run_time
+                ), line
 
     def show_ground_truth_gaussian(self, distribution):
         """ """
@@ -265,6 +289,7 @@ class MCMCAxes(Group):
         self,
         log_prob_fn=MultidimensionalGaussianPosterior(),
         prop_fn=gaussian_proposal,
+        show_dots=False,
         sampling_kwargs={},
     ):
         """
@@ -281,6 +306,8 @@ class MCMCAxes(Group):
             Function to compute proposal location, by default gaussian_proposal
         initial_location : list, optional
             initial location for the markov chain, by default None
+        show_dots : bool, optional
+            whether or not to show the dots on the screen, by default False
         iterations : int, optional
             number of iterations of the markov chain, by default 100
 
@@ -293,8 +320,8 @@ class MCMCAxes(Group):
         mcmc_samples, warm_up_samples, candidate_samples = metropolis_hastings_sampler(
             log_prob_fn=log_prob_fn, prop_fn=prop_fn, **sampling_kwargs
         )
-        print(f"MCMC samples: {mcmc_samples}")
-        print(f"Candidate samples: {candidate_samples}")
+        # print(f"MCMC samples: {mcmc_samples}")
+        # print(f"Candidate samples: {candidate_samples}")
         # Make the animation for visualizing the chain
         animations = []
         # Place the initial point
@@ -308,30 +335,41 @@ class MCMCAxes(Group):
         animations.append(create_initial_point)
         # Show the initial point's proposal distribution
         # NOTE: visualize the warm up and the iterations
+        lines = []
         num_iterations = len(mcmc_samples) + len(warm_up_samples)
         for iteration in tqdm(range(1, num_iterations)):
             next_sample = mcmc_samples[iteration]
-            print(f"Next sample: {next_sample}")
+            # print(f"Next sample: {next_sample}")
             candidate_sample = candidate_samples[iteration - 1]
             # Make the next point
             next_point = Dot(
-                self.axes.coords_to_point(next_sample[0], next_sample[1]),
+                self.axes.coords_to_point(
+                    next_sample[0], 
+                    next_sample[1]
+                ),
                 color=self.dot_color,
                 radius=self.dot_radius,
             )
             candidate_point = Dot(
-                self.axes.coords_to_point(candidate_sample[0], candidate_sample[1]),
+                self.axes.coords_to_point(
+                    candidate_sample[0], 
+                    candidate_sample[1]
+                ),
                 color=self.dot_color,
                 radius=self.dot_radius,
             )
             # Make a transition animation
-            transition_animation = self.make_transition_animation(
+            transition_animation, line = self.make_transition_animation(
                 current_point, next_point, candidate_point
             )
+            lines.append(line)
             animations.append(transition_animation)
             # Setup for next iteration
             current_point = next_point
         # Make the final animation group
-        animation_group = AnimationGroup(*animations, lag_ratio=1.0)
+        animation_group = AnimationGroup(
+            *animations, 
+            lag_ratio=1.0
+        )
 
-        return animation_group
+        return animation_group, VGroup(*lines)

@@ -6,12 +6,11 @@
     TODO reimplement the decision 2D decision tree surface drawing. 
 """
 from manim import *
-from manim_ml.decision_tree.classification_areas import (
+from manim_ml.decision_tree.decision_tree_surface import (
     compute_decision_areas,
     merge_overlapping_polygons,
 )
 import manim_ml.decision_tree.helpers as helpers
-from manim_ml.one_to_one_sync import OneToOneSync
 
 import numpy as np
 from PIL import Image
@@ -329,6 +328,7 @@ class DecisionTreeDiagram(Group):
             # If it is not a leaf then remove the placeholder leaf node
             #       then show the split node
             # If it is a leaf then just show the leaf node
+            pass
         pass
 
     @override_animation(Create)
@@ -345,7 +345,7 @@ class DecisionTreeDiagram(Group):
         expand_tree_animation = self.make_expand_tree_animation(node_expand_order)
         return expand_tree_animation
 
-class DecisionTreeContainer(OneToOneSync):
+class DecisionTreeContainer():
     """Connects the DecisionTreeDiagram to the DecisionTreeEmbedding"""
 
     def __init__(self, sklearn_tree, points, classes):

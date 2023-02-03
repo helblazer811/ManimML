@@ -76,6 +76,7 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         self.add(self.surrounding_rectangle, self.node_group)
 
         self.construct_activation_function()
+        super().construct_layer(input_layer, output_layer, **kwargs)
 
     def construct_activation_function(self):
         """Construct the activation function"""

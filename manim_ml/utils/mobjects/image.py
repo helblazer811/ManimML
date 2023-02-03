@@ -2,7 +2,6 @@ from manim import *
 import numpy as np
 from PIL import Image
 
-
 class GrayscaleImageMobject(Group):
     """Mobject for creating images in Manim from numpy arrays"""
 
@@ -15,9 +14,14 @@ class GrayscaleImageMobject(Group):
         # Convert grayscale to rgb version of grayscale
         input_image = np.repeat(input_image, 3, axis=0)
         input_image = np.rollaxis(input_image, 0, start=3)
-        self.image_mobject = ImageMobject(input_image, image_mode="RBG")
+        self.image_mobject = ImageMobject(
+            input_image, 
+            image_mode="RBG",
+        )
         self.add(self.image_mobject)
-        self.image_mobject.set_resampling_algorithm(RESAMPLING_ALGORITHMS["nearest"])
+        self.image_mobject.set_resampling_algorithm(
+            RESAMPLING_ALGORITHMS["nearest"]
+        )
         self.image_mobject.scale_to_fit_height(height)
 
     @classmethod
