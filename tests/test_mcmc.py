@@ -15,8 +15,8 @@ plt.style.use('dark_background')
 # Make the specific scene
 config.pixel_height = 1200
 config.pixel_width = 1200
-config.frame_height = 10.0
-config.frame_width = 10.0
+config.frame_height = 7.0
+config.frame_width = 7.0
 
 def test_metropolis_hastings_sampler(iterations=100):
     samples, _, candidates = metropolis_hastings_sampler(iterations=iterations)

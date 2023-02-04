@@ -14,7 +14,7 @@ def convert_matplotlib_figure_to_image_mobject(fig, dpi=200):
         matplotlib figure
     """
     fig.tight_layout(pad=0)
-    plt.axis('off')
+    # plt.axis('off')
     fig.canvas.draw()
     # Save data into a buffer
     image_buffer = io.BytesIO()
