@@ -93,20 +93,31 @@ class NeuralNetwork(Group):
 
     def add_connection(
         self,
-        start_layer_name,
-        end_layer_name,
+        start_mobject_or_name,
+        end_mobject_or_name,
         connection_style="default",
         connection_position="bottom",
+        arc_direction="down"
     ):
         """Add connection from start layer to end layer"""
         assert connection_style in ["default"]
         if connection_style == "default":
             # Make arrow connection from start layer to end layer
             # Add the connection
+            if isinstance(start_mobject_or_name, Mobject):
+                input_mobject = start_mobject_or_name
+            else:
+                input_mobject = self.input_layers_dict[start_mobject_or_name]
+            if isinstance(end_mobject_or_name, Mobject):
+                output_mobject = end_mobject_or_name
+            else:
+                output_mobject = self.input_layers_dict[end_mobject_or_name]
+            
             connection = NetworkConnection(
-                self.input_layers_dict[start_layer_name],
-                self.input_layers_dict[end_layer_name],
-                arc_direction="down",  # TODO generalize this more
+                input_mobject,
+                output_mobject,
+                arc_direction=arc_direction,
+                buffer=0.05
             )
             self.connections.append(connection)
             self.add(connection)
@@ -243,7 +254,7 @@ class NeuralNetwork(Group):
     ):
         """Generates an animation for feed forward propagation"""
         all_animations = []
-        per_layer_animations = {}
+        per_layer_animation_map = {}
         per_layer_runtime = (
             run_time / len(self.all_layers) if not run_time is None else None
         )
@@ -297,11 +308,11 @@ class NeuralNetwork(Group):
             )
             all_animations.append(layer_forward_pass)
             # Add the animation to per layer animation
-            per_layer_animations[layer] = layer_forward_pass
+            per_layer_animation_map[layer] = layer_forward_pass
         # Make the animation group
         animation_group = Succession(*all_animations, lag_ratio=1.0)
         if per_layer_animations:
-            return per_layer_animations 
+            return per_layer_animation_map
         else:
             return animation_group
 

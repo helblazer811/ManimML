@@ -39,3 +39,4 @@ from manim_ml.neural_network.layers.paired_query import PairedQueryLayer
 from manim_ml.neural_network.layers.triplet_to_feed_forward import TripletToFeedForward
 from manim_ml.neural_network.layers.triplet import TripletLayer
 from manim_ml.neural_network.layers.vector import VectorLayer
+from manim_ml.neural_network.layers.math_operation_layer import MathOperationLayer

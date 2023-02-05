@@ -90,7 +90,7 @@ class FeedForwardToFeedForward(ConnectiveLayer):
                 if self.passing_flash:
                     copy_edge = edge.copy()
                     anim = ShowPassingFlash(
-                        copy_edge.set_color(self.animation_dot_color), time_width=0.2
+                        copy_edge.set_color(self.animation_dot_color), time_width=0.3
                     )
                 else:
                     anim = MoveAlongPath(

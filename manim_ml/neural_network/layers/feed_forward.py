@@ -153,3 +153,25 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
 
         animation_group = AnimationGroup(*animations, lag_ratio=0.0)
         return animation_group
+
+    def get_height(self):
+        return self.surrounding_rectangle.get_height()
+
+    def get_center(self):
+        return self.surrounding_rectangle.get_center()
+
+    def get_left(self):
+        return self.surrounding_rectangle.get_left()
+
+    def get_right(self):
+        return self.surrounding_rectangle.get_right()
+
+    def move_to(self, mobject_or_point):
+        """Moves the center of the layer to the given mobject or point"""
+        layer_center = self.surrounding_rectangle.get_center()
+        if isinstance(mobject_or_point, Mobject):
+            target_center = mobject_or_point.get_center() 
+        else:
+            target_center = mobject_or_point
+
+        self.shift(target_center - layer_center)

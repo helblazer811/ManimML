@@ -272,6 +272,16 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         """Overrides get height function"""
         return self.feature_maps.length_over_dim(1)
 
+    def move_to(self, mobject_or_point):
+        """Moves the center of the layer to the given mobject or point"""
+        layer_center = self.feature_maps.get_center()
+        if isinstance(mobject_or_point, Mobject):
+            target_center = mobject_or_point.get_center() 
+        else:
+            target_center = mobject_or_point
+
+        self.shift(target_center - layer_center)
+
     @override_animation(Create)
     def _create_override(self, **kwargs):
         return FadeIn(self.feature_maps)
