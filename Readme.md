@@ -29,6 +29,7 @@ ManimML is a project focused on providing animations and visualizations of commo
     - [Max Pooling](#max-pooling)
     - [Activation Functions](#activation-functions)
     - [More Complex Animations: Neural Network Dropout](#more-complex-animations-neural-network-dropout)
+  - [Citation](#citation)
 
 ## Getting Started 
 
@@ -384,3 +385,21 @@ self.play(
 ```
 
 <img src="assets/readme/dropout_seed_4_first_last.gif">
+
+## Citation
+
+If you found ManimML useful please cite it below!
+
+```
+@software{alec_helbling_2023_7760911,
+  author       = {Alec Helbling},
+  title        = {{ManimML: A Python Animation Engine for Machine 
+                   Learning Architectures}},
+  month        = mar,
+  year         = 2023,
+  publisher    = {Zenodo},
+  version      = {v0.0.20},
+  doi          = {10.5281/zenodo.7760911},
+  url          = {https://doi.org/10.5281/zenodo.7760911}
+}
+```
