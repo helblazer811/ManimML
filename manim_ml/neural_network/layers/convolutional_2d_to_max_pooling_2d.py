@@ -174,7 +174,6 @@ class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
                 gridded_rectangle,
                 output_gridded_rectangle,
                 introducer=True,
-                remover=True,
             )
             transform_gridded_rectangle_animations.append(
                 transform_rectangle,
