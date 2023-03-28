@@ -375,7 +375,7 @@ class NeuralNetwork(Group):
             inner_string += f"{repr(layer)}("
             for key in metadata:
                 value = getattr(layer, key)
-                if not value is "":
+                if value != "":
                     inner_string += f"{key}={value}, "
             inner_string += "),\n"
         inner_string = textwrap.indent(inner_string, "    ")
