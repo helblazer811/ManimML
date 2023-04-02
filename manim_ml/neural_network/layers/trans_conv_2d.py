@@ -13,6 +13,8 @@ class TransposeConvolution2DLayer (VGroupNeuralNetworkLayer, ThreeDLayer):
     def __init__(
             self,
             num_feature_maps,
+            feature_map_size=None,
+            filter_size=None,
             pad=1,
             kernel_size=3,
             stride=1,
@@ -20,6 +22,8 @@ class TransposeConvolution2DLayer (VGroupNeuralNetworkLayer, ThreeDLayer):
             cell_width=0.2,
             filter_spacing=0.1,
             color=BLUE,
+            active_color=ORANGE,
+            filter_color=ORANGE,
             show_grid_lines=False,
             stroke_width=2.0,
             **kwargs
@@ -35,6 +39,17 @@ class TransposeConvolution2DLayer (VGroupNeuralNetworkLayer, ThreeDLayer):
         """
 
         super().__init__(**kwargs)
+
+        if isinstance(feature_map_size, int):
+            self.feature_map_size = (feature_map_size, feature_map_size)
+        else:
+            self.feature_map_size = feature_map_size
+
+        if isinstance(filter_size, int):
+            self.filter_size = (filter_size, filter_size)
+        else:
+            self.filter_size = filter_size
+
         self.num_feature_maps = num_feature_maps
         self.kernel_size = kernel_size
         self.stride = stride
@@ -42,6 +57,8 @@ class TransposeConvolution2DLayer (VGroupNeuralNetworkLayer, ThreeDLayer):
         self.cell_width = cell_width
         self.filter_spacing = filter_spacing
         self.color = color
+        self.active_color = active_color
+        self.filter_color = filter_color
         self.show_grid_lines = show_grid_lines
         self.stroke_width = stroke_width
         self.padding = (pad,pad)
@@ -62,6 +79,7 @@ class TransposeConvolution2DLayer (VGroupNeuralNetworkLayer, ThreeDLayer):
             about_point=self.get_center(),
             axis=ThreeDLayer.rotation_axis,
         )
+        # TODO: Calculate feature map size resulting from transpose convolution
         self.feature_map_size = (
             input_layer.feature_map_size[0] / self.kernel_size,
             input_layer.feature_map_size[1] / self.kernel_size,

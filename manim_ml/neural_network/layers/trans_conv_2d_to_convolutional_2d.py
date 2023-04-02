@@ -53,16 +53,3 @@ class TransConv2DToConvolutional2D(Convolutional2DToConvolutional2D):
     ):
         return super().construct_layer(input_layer, output_layer, **kwargs)
     
-    def make_forward_pass_animation(
-        self,
-        layer_args={},
-        all_filters_at_once=False,
-        highlight_active_feature_map=True,
-        run_time=10.5,
-        **kwargs,
-        ):
-
-        # Just run the usual 2D convolution (this may need to have parameters tweaked)
-        super().make_forward_pass_animation(
-            layer_args, all_filters_at_once, highlight_active_feature_map, run_time,
-            **kwargs)

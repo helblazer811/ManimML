@@ -5,9 +5,10 @@ from manim_ml.utils.mobjects.gridded_rectangle import GriddedRectangle
 from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer, FeatureMap
 from manim_ml.neural_network.layers.trans_conv_2d import TransposeConvolution2DLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeDLayer
+from manim_ml.neural_network.layers.convolutional_2d_to_convolutional_2d import Convolutional2DToConvolutional2D
 
 
-class Convolutional2DToTransConv2D(ConnectiveLayer, ThreeDLayer):
+class Convolutional2DToTransConv2D(Convolutional2DToConvolutional2D,ConnectiveLayer, ThreeDLayer):
     input_class = Convolutional2DLayer
     output_class = TransposeConvolution2DLayer
 
@@ -15,7 +16,13 @@ class Convolutional2DToTransConv2D(ConnectiveLayer, ThreeDLayer):
             self,
             input_layer: Convolutional2DLayer,
             output_layer: TransposeConvolution2DLayer,
+            # color=ORANGE,
+            # filter_opacity=0.3,
+            # line_color=ORANGE,
             active_color=ORANGE,
+            # cell_width=0.2,
+            # show_grid_lines=True,
+            # highlight_color=ORANGE,
             **kwargs,
     ):
         super().__init__(input_layer, output_layer, **kwargs)
@@ -38,6 +45,7 @@ class Convolutional2DToTransConv2D(ConnectiveLayer, ThreeDLayer):
         cell_width = self.input_layer.cell_width
         kernel_size = self.output_layer.kernel_size
 
+        # Get the untransformed height and width of the input feature maps
         nheight = self.input_layer.feature_maps.submobjects[0].exterior_rectangle.untransformed_height
         nwidth = self.input_layer.feature_maps.submobjects[0].exterior_rectangle.untransformed_width
 
@@ -108,5 +116,15 @@ class Convolutional2DToTransConv2D(ConnectiveLayer, ThreeDLayer):
                 gridded_rectangle_group,
             ))
 
-        return Succession(AnimationGroup(*new_feature_animation), Wait(1))
+        
+        # Change the feature map size of the input layer to account for padding
+        self.input_layer.feature_map_size = nheight * (self.output_layer.padding[1]+1)
+        # self.output_layer.feature_map_size = nwidth * (self.output_layer.padding[0]+1)
+        
+        # Call on the super class to make the animation for the conv2d to conv2d now that you
+        # have the padded feature maps
+        conv2d = super().make_forward_pass_animation(layer_args, run_time, **kwargs)
+        
+
+        return Succession(AnimationGroup(*new_feature_animation), Wait(1), conv2d)
     
