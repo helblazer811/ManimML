@@ -4,7 +4,7 @@ import numpy as np
 from manim import *
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer
-
+import manim_ml
 
 class FeedForwardToFeedForward(ConnectiveLayer):
     """Layer for connecting FeedForward layer to FeedForwardLayer"""
@@ -18,8 +18,8 @@ class FeedForwardToFeedForward(ConnectiveLayer):
         output_layer,
         passing_flash=True,
         dot_radius=0.05,
-        animation_dot_color=RED,
-        edge_color=WHITE,
+        animation_dot_color=manim_ml.config.color_scheme.active_color,
+        edge_color=manim_ml.config.color_scheme.secondary_color,
         edge_width=1.5,
         camera=None,
         **kwargs

@@ -23,14 +23,12 @@ from manim_ml.neural_network.animations.neural_network_transformations import (
     RemoveLayer,
 )
 
-
 class NeuralNetwork(Group):
     """Neural Network Visualization Container Class"""
 
     def __init__(
         self,
         input_layers,
-        edge_color=WHITE,
         layer_spacing=0.2,
         animation_dot_color=RED,
         edge_width=2.5,
@@ -44,7 +42,6 @@ class NeuralNetwork(Group):
         self.input_layers_dict = self.make_input_layers_dict(input_layers)
         self.input_layers = ListGroup(*self.input_layers_dict.values())
         self.edge_width = edge_width
-        self.edge_color = edge_color
         self.layer_spacing = layer_spacing
         self.animation_dot_color = animation_dot_color
         self.dot_radius = dot_radius
@@ -61,6 +58,8 @@ class NeuralNetwork(Group):
         self._place_layers(layout=layout, layout_direction=layout_direction)
         # Make the connective layers
         self.connective_layers, self.all_layers = self._construct_connective_layers()
+        # Place the connective layers
+        self._place_connective_layers()
         # Make overhead title
         self.title = Text(self.title_text, font_size=DEFAULT_FONT_SIZE / 2)
         self.title.next_to(self, UP, 1.0)
@@ -221,6 +220,19 @@ class NeuralNetwork(Group):
         # Handle layering
         return connective_layers, all_layers
 
+    def _place_connective_layers(self):
+        """Places the connective layers
+        """
+        # Place each of the connective layers halfway between the adjacent layers
+        for connective_layer in self.connective_layers:
+            layer_midpoint = (
+                connective_layer.input_layer.get_center() +
+                connective_layer.output_layer.get_center()
+            ) / 2
+            print(connective_layer.input_layer.get_center())
+            print(connective_layer.output_layer.get_center())
+            connective_layer.move_to(layer_midpoint)
+
     def insert_layer(self, layer, insert_index):
         """Inserts a layer at the given index"""
         neural_network = self
@@ -353,7 +365,9 @@ class NeuralNetwork(Group):
             layer.scale(scale_factor, **kwargs)
         # Place layers with scaled spacing
         self.layer_spacing *= scale_factor
+        # self.connective_layers, self.all_layers = self._construct_connective_layers()
         self._place_layers(layout=self.layout, layout_direction=self.layout_direction)
+        self._place_connective_layers()
 
     def filter_layers(self, function):
         """Filters layers of the network given function"""
