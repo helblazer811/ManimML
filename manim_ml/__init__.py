@@ -3,7 +3,7 @@ from manim_ml.utils.colorschemes.colorschemes import light_mode, dark_mode, Colo
 
 class ManimMLConfig:
 
-    def __init__(self, default_color_scheme=light_mode):
+    def __init__(self, default_color_scheme=dark_mode):
         self._color_scheme = default_color_scheme
 
     @property

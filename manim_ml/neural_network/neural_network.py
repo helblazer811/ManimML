@@ -229,8 +229,6 @@ class NeuralNetwork(Group):
                 connective_layer.input_layer.get_center() +
                 connective_layer.output_layer.get_center()
             ) / 2
-            print(connective_layer.input_layer.get_center())
-            print(connective_layer.output_layer.get_center())
             connective_layer.move_to(layer_midpoint)
 
     def insert_layer(self, layer, insert_index):
