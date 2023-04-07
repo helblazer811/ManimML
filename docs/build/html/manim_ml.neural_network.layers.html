@@ -666,7 +666,29 @@ overridden <code class="xref py py-meth docutils literal notranslate"><span clas
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="admonition seealso">
+<div id="heightexample" class="admonition admonition-manim-example">
+<p class="admonition-title">Example: HeightExample <a class="headerlink" href="#heightexample">¶</a></p><video
+    class="manim-video"
+    controls
+    loop
+    autoplay
+    src="./HeightExample-1.mp4">
+</video><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">manim</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">HeightExample</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">decimal</span> <span class="o">=</span> <span class="n">DecimalNumber</span><span class="p">()</span><span class="o">.</span><span class="n">to_edge</span><span class="p">(</span><span class="n">UP</span><span class="p">)</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">)</span>
+        <span class="n">rect_copy</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">set_stroke</span><span class="p">(</span><span class="n">GRAY</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="n">decimal</span><span class="o">.</span><span class="n">add_updater</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rect_copy</span><span class="p">,</span> <span class="n">rect</span><span class="p">,</span> <span class="n">decimal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">animate</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+</pre></div>
+</div>
+</div><div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><code class="xref py py-meth docutils literal notranslate"><span class="pre">length_over_dim()</span></code></p>
 </div>
@@ -693,7 +715,29 @@ overridden <code class="xref py py-meth docutils literal notranslate"><span clas
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="admonition seealso">
+<div id="widthexample" class="admonition admonition-manim-example">
+<p class="admonition-title">Example: WidthExample <a class="headerlink" href="#widthexample">¶</a></p><video
+    class="manim-video"
+    controls
+    loop
+    autoplay
+    src="./WidthExample-1.mp4">
+</video><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">manim</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">WidthExample</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">decimal</span> <span class="o">=</span> <span class="n">DecimalNumber</span><span class="p">()</span><span class="o">.</span><span class="n">to_edge</span><span class="p">(</span><span class="n">UP</span><span class="p">)</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">)</span>
+        <span class="n">rect_copy</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">set_stroke</span><span class="p">(</span><span class="n">GRAY</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="n">decimal</span><span class="o">.</span><span class="n">add_updater</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rect_copy</span><span class="p">,</span> <span class="n">rect</span><span class="p">,</span> <span class="n">decimal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">animate</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+</pre></div>
+</div>
+</div><div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><code class="xref py py-meth docutils literal notranslate"><span class="pre">length_over_dim()</span></code></p>
 </div>
