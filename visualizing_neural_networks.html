@@ -218,7 +218,26 @@ This tutorial goes over several simple topics:</p>
 </ol>
 <section id="visualizing-a-feed-forward-neural-network">
 <h2>Visualizing a Feed Forward Neural Network<a class="headerlink" href="#visualizing-a-feed-forward-neural-network" title="Permalink to this heading">#</a></h2>
-</section>
+<div id="feedforwardnetworkscene" class="admonition admonition-manim-example">
+<p class="admonition-title">Example: FeedForwardNetworkScene <a class="headerlink" href="#feedforwardnetworkscene">¶</a></p><img alt="_images/FeedForwardNetworkScene-1.png" class="align-center" src="_images/FeedForwardNetworkScene-1.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">manim</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">FeedForwardNetworkScene</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">manim_ml.neural_network</span> <span class="kn">import</span> <span class="n">NeuralNetwork</span>
+        <span class="kn">from</span> <span class="nn">manim_ml.neural_network.layers</span> <span class="kn">import</span> <span class="n">FeedForwardLayer</span>
+
+        <span class="n">neural_network</span> <span class="o">=</span> <span class="n">NeuralNetwork</span><span class="p">([</span>
+            <span class="n">FeedForwardLayer</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">FeedForwardLayer</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+            <span class="n">FeedForwardLayer</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">FeedForwardLayer</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neural_network</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></section>
 </section>
 
         </article>

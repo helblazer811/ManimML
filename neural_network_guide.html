@@ -194,7 +194,29 @@
         <article role="main">
           <section id="neural-network-guide">
 <h1>Neural Network Guide<a class="headerlink" href="#neural-network-guide" title="Permalink to this heading">#</a></h1>
-</section>
+<div id="manimcelogo" class="admonition admonition-manim-example">
+<p class="admonition-title">Example: ManimCELogo <a class="headerlink" href="#manimcelogo">¶</a></p><img alt="_images/ManimCELogo-1.png" class="align-center" src="_images/ManimCELogo-1.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">manim</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">ManimCELogo</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">background_color</span> <span class="o">=</span> <span class="s2">&quot;#ece6e2&quot;</span>
+        <span class="n">logo_green</span> <span class="o">=</span> <span class="s2">&quot;#87c2a5&quot;</span>
+        <span class="n">logo_blue</span> <span class="o">=</span> <span class="s2">&quot;#525893&quot;</span>
+        <span class="n">logo_red</span> <span class="o">=</span> <span class="s2">&quot;#e07a5f&quot;</span>
+        <span class="n">logo_black</span> <span class="o">=</span> <span class="s2">&quot;#343434&quot;</span>
+        <span class="n">ds_m</span> <span class="o">=</span> <span class="n">MathTex</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\mathbb</span><span class="si">{M}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fill_color</span><span class="o">=</span><span class="n">logo_black</span><span class="p">)</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+        <span class="n">ds_m</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mf">2.25</span> <span class="o">*</span> <span class="n">LEFT</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">UP</span><span class="p">)</span>
+        <span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">logo_green</span><span class="p">,</span> <span class="n">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">logo_blue</span><span class="p">,</span> <span class="n">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">UP</span><span class="p">)</span>
+        <span class="n">triangle</span> <span class="o">=</span> <span class="n">Triangle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">logo_red</span><span class="p">,</span> <span class="n">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">RIGHT</span><span class="p">)</span>
+        <span class="n">logo</span> <span class="o">=</span> <span class="n">VGroup</span><span class="p">(</span><span class="n">triangle</span><span class="p">,</span> <span class="n">square</span><span class="p">,</span> <span class="n">circle</span><span class="p">,</span> <span class="n">ds_m</span><span class="p">)</span>  <span class="c1"># order matters</span>
+        <span class="n">logo</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="n">ORIGIN</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">logo</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>References: <code class="xref py py-class docutils literal notranslate"><span class="pre">MathTex</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">Circle</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">Square</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">Triangle</span></code></p>
+</div></section>
 
         </article>
       </div>
