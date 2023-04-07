@@ -1,14 +1,14 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>manim_ml.neural_network package - ManimML documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -149,7 +149,7 @@
   <span class="sidebar-brand-text">ManimML  documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -176,7 +176,9 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -191,51 +193,309 @@
         </div>
         <article role="main">
           <section id="manim-ml-neural-network-package">
-<h1>manim_ml.neural_network package<a class="headerlink" href="#manim-ml-neural-network-package" title="Permalink to this headline">#</a></h1>
+<h1>manim_ml.neural_network package<a class="headerlink" href="#manim-ml-neural-network-package" title="Permalink to this heading">#</a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">#</a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="manim_ml.neural_network.layers.html">manim_ml.neural_network.layers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-convolutional-module">manim_ml.neural_network.layers.convolutional module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-convolutional-to-convolutional-module">manim_ml.neural_network.layers.convolutional_to_convolutional module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-embedding-module">manim_ml.neural_network.layers.embedding module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-embedding-to-feed-forward-module">manim_ml.neural_network.layers.embedding_to_feed_forward module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-feed-forward-module">manim_ml.neural_network.layers.feed_forward module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-feed-forward-to-embedding-module">manim_ml.neural_network.layers.feed_forward_to_embedding module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-feed-forward-to-feed-forward-module">manim_ml.neural_network.layers.feed_forward_to_feed_forward module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-feed-forward-to-image-module">manim_ml.neural_network.layers.feed_forward_to_image module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-feed-forward-to-vector-module">manim_ml.neural_network.layers.feed_forward_to_vector module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-image-module">manim_ml.neural_network.layers.image module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-image-to-feed-forward-module">manim_ml.neural_network.layers.image_to_feed_forward module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-paired-query-module">manim_ml.neural_network.layers.paired_query module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-paired-query-to-feed-forward-module">manim_ml.neural_network.layers.paired_query_to_feed_forward module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-parent-layers-module">manim_ml.neural_network.layers.parent_layers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-triplet-module">manim_ml.neural_network.layers.triplet module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-triplet-to-feed-forward-module">manim_ml.neural_network.layers.triplet_to_feed_forward module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-util-module">manim_ml.neural_network.layers.util module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim-ml-neural-network-layers-vector-module">manim_ml.neural_network.layers.vector module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.embedding">manim_ml.neural_network.layers.embedding module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer"><code class="docutils literal notranslate"><span class="pre">EmbeddingLayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.add_gaussian_distribution"><code class="docutils literal notranslate"><span class="pre">EmbeddingLayer.add_gaussian_distribution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.animation_overrides"><code class="docutils literal notranslate"><span class="pre">EmbeddingLayer.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.construct_gaussian_point_cloud"><code class="docutils literal notranslate"><span class="pre">EmbeddingLayer.construct_gaussian_point_cloud()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.construct_layer"><code class="docutils literal notranslate"><span class="pre">EmbeddingLayer.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.get_distribution_location"><code class="docutils literal notranslate"><span class="pre">EmbeddingLayer.get_distribution_location()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">EmbeddingLayer.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.remove_gaussian_distribution"><code class="docutils literal notranslate"><span class="pre">EmbeddingLayer.remove_gaussian_distribution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.EmbeddingLayer.sample_point_location_from_distribution"><code class="docutils literal notranslate"><span class="pre">EmbeddingLayer.sample_point_location_from_distribution()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.NeuralNetworkEmbeddingTestScene"><code class="docutils literal notranslate"><span class="pre">NeuralNetworkEmbeddingTestScene</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding.NeuralNetworkEmbeddingTestScene.construct"><code class="docutils literal notranslate"><span class="pre">NeuralNetworkEmbeddingTestScene.construct()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.embedding_to_feed_forward">manim_ml.neural_network.layers.embedding_to_feed_forward module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward"><code class="docutils literal notranslate"><span class="pre">EmbeddingToFeedForward</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward.animation_overrides"><code class="docutils literal notranslate"><span class="pre">EmbeddingToFeedForward.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward.construct_layer"><code class="docutils literal notranslate"><span class="pre">EmbeddingToFeedForward.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward.input_class"><code class="docutils literal notranslate"><span class="pre">EmbeddingToFeedForward.input_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">EmbeddingToFeedForward.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.embedding_to_feed_forward.EmbeddingToFeedForward.output_class"><code class="docutils literal notranslate"><span class="pre">EmbeddingToFeedForward.output_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward">manim_ml.neural_network.layers.feed_forward module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.animation_overrides"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.construct_activation_function"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer.construct_activation_function()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.construct_layer"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.get_center"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer.get_center()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.get_height"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer.get_height()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.get_left"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer.get_left()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.get_right"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer.get_right()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.make_dropout_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer.make_dropout_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward.FeedForwardLayer.move_to"><code class="docutils literal notranslate"><span class="pre">FeedForwardLayer.move_to()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_embedding">manim_ml.neural_network.layers.feed_forward_to_embedding module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding"><code class="docutils literal notranslate"><span class="pre">FeedForwardToEmbedding</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding.animation_overrides"><code class="docutils literal notranslate"><span class="pre">FeedForwardToEmbedding.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding.construct_layer"><code class="docutils literal notranslate"><span class="pre">FeedForwardToEmbedding.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding.input_class"><code class="docutils literal notranslate"><span class="pre">FeedForwardToEmbedding.input_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">FeedForwardToEmbedding.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_embedding.FeedForwardToEmbedding.output_class"><code class="docutils literal notranslate"><span class="pre">FeedForwardToEmbedding.output_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_feed_forward">manim_ml.neural_network.layers.feed_forward_to_feed_forward module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward"><code class="docutils literal notranslate"><span class="pre">FeedForwardToFeedForward</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.animation_overrides"><code class="docutils literal notranslate"><span class="pre">FeedForwardToFeedForward.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.construct_edges"><code class="docutils literal notranslate"><span class="pre">FeedForwardToFeedForward.construct_edges()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.construct_layer"><code class="docutils literal notranslate"><span class="pre">FeedForwardToFeedForward.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.input_class"><code class="docutils literal notranslate"><span class="pre">FeedForwardToFeedForward.input_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">FeedForwardToFeedForward.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.modify_edge_colors"><code class="docutils literal notranslate"><span class="pre">FeedForwardToFeedForward.modify_edge_colors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.modify_edge_stroke_widths"><code class="docutils literal notranslate"><span class="pre">FeedForwardToFeedForward.modify_edge_stroke_widths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_feed_forward.FeedForwardToFeedForward.output_class"><code class="docutils literal notranslate"><span class="pre">FeedForwardToFeedForward.output_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_image">manim_ml.neural_network.layers.feed_forward_to_image module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage"><code class="docutils literal notranslate"><span class="pre">FeedForwardToImage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage.animation_overrides"><code class="docutils literal notranslate"><span class="pre">FeedForwardToImage.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage.construct_layer"><code class="docutils literal notranslate"><span class="pre">FeedForwardToImage.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage.input_class"><code class="docutils literal notranslate"><span class="pre">FeedForwardToImage.input_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">FeedForwardToImage.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_image.FeedForwardToImage.output_class"><code class="docutils literal notranslate"><span class="pre">FeedForwardToImage.output_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.feed_forward_to_vector">manim_ml.neural_network.layers.feed_forward_to_vector module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector"><code class="docutils literal notranslate"><span class="pre">FeedForwardToVector</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector.animation_overrides"><code class="docutils literal notranslate"><span class="pre">FeedForwardToVector.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector.construct_layer"><code class="docutils literal notranslate"><span class="pre">FeedForwardToVector.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector.input_class"><code class="docutils literal notranslate"><span class="pre">FeedForwardToVector.input_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">FeedForwardToVector.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.feed_forward_to_vector.FeedForwardToVector.output_class"><code class="docutils literal notranslate"><span class="pre">FeedForwardToVector.output_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.image">manim_ml.neural_network.layers.image module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer"><code class="docutils literal notranslate"><span class="pre">ImageLayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.animation_overrides"><code class="docutils literal notranslate"><span class="pre">ImageLayer.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.construct_layer"><code class="docutils literal notranslate"><span class="pre">ImageLayer.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.from_path"><code class="docutils literal notranslate"><span class="pre">ImageLayer.from_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.get_right"><code class="docutils literal notranslate"><span class="pre">ImageLayer.get_right()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.height"><code class="docutils literal notranslate"><span class="pre">ImageLayer.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">ImageLayer.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.scale"><code class="docutils literal notranslate"><span class="pre">ImageLayer.scale()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image.ImageLayer.width"><code class="docutils literal notranslate"><span class="pre">ImageLayer.width</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.image_to_feed_forward">manim_ml.neural_network.layers.image_to_feed_forward module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward"><code class="docutils literal notranslate"><span class="pre">ImageToFeedForward</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward.animation_overrides"><code class="docutils literal notranslate"><span class="pre">ImageToFeedForward.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward.construct_layer"><code class="docutils literal notranslate"><span class="pre">ImageToFeedForward.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward.input_class"><code class="docutils literal notranslate"><span class="pre">ImageToFeedForward.input_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">ImageToFeedForward.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.image_to_feed_forward.ImageToFeedForward.output_class"><code class="docutils literal notranslate"><span class="pre">ImageToFeedForward.output_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.paired_query">manim_ml.neural_network.layers.paired_query module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer"><code class="docutils literal notranslate"><span class="pre">PairedQueryLayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer.animation_overrides"><code class="docutils literal notranslate"><span class="pre">PairedQueryLayer.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer.construct_layer"><code class="docutils literal notranslate"><span class="pre">PairedQueryLayer.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer.from_paths"><code class="docutils literal notranslate"><span class="pre">PairedQueryLayer.from_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer.make_assets"><code class="docutils literal notranslate"><span class="pre">PairedQueryLayer.make_assets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query.PairedQueryLayer.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">PairedQueryLayer.make_forward_pass_animation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.paired_query_to_feed_forward">manim_ml.neural_network.layers.paired_query_to_feed_forward module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward"><code class="docutils literal notranslate"><span class="pre">PairedQueryToFeedForward</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward.animation_overrides"><code class="docutils literal notranslate"><span class="pre">PairedQueryToFeedForward.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward.construct_layer"><code class="docutils literal notranslate"><span class="pre">PairedQueryToFeedForward.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward.input_class"><code class="docutils literal notranslate"><span class="pre">PairedQueryToFeedForward.input_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">PairedQueryToFeedForward.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.paired_query_to_feed_forward.PairedQueryToFeedForward.output_class"><code class="docutils literal notranslate"><span class="pre">PairedQueryToFeedForward.output_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.parent_layers">manim_ml.neural_network.layers.parent_layers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.BlankConnective"><code class="docutils literal notranslate"><span class="pre">BlankConnective</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.BlankConnective.animation_overrides"><code class="docutils literal notranslate"><span class="pre">BlankConnective.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.BlankConnective.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">BlankConnective.make_forward_pass_animation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.ConnectiveLayer"><code class="docutils literal notranslate"><span class="pre">ConnectiveLayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.ConnectiveLayer.animation_overrides"><code class="docutils literal notranslate"><span class="pre">ConnectiveLayer.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.ConnectiveLayer.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">ConnectiveLayer.make_forward_pass_animation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.NeuralNetworkLayer"><code class="docutils literal notranslate"><span class="pre">NeuralNetworkLayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.NeuralNetworkLayer.animation_overrides"><code class="docutils literal notranslate"><span class="pre">NeuralNetworkLayer.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.NeuralNetworkLayer.construct_layer"><code class="docutils literal notranslate"><span class="pre">NeuralNetworkLayer.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.NeuralNetworkLayer.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">NeuralNetworkLayer.make_forward_pass_animation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.ThreeDLayer"><code class="docutils literal notranslate"><span class="pre">ThreeDLayer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.VGroupNeuralNetworkLayer"><code class="docutils literal notranslate"><span class="pre">VGroupNeuralNetworkLayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.VGroupNeuralNetworkLayer.animation_overrides"><code class="docutils literal notranslate"><span class="pre">VGroupNeuralNetworkLayer.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.parent_layers.VGroupNeuralNetworkLayer.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">VGroupNeuralNetworkLayer.make_forward_pass_animation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.triplet">manim_ml.neural_network.layers.triplet module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer"><code class="docutils literal notranslate"><span class="pre">TripletLayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer.animation_overrides"><code class="docutils literal notranslate"><span class="pre">TripletLayer.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer.construct_layer"><code class="docutils literal notranslate"><span class="pre">TripletLayer.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer.from_paths"><code class="docutils literal notranslate"><span class="pre">TripletLayer.from_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer.make_assets"><code class="docutils literal notranslate"><span class="pre">TripletLayer.make_assets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet.TripletLayer.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">TripletLayer.make_forward_pass_animation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.triplet_to_feed_forward">manim_ml.neural_network.layers.triplet_to_feed_forward module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward"><code class="docutils literal notranslate"><span class="pre">TripletToFeedForward</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward.animation_overrides"><code class="docutils literal notranslate"><span class="pre">TripletToFeedForward.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward.construct_layer"><code class="docutils literal notranslate"><span class="pre">TripletToFeedForward.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward.input_class"><code class="docutils literal notranslate"><span class="pre">TripletToFeedForward.input_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">TripletToFeedForward.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.triplet_to_feed_forward.TripletToFeedForward.output_class"><code class="docutils literal notranslate"><span class="pre">TripletToFeedForward.output_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.util">manim_ml.neural_network.layers.util module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.util.get_connective_layer"><code class="docutils literal notranslate"><span class="pre">get_connective_layer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers.vector">manim_ml.neural_network.layers.vector module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.vector.VectorLayer"><code class="docutils literal notranslate"><span class="pre">VectorLayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.vector.VectorLayer.animation_overrides"><code class="docutils literal notranslate"><span class="pre">VectorLayer.animation_overrides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.vector.VectorLayer.construct_layer"><code class="docutils literal notranslate"><span class="pre">VectorLayer.construct_layer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.vector.VectorLayer.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">VectorLayer.make_forward_pass_animation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="manim_ml.neural_network.layers.html#manim_ml.neural_network.layers.vector.VectorLayer.make_vector"><code class="docutils literal notranslate"><span class="pre">VectorLayer.make_vector()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manim_ml.neural_network.layers.html#module-manim_ml.neural_network.layers">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">#</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="manim-ml-neural-network-neural-network-module">
-<h2>manim_ml.neural_network.neural_network module<a class="headerlink" href="#manim-ml-neural-network-neural-network-module" title="Permalink to this headline">#</a></h2>
+<section id="module-manim_ml.neural_network.neural_network">
+<span id="manim-ml-neural-network-neural-network-module"></span><h2>manim_ml.neural_network.neural_network module<a class="headerlink" href="#module-manim_ml.neural_network.neural_network" title="Permalink to this heading">#</a></h2>
+<p>Neural Network Manim Visualization</p>
+<p>This module is responsible for generating a neural network visualization with
+manim, specifically a fully connected neural network diagram.</p>
+<p class="rubric">Example</p>
+<p># Specify how many nodes are in each node layer
+layer_node_count = [5, 3, 5]
+# Create the object with default style settings
+NeuralNetwork(layer_node_count)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">manim_ml.neural_network.neural_network.</span></span><span class="sig-name descname"><span class="pre">NeuralNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">animation_dot_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#FF862F'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.03</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout_direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'left_to_right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></p>
+<p>Neural Network Visualization Container Class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork.add_connection">
+<span class="sig-name descname"><span class="pre">add_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_mobject_or_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_mobject_or_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bottom'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arc_direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'down'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork.add_connection" title="Permalink to this definition">#</a></dt>
+<dd><p>Add connection from start layer to end layer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork.animation_overrides">
+<span class="sig-name descname"><span class="pre">animation_overrides</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{&lt;class</span> <span class="pre">'manim.animation.creation.Create'&gt;:</span> <span class="pre">&lt;function</span> <span class="pre">NeuralNetwork._create_override&gt;}</span></em><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork.animation_overrides" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork.filter_layers">
+<span class="sig-name descname"><span class="pre">filter_layers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork.filter_layers" title="Permalink to this definition">#</a></dt>
+<dd><p>Filters layers of the network given function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork.insert_layer">
+<span class="sig-name descname"><span class="pre">insert_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork.insert_layer" title="Permalink to this definition">#</a></dt>
+<dd><p>Inserts a layer at the given index</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork.make_forward_pass_animation">
+<span class="sig-name descname"><span class="pre">make_forward_pass_animation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passing_flash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_layer_animations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork.make_forward_pass_animation" title="Permalink to this definition">#</a></dt>
+<dd><p>Generates an animation for feed forward propagation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork.make_input_layers_dict">
+<span class="sig-name descname"><span class="pre">make_input_layers_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_layers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork.make_input_layers_dict" title="Permalink to this definition">#</a></dt>
+<dd><p>Make dictionary of input layers</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork.remove_layer">
+<span class="sig-name descname"><span class="pre">remove_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork.remove_layer" title="Permalink to this definition">#</a></dt>
+<dd><p>Removes layer object if it exists</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork.replace_layer">
+<span class="sig-name descname"><span class="pre">replace_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_layer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork.replace_layer" title="Permalink to this definition">#</a></dt>
+<dd><p>Replaces given layer object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork.scale">
+<span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale_factor</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork.scale" title="Permalink to this definition">#</a></dt>
+<dd><p>Overriden scale</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="manim_ml.neural_network.neural_network.NeuralNetwork.set_z_index">
+<span class="sig-name descname"><span class="pre">set_z_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_index_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">family</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manim_ml.neural_network.neural_network.NeuralNetwork.set_z_index" title="Permalink to this definition">#</a></dt>
+<dd><p>Overriden set_z_index</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="manim-ml-neural-network-neural-network-transformations-module">
-<h2>manim_ml.neural_network.neural_network_transformations module<a class="headerlink" href="#manim-ml-neural-network-neural-network-transformations-module" title="Permalink to this headline">#</a></h2>
+<h2>manim_ml.neural_network.neural_network_transformations module<a class="headerlink" href="#manim-ml-neural-network-neural-network-transformations-module" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="manim-ml-neural-network-variational-autoencoder-module">
-<h2>manim_ml.neural_network.variational_autoencoder module<a class="headerlink" href="#manim-ml-neural-network-variational-autoencoder-module" title="Permalink to this headline">#</a></h2>
+<h2>manim_ml.neural_network.variational_autoencoder module<a class="headerlink" href="#manim-ml-neural-network-variational-autoencoder-module" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">#</a></h2>
+<section id="module-manim_ml.neural_network">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-manim_ml.neural_network" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -258,9 +518,7 @@
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
@@ -272,7 +530,7 @@
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -281,10 +539,25 @@
 <li><a class="reference internal" href="#">manim_ml.neural_network package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#manim-ml-neural-network-neural-network-module">manim_ml.neural_network.neural_network module</a></li>
+<li><a class="reference internal" href="#module-manim_ml.neural_network.neural_network">manim_ml.neural_network.neural_network module</a><ul>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork</span></code></a><ul>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork.add_connection"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork.add_connection()</span></code></a></li>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork.animation_overrides"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork.animation_overrides</span></code></a></li>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork.filter_layers"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork.filter_layers()</span></code></a></li>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork.insert_layer"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork.insert_layer()</span></code></a></li>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork.make_forward_pass_animation"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork.make_forward_pass_animation()</span></code></a></li>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork.make_input_layers_dict"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork.make_input_layers_dict()</span></code></a></li>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork.remove_layer"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork.remove_layer()</span></code></a></li>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork.replace_layer"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork.replace_layer()</span></code></a></li>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork.scale"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork.scale()</span></code></a></li>
+<li><a class="reference internal" href="#manim_ml.neural_network.neural_network.NeuralNetwork.set_z_index"><code class="docutils literal notranslate"><span class="pre">NeuralNetwork.set_z_index()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#manim-ml-neural-network-neural-network-transformations-module">manim_ml.neural_network.neural_network_transformations module</a></li>
 <li><a class="reference internal" href="#manim-ml-neural-network-variational-autoencoder-module">manim_ml.neural_network.variational_autoencoder module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-manim_ml.neural_network">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -297,9 +570,8 @@
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     </body>
 </html>
