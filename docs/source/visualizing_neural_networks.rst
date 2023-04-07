@@ -26,16 +26,18 @@ The topics of other tutorials will include:
 2. Creating custom animations of neural networks
 
 =========================================
-Visualizing a Feed Forward Neural Network
+Visualizing a Feed Forward Neural Network Test
 =========================================
 
 .. manim:: FeedForwardNetworkScene
-    from manim_ml.neural_network.neural_network import NeuralNetwork
-    from manim_ml.neural_network.layers import FeedForwardLayer
-    
+    :save_last_frame:
+
     class FeedForwardNetworkScene(Scene):
 
         def construct(self):
+            from manim_ml.neural_network import NeuralNetwork
+            from manim_ml.neural_network.layers import FeedForwardLayer
+
             neural_network = NeuralNetwork([
                 FeedForwardLayer(3),
                 FeedForwardLayer(5),
