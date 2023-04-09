@@ -35,6 +35,7 @@ from .feed_forward_to_math_operation import FeedForwardToMathOperation
 from .trans_conv_2d import TransposeConvolution2DLayer
 from .convolutional_2d_to_trans_conv_2d import Convolutional2DToTransConv2D
 from .trans_conv_2d_to_convolutional_2d import TransConv2DToConvolutional2D
+from .trans_conv_2d_to_feed_forward import TransConv2DToFeedForward
 
 connective_layers_list = (
     EmbeddingToFeedForward,
@@ -55,4 +56,5 @@ connective_layers_list = (
     FeedForwardToMathOperation,
     Convolutional2DToTransConv2D,
     TransConv2DToConvolutional2D,
+    TransConv2DToFeedForward,
 )
