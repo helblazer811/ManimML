@@ -9,9 +9,9 @@ manim_ml.config.color_scheme = "light_mode"
 from manim_ml.neural_network.architectures.feed_forward import FeedForwardNeuralNetwork
 
 config.pixel_height = 1000
-config.pixel_width = 1000
+config.pixel_width = 2000
 config.frame_height = 4.0
-config.frame_width = 4.0
+config.frame_width = 8.0
 
 
 class ManimMLLogo(Scene):
@@ -21,9 +21,10 @@ class ManimMLLogo(Scene):
         self.neural_network = FeedForwardNeuralNetwork(
             [3, 5, 3, 6, 3], layer_spacing=0.3, node_color=BLUE
         )
-        self.neural_network.scale(1.0)
-        self.neural_network.move_to(self.text.get_bottom())
-        self.neural_network.shift(1.25 * DOWN)
+        self.neural_network.scale(0.8)
+        self.neural_network.next_to(self.text, RIGHT, buff=0.5)
+        # self.neural_network.move_to(self.text.get_right())
+        # self.neural_network.shift(1.25 * DOWN)
         self.logo_group = Group(self.text, self.neural_network)
         self.logo_group.scale(1.0)
         self.logo_group.move_to(ORIGIN)

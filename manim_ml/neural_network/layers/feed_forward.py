@@ -5,7 +5,7 @@ from manim_ml.neural_network.activation_functions.activation_function import (
     ActivationFunction,
 )
 from manim_ml.neural_network.layers.parent_layers import VGroupNeuralNetworkLayer
-
+import manim_ml
 
 class FeedForwardLayer(VGroupNeuralNetworkLayer):
     """Handles rendering a layer for a neural network"""
@@ -15,14 +15,14 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
         num_nodes,
         layer_buffer=SMALL_BUFF / 2,
         node_radius=0.08,
-        node_color=BLUE,
-        node_outline_color=WHITE,
-        rectangle_color=WHITE,
+        node_color=manim_ml.config.color_scheme.primary_color,
+        node_outline_color=manim_ml.config.color_scheme.secondary_color,
+        rectangle_color=manim_ml.config.color_scheme.secondary_color,
         node_spacing=0.3,
-        rectangle_fill_color=BLACK,
+        rectangle_fill_color=manim_ml.config.color_scheme.background_color,
         node_stroke_width=2.0,
         rectangle_stroke_width=2.0,
-        animation_dot_color=RED,
+        animation_dot_color=manim_ml.config.color_scheme.active_color,
         activation_function=None,
         **kwargs
     ):
