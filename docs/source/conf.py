@@ -13,7 +13,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../../manim_ml"))
+# sys.path.insert(0, os.path.abspath("../../manim_ml"))
 
 
 # -- Project information -----------------------------------------------------
@@ -28,7 +28,11 @@ author = "Alec Helbling"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
+extensions = [
+    "sphinx.ext.autodoc", 
+    "sphinx.ext.napoleon",
+    "manim.utils.docbuild.manim_directive",
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

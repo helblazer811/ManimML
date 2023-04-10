@@ -2,7 +2,6 @@ import manim_ml
 from manim_ml.neural_network.neural_network import NeuralNetwork
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 
-
 class FeedForwardNeuralNetwork(NeuralNetwork):
     """NeuralNetwork with just feed forward layers"""
 

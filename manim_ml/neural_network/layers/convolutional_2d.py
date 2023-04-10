@@ -5,6 +5,7 @@ from manim_ml.neural_network.activation_functions.activation_function import (
 )
 import numpy as np
 from manim import *
+import manim_ml
 
 from manim_ml.neural_network.layers.parent_layers import (
     ThreeDLayer,
@@ -168,9 +169,9 @@ class Convolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         # Rotate stuff properly
         # normal_vector = self.feature_maps[0].get_normal_vector()
         self.rotate(
-            ThreeDLayer.rotation_angle,
+            manim_ml.config.three_d_config.rotation_angle,
             about_point=self.get_center(),
-            axis=ThreeDLayer.rotation_axis,
+            axis=manim_ml.config.three_d_config.rotation_axis,
         )
 
         self.construct_activation_function()

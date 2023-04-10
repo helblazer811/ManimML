@@ -1,14 +1,14 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>Visualizing Neural Networks with ManimML - ManimML documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -149,12 +149,17 @@
   <span class="sidebar-brand-text">ManimML  documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="neural_network_guide.html">Neural Network Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+</ul>
+
 </div>
 </div>
 
@@ -171,7 +176,9 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -186,7 +193,7 @@
         </div>
         <article role="main">
           <section id="visualizing-neural-networks-with-manimml">
-<h1>Visualizing Neural Networks with ManimML<a class="headerlink" href="#visualizing-neural-networks-with-manimml" title="Permalink to this headline">#</a></h1>
+<h1>Visualizing Neural Networks with ManimML<a class="headerlink" href="#visualizing-neural-networks-with-manimml" title="Permalink to this heading">#</a></h1>
 <p>This is a tutorial on how to make neural network architecture visualizations
 and animate common algorithms like the forward pass of a neural network.
 Neural networks are a ubiquitous class of machine learning techniques.
@@ -209,9 +216,28 @@ This tutorial goes over several simple topics:</p>
 <li><p>Creating custom neural network layers</p></li>
 <li><p>Creating custom animations of neural networks</p></li>
 </ol>
-<section id="visualizing-a-feed-forward-neural-network">
-<h2>Visualizing a Feed Forward Neural Network<a class="headerlink" href="#visualizing-a-feed-forward-neural-network" title="Permalink to this headline">#</a></h2>
-</section>
+<section id="visualizing-a-feed-forward-neural-network-test">
+<h2>Visualizing a Feed Forward Neural Network Test<a class="headerlink" href="#visualizing-a-feed-forward-neural-network-test" title="Permalink to this heading">#</a></h2>
+<div id="feedforwardnetworkscene" class="admonition admonition-manim-example">
+<p class="admonition-title">Example: FeedForwardNetworkScene <a class="headerlink" href="#feedforwardnetworkscene">¶</a></p><img alt="_images/FeedForwardNetworkScene-1.png" class="align-center" src="_images/FeedForwardNetworkScene-1.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">manim</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">FeedForwardNetworkScene</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">manim_ml.neural_network</span> <span class="kn">import</span> <span class="n">NeuralNetwork</span>
+        <span class="kn">from</span> <span class="nn">manim_ml.neural_network.layers</span> <span class="kn">import</span> <span class="n">FeedForwardLayer</span>
+
+        <span class="n">neural_network</span> <span class="o">=</span> <span class="n">NeuralNetwork</span><span class="p">([</span>
+            <span class="n">FeedForwardLayer</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">FeedForwardLayer</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+            <span class="n">FeedForwardLayer</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">FeedForwardLayer</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neural_network</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></section>
 </section>
 
         </article>
@@ -233,9 +259,7 @@ This tutorial goes over several simple topics:</p>
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
@@ -247,14 +271,14 @@ This tutorial goes over several simple topics:</p>
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Visualizing Neural Networks with ManimML</a><ul>
-<li><a class="reference internal" href="#visualizing-a-feed-forward-neural-network">Visualizing a Feed Forward Neural Network</a></li>
+<li><a class="reference internal" href="#visualizing-a-feed-forward-neural-network-test">Visualizing a Feed Forward Neural Network Test</a></li>
 </ul>
 </li>
 </ul>
@@ -267,9 +291,8 @@ This tutorial goes over several simple topics:</p>
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     </body>
 </html>

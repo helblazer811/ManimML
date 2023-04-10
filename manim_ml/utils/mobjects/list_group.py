@@ -82,3 +82,6 @@ class ListGroup(Mobject):
         if self.current_index < len(self.items):
             return self.items[self.current_index]
         raise StopIteration
+
+    def __repr__(self):
+        return f"ListGroup({self.items})"

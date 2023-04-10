@@ -1,14 +1,14 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Reference" href="reference.html" /><link rel="prev" title="Installation" href="installation.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>Neural Network Guide - ManimML documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -149,7 +149,7 @@
   <span class="sidebar-brand-text">ManimML  documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -176,7 +176,9 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -191,8 +193,30 @@
         </div>
         <article role="main">
           <section id="neural-network-guide">
-<h1>Neural Network Guide<a class="headerlink" href="#neural-network-guide" title="Permalink to this headline">#</a></h1>
-</section>
+<h1>Neural Network Guide<a class="headerlink" href="#neural-network-guide" title="Permalink to this heading">#</a></h1>
+<div id="manimcelogo" class="admonition admonition-manim-example">
+<p class="admonition-title">Example: ManimCELogo <a class="headerlink" href="#manimcelogo">¶</a></p><img alt="_images/ManimCELogo-1.png" class="align-center" src="_images/ManimCELogo-1.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">manim</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">ManimCELogo</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">background_color</span> <span class="o">=</span> <span class="s2">&quot;#ece6e2&quot;</span>
+        <span class="n">logo_green</span> <span class="o">=</span> <span class="s2">&quot;#87c2a5&quot;</span>
+        <span class="n">logo_blue</span> <span class="o">=</span> <span class="s2">&quot;#525893&quot;</span>
+        <span class="n">logo_red</span> <span class="o">=</span> <span class="s2">&quot;#e07a5f&quot;</span>
+        <span class="n">logo_black</span> <span class="o">=</span> <span class="s2">&quot;#343434&quot;</span>
+        <span class="n">ds_m</span> <span class="o">=</span> <span class="n">MathTex</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\mathbb</span><span class="si">{M}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fill_color</span><span class="o">=</span><span class="n">logo_black</span><span class="p">)</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+        <span class="n">ds_m</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mf">2.25</span> <span class="o">*</span> <span class="n">LEFT</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">UP</span><span class="p">)</span>
+        <span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">logo_green</span><span class="p">,</span> <span class="n">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">logo_blue</span><span class="p">,</span> <span class="n">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">UP</span><span class="p">)</span>
+        <span class="n">triangle</span> <span class="o">=</span> <span class="n">Triangle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">logo_red</span><span class="p">,</span> <span class="n">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">RIGHT</span><span class="p">)</span>
+        <span class="n">logo</span> <span class="o">=</span> <span class="n">VGroup</span><span class="p">(</span><span class="n">triangle</span><span class="p">,</span> <span class="n">square</span><span class="p">,</span> <span class="n">circle</span><span class="p">,</span> <span class="n">ds_m</span><span class="p">)</span>  <span class="c1"># order matters</span>
+        <span class="n">logo</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="n">ORIGIN</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">logo</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>References: <code class="xref py py-class docutils literal notranslate"><span class="pre">MathTex</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">Circle</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">Square</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">Triangle</span></code></p>
+</div></section>
 
         </article>
       </div>
@@ -206,10 +230,10 @@
                 </div>
                 <div class="title">Reference</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="installation.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -231,9 +255,7 @@
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
@@ -246,9 +268,8 @@
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     </body>
 </html>

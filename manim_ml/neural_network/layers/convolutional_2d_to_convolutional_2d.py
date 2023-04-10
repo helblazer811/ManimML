@@ -4,6 +4,7 @@ from manim import *
 from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
 from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeDLayer
 from manim_ml.utils.mobjects.gridded_rectangle import GriddedRectangle
+import manim_ml
 
 from manim.utils.space_ops import rotation_matrix
 
@@ -14,7 +15,9 @@ def get_rotated_shift_vectors(input_layer, normalized=False):
     right_shift = np.array([input_layer.cell_width, 0, 0])
     down_shift = np.array([0, -input_layer.cell_width, 0])
     # Make rotation matrix
-    rot_mat = rotation_matrix(ThreeDLayer.rotation_angle, ThreeDLayer.rotation_axis)
+    rot_mat = rotation_matrix(
+        manim_ml.config.three_d_config.rotation_angle, 
+        manim_ml.config.three_d_config.rotation_axis)
     # Rotate the vectors
     right_shift = np.dot(right_shift, rot_mat.T)
     down_shift = np.dot(down_shift, rot_mat.T)
@@ -84,9 +87,9 @@ class Filters(VGroup):
             )
             # normal_vector = rectangle.get_normal_vector()
             rectangle.rotate(
-                ThreeDLayer.rotation_angle,
+                manim_ml.config.three_d_config.rotation_angle,
                 about_point=rectangle.get_center(),
-                axis=ThreeDLayer.rotation_axis,
+                axis=manim_ml.config.three_d_config.rotation_axis,
             )
             # Move the rectangle to the corner of the feature map
             rectangle.next_to(
@@ -133,9 +136,9 @@ class Filters(VGroup):
             )
             # Rotate the rectangle
             rectangle.rotate(
-                ThreeDLayer.rotation_angle,
+                manim_ml.config.three_d_config.rotation_angle,
                 about_point=rectangle.get_center(),
-                axis=ThreeDLayer.rotation_axis,
+                axis=manim_ml.config.three_d_config.rotation_axis,
             )
             # Move the rectangle to the corner location
             rectangle.next_to(
