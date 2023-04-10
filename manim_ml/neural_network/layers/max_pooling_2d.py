@@ -5,7 +5,7 @@ from manim_ml.neural_network.layers.parent_layers import (
     ThreeDLayer,
     VGroupNeuralNetworkLayer,
 )
-
+import manim_ml
 
 class MaxPooling2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     """Max pooling layer for Convolutional2DLayer
@@ -59,9 +59,9 @@ class MaxPooling2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         )
         self.add(self.feature_maps)
         self.rotate(
-            ThreeDLayer.rotation_angle,
+            manim_ml.config.three_d_config.rotation_angle,
             about_point=self.get_center(),
-            axis=ThreeDLayer.rotation_axis,
+            axis=manim_ml.config.three_d_config.rotation_axis
         )
         self.feature_map_size = (
             input_layer.feature_map_size[0] / self.kernel_size,

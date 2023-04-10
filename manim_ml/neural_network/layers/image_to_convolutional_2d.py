@@ -9,6 +9,8 @@ from manim_ml.neural_network.layers.parent_layers import (
 )
 from manim_ml.utils.mobjects.gridded_rectangle import GriddedRectangle
 
+import manim_ml
+
 
 class ImageToConvolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
     """Handles rendering a convolutional layer for a nn"""
@@ -61,8 +63,8 @@ class ImageToConvolutional2DLayer(VGroupNeuralNetworkLayer, ThreeDLayer):
         # Make rotation of image
         rotation = ApplyMethod(
             image_mobject.rotate,
-            ThreeDLayer.rotation_angle,
-            ThreeDLayer.rotation_axis,
+            manim_ml.config.three_d_config.rotation_angle,
+            manim_ml.config.three_d_config.rotation_axis,
             image_mobject.get_center(),
             run_time=0.5,
         )

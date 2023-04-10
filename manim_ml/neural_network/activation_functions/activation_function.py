@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 import random
 
 import manim_ml.neural_network.activation_functions.relu as relu
-
+import manim_ml
 
 class ActivationFunction(ABC, VGroup):
     """Abstract parent class for defining activation functions"""
@@ -16,9 +16,9 @@ class ActivationFunction(ABC, VGroup):
         x_length=0.5,
         y_length=0.3,
         show_function_name=True,
-        active_color=ORANGE,
-        plot_color=BLUE,
-        rectangle_color=WHITE,
+        active_color=manim_ml.config.color_scheme.active_color,
+        plot_color=manim_ml.config.color_scheme.primary_color,
+        rectangle_color=manim_ml.config.color_scheme.secondary_color,
     ):
         super(VGroup, self).__init__()
         self.function_name = function_name
@@ -46,6 +46,7 @@ class ActivationFunction(ABC, VGroup):
                 "include_numbers": False,
                 "stroke_width": 0.5,
                 "include_ticks": False,
+                "color": self.rectangle_color
             },
         )
         self.add(self.axes)

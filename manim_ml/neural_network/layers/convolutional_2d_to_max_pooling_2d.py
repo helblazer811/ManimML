@@ -10,6 +10,8 @@ from manim_ml.neural_network.layers.parent_layers import ConnectiveLayer, ThreeD
 from manim_ml.neural_network.layers.feed_forward import FeedForwardLayer
 from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
 
+import manim_ml
+
 
 class Uncreate(Create):
     def __init__(
@@ -123,9 +125,9 @@ class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
             # of the conv maps
             gridded_rectangle_group = VGroup(gridded_rectangle, *highlighted_cells)
             gridded_rectangle_group.rotate(
-                ThreeDLayer.rotation_angle,
+                manim_ml.config.three_d_config.rotation_angle,
                 about_point=gridded_rectangle.get_center(),
-                axis=ThreeDLayer.rotation_axis,
+                axis=manim_ml.config.three_d_config.rotation_axis,
             )
             gridded_rectangle_group.next_to(
                 feature_map.get_corners_dict()["top_left"],
@@ -163,9 +165,9 @@ class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
                 show_grid_lines=True,
             )
             output_gridded_rectangle.rotate(
-                ThreeDLayer.rotation_angle,
+                manim_ml.config.three_d_config.rotation_angle,
                 about_point=output_gridded_rectangle.get_center(),
-                axis=ThreeDLayer.rotation_axis,
+                axis=manim_ml.three_d_config.rotation_axis,
             )
             output_gridded_rectangle.move_to(
                 self.output_layer.feature_maps[feature_map_index].copy()

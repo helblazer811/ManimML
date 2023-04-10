@@ -22,6 +22,7 @@ from manim_ml.neural_network.animations.neural_network_transformations import (
     InsertLayer,
     RemoveLayer,
 )
+import manim_ml
 
 class NeuralNetwork(Group):
     """Neural Network Visualization Container Class"""
@@ -30,7 +31,7 @@ class NeuralNetwork(Group):
         self,
         input_layers,
         layer_spacing=0.2,
-        animation_dot_color=RED,
+        animation_dot_color=manim_ml.config.color_scheme.active_color,
         edge_width=2.5,
         dot_radius=0.03,
         title=" ",
@@ -173,24 +174,28 @@ class NeuralNetwork(Group):
             current_layer.shift(shift_vector)
 
         # After all layers have been placed place their activation functions
+        layer_max_height = max([layer.get_height() for layer in self.input_layers])
         for current_layer in self.input_layers:
             # Place activation function
             if hasattr(current_layer, "activation_function"):
                 if not current_layer.activation_function is None:
-                    up_movement = np.array(
-                        [
-                            0,
-                            current_layer.get_height() / 2
-                            + current_layer.activation_function.get_height() / 2
-                            + 0.5 * self.layer_spacing,
-                            0,
-                        ]
-                    )
+                    # Get max height of layer
+                    up_movement = np.array([
+                        0,
+                        layer_max_height / 2
+                        + current_layer.activation_function.get_height() / 2
+                        + 0.5 * self.layer_spacing,
+                        0,
+                    ])
                     current_layer.activation_function.move_to(
                         current_layer,
                     )
-                    current_layer.activation_function.shift(up_movement)
-                    self.add(current_layer.activation_function)
+                    current_layer.activation_function.shift(
+                        up_movement
+                    )
+                    self.add(
+                        current_layer.activation_function
+                    )
 
     def _construct_connective_layers(self):
         """Draws connecting lines between layers"""
