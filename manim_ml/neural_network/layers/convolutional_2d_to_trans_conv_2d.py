@@ -1,6 +1,7 @@
 import numpy as np
 
 from manim import *
+import manim_ml
 from manim_ml.utils.mobjects.gridded_rectangle import GriddedRectangle
 from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer, FeatureMap
 from manim_ml.neural_network.layers.trans_conv_2d import TransposeConvolution2DLayer
@@ -16,7 +17,7 @@ class Convolutional2DToTransConv2D(Convolutional2DToConvolutional2D,ConnectiveLa
             self,
             input_layer: Convolutional2DLayer,
             output_layer: TransposeConvolution2DLayer,
-            # color=ORANGE,
+            color=BLUE,
             # filter_opacity=0.3,
             # line_color=ORANGE,
             active_color=ORANGE,
@@ -27,6 +28,7 @@ class Convolutional2DToTransConv2D(Convolutional2DToConvolutional2D,ConnectiveLa
     ):
         super().__init__(input_layer, output_layer, **kwargs)
         self.active_color = active_color
+        self.color = color
 
     def construct_layer(
         self,
@@ -96,21 +98,21 @@ class Convolutional2DToTransConv2D(Convolutional2DToConvolutional2D,ConnectiveLa
                         highlighted_cells.append(cell_rectangle)
 
 
-            qqq = gridded_rectangle.copy()
-            qqq.set_opacity(0)
-            self.input_layer.feature_maps[feature_map_index] = qqq.rotate(
-                ThreeDLayer.rotation_angle,
-                about_point=qqq.get_center(),
-                axis=ThreeDLayer.rotation_axis,
+            gr_copy = gridded_rectangle.copy()
+            gr_copy.set_opacity(0)
+            self.input_layer.feature_maps[feature_map_index] = gr_copy.rotate(
+                manim_ml.config.three_d_config.rotation_angle,
+                about_point=gr_copy.get_center(),
+                axis=manim_ml.config.three_d_config.rotation_axis,
             ).move_to(feature_map.get_center())
 
             # Rotate the gridded rectangles so they match the angle
             # of the conv maps
             gridded_rectangle_group = VGroup(gridded_rectangle, *highlighted_cells)
             gridded_rectangle_group.rotate(
-                ThreeDLayer.rotation_angle,
+                manim_ml.config.three_d_config.rotation_angle,
                 about_point=gridded_rectangle.get_center(),
-                axis=ThreeDLayer.rotation_axis,
+                axis=manim_ml.config.three_d_config.rotation_axis,
             )
 
             gridded_rectangle_group.move_to(
@@ -132,6 +134,8 @@ class Convolutional2DToTransConv2D(Convolutional2DToConvolutional2D,ConnectiveLa
         # Call on the super class to make the animation for the conv2d to conv2d now that you
         # have the padded feature maps
         conv2d = super().make_forward_pass_animation(layer_args, run_time, **kwargs)
+
+        # color_change = ApplyMethod(gridded_rectangle_group.set_color, self.color)
         
 
         return Succession(AnimationGroup(*new_feature_animation), Wait(1), conv2d)
