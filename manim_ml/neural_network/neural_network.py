@@ -62,7 +62,10 @@ class NeuralNetwork(Group):
         # Place the connective layers
         self._place_connective_layers()
         # Make overhead title
-        self.title = Text(self.title_text, font_size=DEFAULT_FONT_SIZE / 2)
+        self.title = Text(
+            self.title_text, 
+            font_size=DEFAULT_FONT_SIZE / 2
+        )
         self.title.next_to(self, UP, 1.0)
         self.add(self.title)
         # Place layers at correct z index
@@ -189,6 +192,9 @@ class NeuralNetwork(Group):
                     ])
                     current_layer.activation_function.move_to(
                         current_layer,
+                    )
+                    current_layer.activation_function.match_y(
+                        self.input_layers[0]
                     )
                     current_layer.activation_function.shift(
                         up_movement
@@ -364,6 +370,8 @@ class NeuralNetwork(Group):
 
     def scale(self, scale_factor, **kwargs):
         """Overriden scale"""
+        prior_center = self.get_center()
+
         for layer in self.all_layers:
             layer.scale(scale_factor, **kwargs)
         # Place layers with scaled spacing
@@ -371,6 +379,13 @@ class NeuralNetwork(Group):
         # self.connective_layers, self.all_layers = self._construct_connective_layers()
         self._place_layers(layout=self.layout, layout_direction=self.layout_direction)
         self._place_connective_layers()
+        # Scale the title
+        self.remove(self.title)
+        self.title.scale(scale_factor, **kwargs)
+        self.title.next_to(self, UP * scale_factor, buff=1.0 * scale_factor)
+        self.add(self.title)
+
+        self.move_to(prior_center)
 
     def filter_layers(self, function):
         """Filters layers of the network given function"""
