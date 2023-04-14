@@ -66,7 +66,7 @@ class NeuralNetwork(Group):
             self.title_text, 
             font_size=DEFAULT_FONT_SIZE / 2
         )
-        self.title.next_to(self, UP, 1.0)
+        self.title.next_to(self, UP * self.layer_spacing, buff=0.25)
         self.add(self.title)
         # Place layers at correct z index
         self.connective_layers.set_z_index(2)
@@ -382,7 +382,7 @@ class NeuralNetwork(Group):
         # Scale the title
         self.remove(self.title)
         self.title.scale(scale_factor, **kwargs)
-        self.title.next_to(self, UP * scale_factor, buff=1.0 * scale_factor)
+        self.title.next_to(self, UP, buff=0.25 * scale_factor)
         self.add(self.title)
 
         self.move_to(prior_center)
