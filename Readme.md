@@ -182,7 +182,9 @@ $ manim -pql example.py
 
 ManimML supports visualizations of Convolutional Neural Networks. You can specify the number of feature maps, feature map size, and filter size as follows `Convolutional2DLayer(num_feature_maps, feature_map_size, filter_size)`. There are a number of other style parameters that we can change as well(documentation coming soon).
 
-Here is a multi-layer convolutional neural network. If you are unfamiliar with convolutional networks [this overview](https://cs231n.github.io/convolutional-networks/) is a great resource. You need to be careful that the feature map sizes and filter dimensions of adjacent layers match up. 
+Here is a multi-layer convolutional neural network. If you are unfamiliar with convolutional networks [this overview](https://cs231n.github.io/convolutional-networks/) is a great resource. Additionally, [CNN Explainer](https://poloclub.github.io/cnn-explainer/) is a great interactive tool for understanding CNNs, all in the browser. 
+
+When specifying CNNs it is important for the feature map sizes and filter dimensions of adjacent layers match up. 
 
 ```python
 from manim_ml.neural_network import NeuralNetwork, FeedForwardLayer, Convolutional2DLayer
