@@ -393,15 +393,12 @@ self.play(
 If you found ManimML useful please cite it below!
 
 ```
-@software{alec_helbling_2023_7760911,
-  author       = {Alec Helbling},
-  title        = {{ManimML: A Python Animation Engine for Machine 
-                   Learning Architectures}},
-  month        = mar,
-  year         = 2023,
-  publisher    = {Zenodo},
-  version      = {v0.0.20},
-  doi          = {10.5281/zenodo.7760911},
-  url          = {https://doi.org/10.5281/zenodo.7760911}
+@misc{helbling2023manimml,
+      title={ManimML: Communicating Machine Learning Architectures with Animation}, 
+      author={Alec Helbling and Duen Horng and Chau},
+      year={2023},
+      eprint={2306.17108},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
 }
 ```
