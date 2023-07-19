@@ -124,52 +124,7 @@ class ExpandPatches(Animation):
         current_location = alpha * final_image_vector + (1 - alpha) * starting_patch_center
         # # Need to compute the direction of expansion as the unit vector from the original image center
         # # and patch center. 
-        # original_patch_vector = starting_center - self.image_patches.image.get_center()
-        # # expansion_direction = original_patch_vector / np.linalg.norm(original_patch_vector)
-        # # Compute the patch final location
-        # final_location = starting_center + original_patch_vector * self.expansion_scale
-        # # Compute the current location by interpolating between staring and final locations
-        # addition_vector = alpha * (final_location - starting_center)
-        # current_location = starting_center + addition_vector
         patch.move_to(current_location)
-
-# class ContractPatches(Animation):
-
-#     def __init__(self, image_patches: ImagePatches, contract_scale=1.1):
-#         """
-#         Parameters
-#         ----------
-#         image_patches : ImagePatches
-#             set of image patches
-#         expansion_scale : float, optional
-#             scale factor for expansion, by default 2.0
-#         """
-#         self.image_patches = image_patches
-#         self.contract_scale = contract_scale
-#         super().__init__(image_patches)
-
-#     def interpolate_submobject(self, submobject, starting_submobject, alpha):
-#         """
-#         Parameters
-#         ----------
-#         submobject : ImageMobject
-#             current patch
-#         starting_submobject : ImageMobject
-#             starting patch
-#         alpha : _type_
-#             interpolation alpha
-#         """
-#         patch = submobject
-#         starting_center = starting_submobject.get_center()
-#         # Need to compute the direction of expansion as the unit vector from the original image center
-#         # and patch center. 
-#         original_patch_vector = self.image_patches.image.get_center() - submobject.get_center()
-#         contract_direction = original_patch_vector / np.linalg.norm(contract_direction)
-#         # Compute the patch final location
-#         final_location = starting_center + original_patch_vector * self.contract_scale
-#         # Compute the current location by interpolating between staring and final locations
-#         current_location = alpha * final_location + (1 - alpha) * starting_center
-#         patch.move_to(current_location)
 
 class TokenizedText(Group):
     """Tokenizes the given text and displays the tokens as a list of Text Mobjects."""
