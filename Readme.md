@@ -7,7 +7,7 @@
 [![GitHub tag](https://img.shields.io/github/v/release/helblazer811/ManimMachineLearning)](https://img.shields.io/github/v/release/helblazer811/ManimMachineLearning)
 [![Downloads](https://static.pepy.tech/badge/manim-ml)](https://pepy.tech/project/manim-ml)
 
-ManimML is a project focused on providing animations and visualizations of common machine learning concepts with the [Manim Community Library](https://www.manim.community/). We want this project to be a compilation of primitive visualizations that can be easily combined to create videos about complex machine learning concepts. Additionally, we want to provide a set of abstractions which allow users to focus on explanations instead of software engineering.
+ManimML is a project focused on providing animations and visualizations of common machine learning concepts with the [Manim Community Library](https://www.manim.community/). Please check out [our paper](https://arxiv.org/abs/2306.17108). We want this project to be a compilation of primitive visualizations that can be easily combined to create videos about complex machine learning concepts. Additionally, we want to provide a set of abstractions which allow users to focus on explanations instead of software engineering.
 
 *A sneak peak ...*
 
@@ -182,7 +182,9 @@ $ manim -pql example.py
 
 ManimML supports visualizations of Convolutional Neural Networks. You can specify the number of feature maps, feature map size, and filter size as follows `Convolutional2DLayer(num_feature_maps, feature_map_size, filter_size)`. There are a number of other style parameters that we can change as well(documentation coming soon).
 
-Here is a multi-layer convolutional neural network. If you are unfamiliar with convolutional networks [this overview](https://cs231n.github.io/convolutional-networks/) is a great resource. You need to be careful that the feature map sizes and filter dimensions of adjacent layers match up. 
+Here is a multi-layer convolutional neural network. If you are unfamiliar with convolutional networks [this overview](https://cs231n.github.io/convolutional-networks/) is a great resource. Additionally, [CNN Explainer](https://poloclub.github.io/cnn-explainer/) is a great interactive tool for understanding CNNs, all in the browser. 
+
+When specifying CNNs it is important for the feature map sizes and filter dimensions of adjacent layers match up. 
 
 ```python
 from manim_ml.neural_network import NeuralNetwork, FeedForwardLayer, Convolutional2DLayer
@@ -391,15 +393,12 @@ self.play(
 If you found ManimML useful please cite it below!
 
 ```
-@software{alec_helbling_2023_7760911,
-  author       = {Alec Helbling},
-  title        = {{ManimML: A Python Animation Engine for Machine 
-                   Learning Architectures}},
-  month        = mar,
-  year         = 2023,
-  publisher    = {Zenodo},
-  version      = {v0.0.20},
-  doi          = {10.5281/zenodo.7760911},
-  url          = {https://doi.org/10.5281/zenodo.7760911}
+@misc{helbling2023manimml,
+      title={ManimML: Communicating Machine Learning Architectures with Animation}, 
+      author={Alec Helbling and Duen Horng and Chau},
+      year={2023},
+      eprint={2306.17108},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
 }
 ```
