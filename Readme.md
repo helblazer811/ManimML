@@ -217,7 +217,7 @@ And there we have it, a convolutional neural network.
 
 ### Convolutional Neural Network with an Image
 
-We can also animate an image being fed into a convolutional neural network by specifiying an `ImageLayer` before the first convolutional layer. 
+We can also animate an image being fed into a convolutional neural network by specifying an `ImageLayer` before the first convolutional layer. 
 
 ```python
 import numpy as np
