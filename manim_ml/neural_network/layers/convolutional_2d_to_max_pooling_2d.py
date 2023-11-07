@@ -167,7 +167,7 @@ class Convolutional2DToMaxPooling2D(ConnectiveLayer, ThreeDLayer):
             output_gridded_rectangle.rotate(
                 manim_ml.config.three_d_config.rotation_angle,
                 about_point=output_gridded_rectangle.get_center(),
-                axis=manim_ml.three_d_config.rotation_axis,
+                axis=manim_ml.config.three_d_config.rotation_axis,
             )
             output_gridded_rectangle.move_to(
                 self.output_layer.feature_maps[feature_map_index].copy()
