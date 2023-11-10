@@ -10,6 +10,12 @@ from manim_ml.neural_network.layers.convolutional_2d_to_max_pooling_2d import (
     Convolutional2DToMaxPooling2D,
 )
 from manim_ml.neural_network.layers.convolutional_2d import Convolutional2DLayer
+from manim_ml.neural_network.layers.trans_conv_2d import TransposeConvolution2DLayer
+from manim_ml.neural_network.layers.convolutional_2d_to_trans_conv_2d import (
+    Convolutional2DToTransConv2D,
+)
+
+
 from manim_ml.neural_network.layers.embedding_to_feed_forward import (
     EmbeddingToFeedForward,
 )
