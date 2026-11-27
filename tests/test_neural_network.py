@@ -1,4 +1,3 @@
-from cv2 import exp
 from manim import *
 from manim_ml.neural_network.layers.embedding import EmbeddingLayer
 from manim_ml.neural_network.layers.embedding_to_feed_forward import (
