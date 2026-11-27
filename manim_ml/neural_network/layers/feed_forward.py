@@ -142,6 +142,16 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
             else:
                 return succession
 
+    def make_backward_pass_animation(self, layer_args={}, run_time=None, color="#F43F5E", **kwargs):
+        """Highlights nodes with backward error signal color."""
+        step_rt = (run_time / 2.0) if run_time else 0.25
+        wait_rt = (run_time / 2.0) if run_time else 0.5
+        return Succession(
+            ApplyMethod(self.node_group.set_color, color, run_time=step_rt),
+            Wait(wait_rt),
+            ApplyMethod(self.node_group.set_color, self.node_color, run_time=step_rt),
+        )
+
     @override_animation(Create)
     def _create_override(self, **kwargs):
         animations = []
@@ -175,3 +185,4 @@ class FeedForwardLayer(VGroupNeuralNetworkLayer):
             target_center = mobject_or_point
 
         self.shift(target_center - layer_center)
+        return self

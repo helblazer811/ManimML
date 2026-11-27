@@ -337,6 +337,42 @@ class NeuralNetwork(Group):
         else:
             return animation_group
 
+    def make_backward_pass_animation(
+        self,
+        run_time=None,
+        passing_flash=True,
+        layer_args={},
+        per_layer_animations=False,
+        color="#F43F5E",
+        **kwargs
+    ):
+        """Generates a backpropagation animation flowing from output layer to input layer."""
+        all_animations = []
+        per_layer_animation_map = {}
+        reversed_layers = list(reversed(self.all_layers))
+        per_layer_runtime = (
+            run_time / len(reversed_layers) if run_time is not None else None
+        )
+        for layer in reversed_layers:
+            current_layer_args = layer_args.get(layer, {}) if isinstance(layer_args, dict) else {}
+            if hasattr(layer, "make_backward_pass_animation"):
+                anim = layer.make_backward_pass_animation(
+                    layer_args=current_layer_args,
+                    run_time=per_layer_runtime,
+                    color=color,
+                    **kwargs,
+                )
+            else:
+                anim = layer.make_forward_pass_animation(
+                    layer_args=current_layer_args,
+                    run_time=per_layer_runtime,
+                    **kwargs,
+                )
+            all_animations.append(anim)
+            per_layer_animation_map[layer] = anim
+        animation_group = Succession(*all_animations, lag_ratio=1.0)
+        return per_layer_animation_map if per_layer_animations else animation_group
+
     @override_animation(Create)
     def _create_override(self, **kwargs):
         """Overrides Create animation"""
@@ -365,7 +401,7 @@ class NeuralNetwork(Group):
         """Overriden set_z_index"""
         # Setting family=False stops sub-neural networks from inheriting parent z_index
         for layer in self.all_layers:
-            if not isinstance(NeuralNetwork):
+            if not isinstance(layer, NeuralNetwork):
                 layer.set_z_index(z_index_value)
 
     def scale(self, scale_factor, **kwargs):
@@ -386,6 +422,7 @@ class NeuralNetwork(Group):
         self.add(self.title)
 
         self.move_to(prior_center)
+        return self
 
     def filter_layers(self, function):
         """Filters layers of the network given function"""
@@ -407,7 +444,7 @@ class NeuralNetwork(Group):
             inner_string += f"{repr(layer)}("
             for key in metadata:
                 value = getattr(layer, key)
-                if not value is "":
+                if value != "":
                     inner_string += f"{key}={value}, "
             inner_string += "),\n"
         inner_string = textwrap.indent(inner_string, "    ")

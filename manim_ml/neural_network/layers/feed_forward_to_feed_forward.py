@@ -106,17 +106,51 @@ class FeedForwardToFeedForward(ConnectiveLayer):
 
         return path_animations
 
-    def modify_edge_colors(self, colors=None, magnitudes=None, color_scheme="inferno"):
-        """Changes the colors of edges"""
-        # TODO implement
-        pass
+    def modify_edge_colors(self, colors=None, magnitudes=None, positive_color="#38BDF8", negative_color="#F43F5E"):
+        """Changes the colors of edges based on explicit colors or signed weight/gradient magnitudes."""
+        animations = []
+        if colors is not None:
+            flat_colors = list(np.asarray(colors).flatten())
+            assert len(flat_colors) == len(self.edges)
+            for edge, col in zip(self.edges, flat_colors):
+                animations.append(edge.animate.set_color(col))
+        elif magnitudes is not None:
+            flat_mags = np.asarray(magnitudes, dtype=float).flatten()
+            assert len(flat_mags) == len(self.edges)
+            for edge, val in zip(self.edges, flat_mags):
+                col = positive_color if val >= 0 else negative_color
+                animations.append(edge.animate.set_color(col))
+        return AnimationGroup(*animations)
+
+    def make_backward_pass_animation(self, layer_args={}, run_time=1.0, color="#F43F5E", **kwargs):
+        """Animates error gradients flowing backward from output_layer to input_layer."""
+        path_animations = []
+        rt = run_time if run_time is not None else 1.0
+        for edge_index, edge in enumerate(self.edges):
+            if (
+                "edge_indices_to_dropout" not in layer_args
+                or edge_index not in layer_args["edge_indices_to_dropout"]
+            ):
+                rev_edge = Line(
+                    edge.get_end(),
+                    edge.get_start(),
+                    color=color,
+                    stroke_width=self.edge_width * 1.4,
+                )
+                if self.passing_flash:
+                    anim = ShowPassingFlash(rev_edge, time_width=0.35, run_time=rt)
+                else:
+                    dot = Dot(color=color, fill_opacity=1.0, radius=self.dot_radius)
+                    anim = MoveAlongPath(dot, rev_edge, run_time=rt, rate_function=sigmoid)
+                path_animations.append(anim)
+        return AnimationGroup(*path_animations)
 
     def modify_edge_stroke_widths(self, widths):
         """Changes the widths of the edges"""
         assert len(widths) > 0
         # Note: 1d-arrays are assumed to be in row major order
         widths = np.array(widths)
-        widths = np.flatten(widths)
+        widths = np.asarray(widths).flatten()
         # Check thickness size
         assert np.shape(widths)[0] == len(self.edges)
         # Make animation

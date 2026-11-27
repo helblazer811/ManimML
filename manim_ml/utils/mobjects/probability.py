@@ -20,12 +20,12 @@ class GaussianDistribution(VGroup):
         if cov is None:
             self.cov = np.array([[1, 0], [0, 1]])
         # Make the Gaussian
-        if self.dist_theme is "gaussian":
+        if self.dist_theme == "gaussian":
             self.ellipses = self.construct_gaussian_distribution(
                 self.mean, self.cov, color=self.color
             )
             self.add(self.ellipses)
-        elif self.dist_theme is "ellipse":
+        elif self.dist_theme == "ellipse":
             self.ellipses = self.construct_simple_gaussian_ellipse(
                 self.mean, self.cov, color=self.color
             )
